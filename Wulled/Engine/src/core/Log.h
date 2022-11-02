@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/vendor/proj/spdlog/include/spdlog/spdlog.h"
-#include "Engine/vendor/proj/spdlog/include/spdlog/fmt/ostr.h"
+#include "Engine/vendor/proj/git/spdlog/include/spdlog/spdlog.h"
+#include "Engine/vendor/proj/git/spdlog/include/spdlog/fmt/ostr.h"
 
 #include "Engine/src/core/EngineCore.h"
 

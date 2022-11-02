@@ -12,14 +12,13 @@ output = "%{cfg.system}-%{cfg.architecture}-%{cfg.buildcfg}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Wulled/Engine/vendor/proj/GLFW/include/"
-IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/Glad/include/"
-IncludeDir["ImGui"] = "Wulled/Engine/vendor/proj/imgui/"
-IncludeDir["spdlog"] = "Wulled/Engine/vendor/proj/spdlog/include/"
+IncludeDir["GLFW"] = "Wulled/Engine/vendor/proj/git/GLFW/include/"
+IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/source/Glad/include/"
+IncludeDir["ImGui"] = "Wulled/Engine/vendor/proj/git/imgui/"
+IncludeDir["spdlog"] = "Wulled/Engine/vendor/proj/git/spdlog/include/"
 
-include "Wulled/Engine/vendor/proj/GLFW"
-include "Wulled/Engine/vendor/proj/imgui"
-include "Wulled/Engine/vendor/proj"
+include "Wulled/Engine/vendor/proj/git"
+include "Wulled/Engine/vendor/proj/source"
 
 project "Wulled"
 	location "Wulled"
@@ -69,7 +68,6 @@ project "Wulled"
 
 		defines
 		{
-			"SPDLOG_COMPILED_LIB",
 			"EN_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM"
