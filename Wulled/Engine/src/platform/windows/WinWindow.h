@@ -20,6 +20,8 @@ namespace WLD
 		// Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
+		inline GLFWwindow* GetGLFWWindow() { return m_Window; }
+
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
@@ -40,7 +42,5 @@ namespace WLD
 		};
 
 		WindowData m_Data;
-
-		inline GLFWwindow* GetGLFWWindow() { return m_Window; }
 	};
 }

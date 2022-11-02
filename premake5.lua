@@ -12,13 +12,14 @@ output = "%{cfg.system}-%{cfg.architecture}-%{cfg.buildcfg}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Wulled/Engine/vendor/proj/GLFW/include"
-IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/Glad/include"
+IncludeDir["GLFW"] = "Wulled/Engine/vendor/proj/GLFW/include/"
+IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/Glad/include/"
 IncludeDir["ImGui"] = "Wulled/Engine/vendor/proj/imgui/"
+IncludeDir["spdlog"] = "Wulled/Engine/vendor/proj/spdlog/include/"
 
 include "Wulled/Engine/vendor/proj/GLFW"
-include "Wulled/Engine/vendor/proj/Glad"
 include "Wulled/Engine/vendor/proj/imgui"
+include "Wulled/Engine/vendor/proj"
 
 project "Wulled"
 	location "Wulled"
@@ -36,23 +37,19 @@ project "Wulled"
 		"%{prj.name}/Engine/src/**.cpp",
 		"%{prj.name}/Engine/src/**.h",
 
-		"%{prj.name}/Engine/vendor/raw/**.cpp",
-		"%{prj.name}/Engine/vendor/raw/**.h",
-
 		"%{prj.name}/app.h"
 	}
 
 	includedirs
 	{
 		"%{prj.name}",
-		
-		"%{prj.name}/Engine/vendor/raw/logging/include",
 
 		"%{prj.name}/Engine/src/**",
 
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.spdlog}",
 	}
 
 	links
@@ -60,6 +57,7 @@ project "Wulled"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"spdlog",
 		"opengl32.lib"
 	}
 

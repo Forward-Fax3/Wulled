@@ -1,9 +1,9 @@
-[submodule "Wulled/Engine/vendor/raw/logging/spdlog"]
-	path = Wulled/Engine/vendor/raw/logging/spdlog
-	url = https://github.com/gabime/spdlog
 [submodule "Wulled/Engine/vendor/proj/GLFW/GLFW"]
 	path = Wulled/Engine/vendor/proj/GLFW/GLFW
 	url = https://github.com/TheCherno/GLFW
 [submodule "Wulled/Engine/vendor/proj/imgui/imgui"]
 	path = Wulled/Engine/vendor/proj/imgui/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Wulled/Engine/vendor/proj/spdlog"]
+	path = Wulled/Engine/vendor/proj/spdlog
+	url = https://github.com/gabime/spdlog

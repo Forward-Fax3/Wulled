@@ -155,7 +155,7 @@ namespace WLD
 			data.EventCallback(event);
 		});
 
-		WLD_CORE_INFO("OpenGL ver: {0}", glGetString(GL_VERSION));
+		// WLD_CORE_INFO("OpenGL ver: {0}", glGetString(GL_VERSION));
 	}
 
 	void WinWindow::Shutdown()
