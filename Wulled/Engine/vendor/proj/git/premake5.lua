@@ -1,7 +1,7 @@
 project "spdlog"
 	kind "StaticLib"
 	language "c++"
-	staticruntime "On"
+	staticruntime "off"
 	location "%{prj.name}"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
@@ -94,7 +94,7 @@ project "ImGui"
 project "GLFW"
 	kind "StaticLib"
 	language "C"
-	staticruntime "off"
+	staticruntime "on"
 	location "%{prj.name}"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")

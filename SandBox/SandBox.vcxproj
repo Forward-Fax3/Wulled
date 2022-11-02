@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ENGINE_DEBUG;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -98,7 +98,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\GLFW\include;..\Wulled\Engine\vendor\proj\source\Glad\include;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>

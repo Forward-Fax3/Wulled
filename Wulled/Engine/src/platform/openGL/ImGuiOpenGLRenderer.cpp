@@ -210,7 +210,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 	GLint major = 0;
 	GLint minor = 0;
 	glGetIntegerv(GL_MAJOR_VERSION, &major);
-	glGetIntegerv(GL_MINOR_VERSION, &minor);
+	glGetIntegerv(GL_MINOR_VERSION, &minor); 
 	if (major == 0 && minor == 0)
 	{
 		// Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"

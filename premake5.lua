@@ -57,7 +57,7 @@ project "Wulled"
 		"Glad",
 		"ImGui",
 		"spdlog",
-		"opengl32.lib"
+		"opengl32.lib",
 	}
 
 	filter "system:windows"
@@ -70,7 +70,7 @@ project "Wulled"
 		{
 			"EN_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
-			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM"
+			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
 
 		postbuildcommands
@@ -82,7 +82,7 @@ project "Wulled"
 		defines 
 		{
 			"ENGINE_DEBUG",
-			"EN_ENABLE_ASSERTS"
+			"EN_ENABLE_ASSERTS",
 		}
 		symbols "On"
 		buildoptions "/MDd"
@@ -125,6 +125,7 @@ project "SandBox"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.spdlog}",
 	}
 
 	links

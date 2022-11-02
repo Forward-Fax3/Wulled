@@ -33,7 +33,7 @@ namespace WLD
 	ImGuiLayer::~ImGuiLayer()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
-		ImGui::DestroyPlatformWindows();
+		// ImGui::DestroyPlatformWindows();
 		ImGui::DestroyContext();
 	}
 
