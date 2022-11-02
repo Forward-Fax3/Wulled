@@ -5,3 +5,4 @@ bin/
 #files
 *.user
 **/recovery.txt
+GenerateProjects.bat
