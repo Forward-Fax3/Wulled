@@ -12,7 +12,6 @@ int main()
 	WLD::Log::Init();
 	WLD_CORE_WARNING("initialied log");
 	LOG_INFO("hello world");
-
 	bool run[2];
 
 	do 
