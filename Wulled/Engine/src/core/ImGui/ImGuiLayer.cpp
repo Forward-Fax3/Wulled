@@ -28,12 +28,12 @@ namespace WLD
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer"), m_Time(0.0f), io(init())
 	{
-	}
+	} 
 
 	ImGuiLayer::~ImGuiLayer()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
-		// ImGui::DestroyPlatformWindows();
+		ImGui::DestroyPlatformWindows();
 		ImGui::DestroyContext();
 	}
 

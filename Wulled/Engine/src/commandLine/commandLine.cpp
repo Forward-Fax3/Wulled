@@ -20,10 +20,10 @@ void Command(bool* run)
 	std::string input;
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 13);
 
-	while (run[0])
+	while (run[0] || run[1])
 	{
-		SetConsoleTextAttribute(hConsole, 13);
 		std::cin >> input;
 
 		if (input == "exit")
@@ -34,6 +34,10 @@ void Command(bool* run)
 		{
 			run[0] = false;
 			run[1] = true;
+		}
+		else
+		{
+			WLD_CORE_WARNING("\"{0}\" is not a reconized command", input);
 		}
 	}
 }
