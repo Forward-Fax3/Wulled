@@ -171,11 +171,7 @@ namespace WLD
 
 	void WinWindow::SetVSync(bool enabled)
 	{
-		if (enabled)
-			glfwSwapInterval(1);
-		else
-			glfwSwapInterval(0);
-
+		glfwSwapInterval((int32_t)enabled);
 		m_Data.VSync = enabled;
 	}
 

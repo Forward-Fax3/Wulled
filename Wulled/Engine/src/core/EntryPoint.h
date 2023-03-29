@@ -24,3 +24,42 @@ int main()
 	
 	} while (run[1]);
 }
+
+// struct AppRun
+// {
+// 	bool run[2];
+// 	bool appClosed;
+// 	WLD::Application* application;
+// };
+// 
+// void appTheadRun(AppRun* appRun)
+// {
+// 	appRun->application = WLD::CreateApplication(appRun->run);
+// 	appRun->application->run();
+// 	delete appRun->application;
+// 	appRun->appClosed = true;
+// }
+// 
+// int main()
+// {
+// 	WLD::Log::Init();
+// 	std::thread applicationThread;
+// 	AppRun appRun;
+// 
+// 	do
+// 	{
+// 		appRun.run[0] = true;
+// 		appRun.run[1] = false;
+// 		appRun.appClosed = false;
+// 
+// 		applicationThread = std::thread(appTheadRun, &appRun);
+// 		WLD_CORE_INFO(applicationThread.get_id());
+// 
+// 		applicationThread.detach();
+// 
+// 		Command(appRun.run);
+// 
+// 		while (!appRun.appClosed);
+// 		applicationThread.~thread();
+// 	} while (appRun.run[1]);
+// }

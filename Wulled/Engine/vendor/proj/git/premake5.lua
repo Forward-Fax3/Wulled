@@ -15,6 +15,7 @@ project "spdlog"
 
 	includedirs
 	{
+		"%{prj.name}",
 		"%{prj.name}/include",
 		"%{prj.name}/src",
 	}

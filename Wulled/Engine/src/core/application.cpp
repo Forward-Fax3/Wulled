@@ -29,7 +29,7 @@ namespace WLD
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-
+		
 		uint32_t id;
 		glGenBuffers(1, &id);
 	}
@@ -48,7 +48,7 @@ namespace WLD
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
-		overlay->OnAttach();
+		overlay->OnAttach(); 
 	}
 
 	void Application::OnEvent(Event& e)

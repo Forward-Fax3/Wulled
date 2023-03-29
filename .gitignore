@@ -1,6 +1,8 @@
 #directories
 .vs/
 bin/
+DLL/
+IDEs/
 
 #files
 *.user

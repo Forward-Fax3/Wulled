@@ -54,20 +54,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\intermediate\Glad\</IntDir>
+    <OutDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-Debug\Glad\</OutDir>
+    <IntDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-Debug\intermediate\Glad\</IntDir>
     <TargetName>Glad</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Release\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Release\intermediate\Glad\</IntDir>
+    <OutDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-Release\Glad\</OutDir>
+    <IntDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-Release\intermediate\Glad\</IntDir>
     <TargetName>Glad</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-dist\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-dist\intermediate\Glad\</IntDir>
+    <OutDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-dist\Glad\</OutDir>
+    <IntDir>..\..\..\..\..\..\..\basicWulledApp\bin\windows-x86_64-dist\intermediate\Glad\</IntDir>
     <TargetName>Glad</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>

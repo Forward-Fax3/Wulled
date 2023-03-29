@@ -26,6 +26,9 @@ void Command(bool* run)
 	{
 		std::cin >> input;
 
+		for (char& c : input)
+			c = ::tolower(c);
+
 		if (input == "exit")
 		{
 			run[0] = false;
@@ -34,6 +37,13 @@ void Command(bool* run)
 		{
 			run[0] = false;
 			run[1] = true;
+		}
+		else if (input == "pause")
+		{
+			std::cout << 
+				"The program is paused\n"
+				"please press enter to resume...";
+			system("pause<nul");
 		}
 		else
 		{
