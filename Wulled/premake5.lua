@@ -51,7 +51,7 @@ project "Wulled"
 
 		postbuildcommands
 		{
-			("{copy} %{cfg.buildtarget.relpath} ../bin/" .. output .. "/SandBox")
+			("{copy} %{cfg.buildtarget.relpath} ../DLL")
 		}
 	
 	filter "configurations:Debug"

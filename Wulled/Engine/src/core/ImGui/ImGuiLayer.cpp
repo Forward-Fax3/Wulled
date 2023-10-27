@@ -48,6 +48,7 @@ namespace WLD
 		m_io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		m_io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 		
+<<<<<<< HEAD
 		m_io.KeyMap[ImGuiKey_Tab] = WLD_KEY_TAB;
 		m_io.KeyMap[ImGuiKey_LeftArrow] = WLD_KEY_LEFT;
 		m_io.KeyMap[ImGuiKey_RightArrow] = WLD_KEY_RIGHT;
@@ -66,6 +67,26 @@ namespace WLD
 
 		for (uint8_t i = 0; i < 26; ++i)
 			m_io.KeyMap[ImGuiKey_A + i] = WLD_KEY_A + i;
+=======
+		m_io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
+		m_io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
+		m_io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
+		m_io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
+		m_io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
+		m_io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
+		m_io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
+		m_io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
+		m_io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
+		m_io.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
+		m_io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
+		m_io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
+		m_io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
+		m_io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
+		m_io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
+
+		for (uint8_t i = 0; i < 26; ++i)
+			m_io.KeyMap[ImGuiKey_A + i] = GLFW_KEY_A + i;
+>>>>>>> 6096232c0915328fcc92793c1dda5d2ffdbe916e
 
 		ImGui_ImplOpenGL3_Init("#version 430");
 	}
@@ -146,18 +167,31 @@ namespace WLD
 
 	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
+<<<<<<< HEAD
 		m_io.KeysDown[e.GetKeyCode()] = true;
 
 		m_io.KeyCtrl = m_io.KeysDown[WLD_KEY_LEFT_CONTROL] || m_io.KeysDown[WLD_KEY_RIGHT_CONTROL];
 		m_io.KeyAlt = m_io.KeysDown[WLD_KEY_LEFT_ALT] || m_io.KeysDown[WLD_KEY_RIGHT_ALT];
 		m_io.KeyShift = m_io.KeysDown[WLD_KEY_LEFT_SHIFT] || m_io.KeysDown[WLD_KEY_RIGHT_SHIFT];
 		m_io.KeySuper = m_io.KeysDown[WLD_KEY_LEFT_SUPER] || m_io.KeysDown[WLD_KEY_RIGHT_SUPER];
+=======
+		m_io.KeysDown[e.GetKeycode()] = true;
+
+		m_io.KeyCtrl = m_io.KeysDown[GLFW_KEY_LEFT_CONTROL] || m_io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+		m_io.KeyAlt = m_io.KeysDown[GLFW_KEY_LEFT_ALT] || m_io.KeysDown[GLFW_KEY_RIGHT_ALT];
+		m_io.KeyShift = m_io.KeysDown[GLFW_KEY_LEFT_SHIFT] || m_io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+		m_io.KeySuper = m_io.KeysDown[GLFW_KEY_LEFT_SUPER] || m_io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+>>>>>>> 6096232c0915328fcc92793c1dda5d2ffdbe916e
 		return false;
 	}
 	
 	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
 	{
+<<<<<<< HEAD
 		m_io.KeysDown[e.GetKeyCode()] = false;
+=======
+		m_io.KeysDown[e.GetKeycode()] = false;
+>>>>>>> 6096232c0915328fcc92793c1dda5d2ffdbe916e
 		return false;
 	}
 

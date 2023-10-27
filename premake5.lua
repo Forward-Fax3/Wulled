@@ -56,6 +56,11 @@ project "SandBox"
 		"Wulled"
 	}
 
+	prelinkcommands
+	{
+		("{copy} ../../Wulled/DLL $(OutputPath)")
+	}
+
 	filter "system:windows"
 		cppdialect "c++20"
 		cdialect "c17"
