@@ -9,7 +9,7 @@ namespace WLD
 	class WLD_API KeyEvent : public Event
 	{
 	public:
-		inline int32_t GetKeycode() const { return m_KeyCode; }
+		inline int32_t GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 

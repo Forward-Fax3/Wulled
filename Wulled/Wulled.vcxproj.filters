@@ -63,7 +63,16 @@
     <ClInclude Include="Engine\src\core\ImGui\ImGuiLayer.h">
       <Filter>Engine\src\core\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\Input.h">
+      <Filter>Engine\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\KeyCodes.h">
+      <Filter>Engine\src\core</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\Log.h">
+      <Filter>Engine\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\MouseButtonCodes.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\core\Window.h">
@@ -92,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="Engine\src\platform\openGL\imgui_impl_opengl3_loader.h">
       <Filter>Engine\src\platform\openGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\windows\WinInput.h">
+      <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\platform\windows\WinWindow.h">
       <Filter>Engine\src\platform\windows</Filter>
@@ -125,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\platform\openGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Engine\src\platform\openGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\windows\WinInput.cpp">
+      <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\windows\WinWindow.cpp">
       <Filter>Engine\src\platform\windows</Filter>

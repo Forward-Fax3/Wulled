@@ -6,6 +6,9 @@
 
 #include "Engine/src/Core/ImGui/ImGuiLayer.h"
 
+#include "Engine/src/core/Input.h"
+#include "Engine/src/core/KeyCodes.h"
+#include "Engine/src/core/MouseButtonCodes.h"
 
 //--------------------- Entry Point ---------------------
 #include "Engine/src/Core/EntryPoint.h"

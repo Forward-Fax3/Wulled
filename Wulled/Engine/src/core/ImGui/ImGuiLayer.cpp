@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-
 #include "wldpch.h"
 #include "ImGuiLayer.h"
 
@@ -20,13 +15,16 @@
 #include "KeyEvent.h"
 #include "MouseEvent.h"
 
+#include "MouseButtonCodes.h"
+#include "KeyCodes.h"
+
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
 namespace WLD
 {
 	ImGuiLayer::ImGuiLayer()
-		: Layer("ImGuiLayer"), m_Time(0.0f), io(init())
+		: Layer("ImGuiLayer"), m_Time(0.0f), m_io(init())
 	{
 	} 
 
@@ -47,27 +45,27 @@ namespace WLD
 
 	void ImGuiLayer::OnAttach()
 	{
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		m_io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+		m_io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 		
-		io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
-		io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-		io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-		io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-		io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-		io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-		io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-		io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-		io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-		io.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
-		io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-		io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-		io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
-		io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-		io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
+		m_io.KeyMap[ImGuiKey_Tab] = WLD_KEY_TAB;
+		m_io.KeyMap[ImGuiKey_LeftArrow] = WLD_KEY_LEFT;
+		m_io.KeyMap[ImGuiKey_RightArrow] = WLD_KEY_RIGHT;
+		m_io.KeyMap[ImGuiKey_UpArrow] = WLD_KEY_UP;
+		m_io.KeyMap[ImGuiKey_DownArrow] = WLD_KEY_DOWN;
+		m_io.KeyMap[ImGuiKey_PageUp] = WLD_KEY_PAGE_UP;
+		m_io.KeyMap[ImGuiKey_PageDown] = WLD_KEY_PAGE_DOWN;
+		m_io.KeyMap[ImGuiKey_Home] = WLD_KEY_HOME;
+		m_io.KeyMap[ImGuiKey_End] = WLD_KEY_END;
+		m_io.KeyMap[ImGuiKey_Insert] = WLD_KEY_INSERT;
+		m_io.KeyMap[ImGuiKey_Delete] = WLD_KEY_DELETE;
+		m_io.KeyMap[ImGuiKey_Backspace] = WLD_KEY_BACKSPACE;
+		m_io.KeyMap[ImGuiKey_Space] = WLD_KEY_SPACE;
+		m_io.KeyMap[ImGuiKey_Enter] = WLD_KEY_ENTER;
+		m_io.KeyMap[ImGuiKey_Escape] = WLD_KEY_ESCAPE;
 
 		for (uint8_t i = 0; i < 26; ++i)
-			io.KeyMap[ImGuiKey_A + i] = GLFW_KEY_A + i;
+			m_io.KeyMap[ImGuiKey_A + i] = WLD_KEY_A + i;
 
 		ImGui_ImplOpenGL3_Init("#version 430");
 	}
@@ -79,10 +77,10 @@ namespace WLD
 	void ImGuiLayer::OnUpdate()
 	{
 		Window& window = Application::Get().GetWindow();
-		io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
+		m_io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
 		
 		float time = (float)glfwGetTime();
-		io.DeltaTime = m_Time > 0.0f ? (float)(time - m_Time) : (float)(1.0f / 144.0f);
+		m_io.DeltaTime = m_Time > 0.0f ? (float)(time - m_Time) : (float)(1.0f / 144.0f);
 		m_Time = time;
 
 		ImGui_ImplOpenGL3_NewFrame();
@@ -96,7 +94,7 @@ namespace WLD
 		ImGui::Checkbox("VSync", &VSync);
 		if (!show)
 			show = ImGui::Button("Demo window");
-		ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+		ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", 1000.0f / m_io.Framerate, m_io.Framerate);
 		ImGui::End();
 
 		ImGui::Render();
@@ -122,61 +120,61 @@ namespace WLD
 
 	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 	{
-		io.MouseDown[e.GetMouseButton()] = true;
+		m_io.MouseDown[e.GetMouseButton()] = true;
 		return false;
 	}
 
 	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
 	{
-		io.MouseDown[e.GetMouseButton()] = false;
+		m_io.MouseDown[e.GetMouseButton()] = false;
 		return false;
 	}
 
 	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e)
 	{
-		io.MousePos = ImVec2(e.GetX(), e.GetY());
+		m_io.MousePos = ImVec2(e.GetX(), e.GetY());
 		return false;
 	}
 
 	bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e)
 	{
-		io.MouseWheelH += e.GetXOffset();
-		io.MouseWheel += e.GetYOffset();
+		m_io.MouseWheelH += e.GetXOffset();
+		m_io.MouseWheel += e.GetYOffset();
 
 		return false;
 	}
 
 	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
-		io.KeysDown[e.GetKeycode()] = true;
+		m_io.KeysDown[e.GetKeyCode()] = true;
 
-		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
-		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+		m_io.KeyCtrl = m_io.KeysDown[WLD_KEY_LEFT_CONTROL] || m_io.KeysDown[WLD_KEY_RIGHT_CONTROL];
+		m_io.KeyAlt = m_io.KeysDown[WLD_KEY_LEFT_ALT] || m_io.KeysDown[WLD_KEY_RIGHT_ALT];
+		m_io.KeyShift = m_io.KeysDown[WLD_KEY_LEFT_SHIFT] || m_io.KeysDown[WLD_KEY_RIGHT_SHIFT];
+		m_io.KeySuper = m_io.KeysDown[WLD_KEY_LEFT_SUPER] || m_io.KeysDown[WLD_KEY_RIGHT_SUPER];
 		return false;
 	}
 	
 	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
 	{
-		io.KeysDown[e.GetKeycode()] = false;
+		m_io.KeysDown[e.GetKeyCode()] = false;
 		return false;
 	}
 
 	bool WLD::ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e)
 	{
-		int32_t keycode = e.GetKeycode();
+		int32_t keycode = e.GetKeyCode();
 
 		if (keycode > 0 && keycode < 0x10000)
-			io.AddInputCharacter((uint8_t)keycode);
+			m_io.AddInputCharacter((uint8_t)keycode);
 
 		return false;
 	}
 	
 	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
 	{
-		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHight());
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+		m_io.DisplaySize = ImVec2(e.GetWidth(), e.GetHight());
+		m_io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 		glViewport(0, 0, e.GetWidth(), e.GetHight());
 
 		return false;

@@ -23,13 +23,14 @@ namespace WLD
 
 		void OnAttach() override;
 		void OnDetach() override;
-		void OnUpdate() override;
+		virtual void OnUpdate() override;
 		void OnEvent(Event& e) override;
 
-	private:
+	protected:
 		float m_Time;
-		ImGuiIO& io;
+		ImGuiIO& m_io;
 
+	private:
 		ImGuiIO& init();
 
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);

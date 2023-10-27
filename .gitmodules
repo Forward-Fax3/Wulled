@@ -8,3 +8,6 @@
 	path = Wulled/Engine/vendor/proj/git/imgui
 	url = https://github.com/ocornut/imgui
 	branch = docking
+[submodule "Wulled/Engine/vendor/proj/git/glm"]
+	path = Wulled/Engine/vendor/proj/git/glm
+	url = https://github.com/g-truc/glm.git

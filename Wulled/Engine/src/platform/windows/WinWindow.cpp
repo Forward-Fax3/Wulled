@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-
 #include "wldpch.h"
 #include "WinWindow.h"
 
@@ -171,11 +166,7 @@ namespace WLD
 
 	void WinWindow::SetVSync(bool enabled)
 	{
-		if (enabled)
-			glfwSwapInterval(1);
-		else
-			glfwSwapInterval(0);
-
+		glfwSwapInterval((int32_t)enabled);
 		m_Data.VSync = enabled;
 	}
 

@@ -18,6 +18,7 @@ project "Glad"
 
 	systemversion "latest"
 	cdialect "c17"
+	cppdialect "c++20"
 
 	filter "configurations:Debug"
 		runtime "Debug"

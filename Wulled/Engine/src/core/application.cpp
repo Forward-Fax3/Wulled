@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-
 #include "wldpch.h"
 
 #include "LayerStack.h"
@@ -14,6 +9,7 @@
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
 
+#include "Input.h"
 
 namespace WLD
 {
@@ -29,7 +25,7 @@ namespace WLD
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-
+		
 		uint32_t id;
 		glGenBuffers(1, &id);
 	}
@@ -48,7 +44,7 @@ namespace WLD
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
-		overlay->OnAttach();
+		overlay->OnAttach(); 
 	}
 
 	void Application::OnEvent(Event& e)

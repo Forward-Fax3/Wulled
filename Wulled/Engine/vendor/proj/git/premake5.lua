@@ -15,6 +15,7 @@ project "spdlog"
 
 	includedirs
 	{
+		"%{prj.name}",
 		"%{prj.name}/include",
 		"%{prj.name}/src",
 	}
@@ -25,6 +26,7 @@ project "spdlog"
 	}
 
 	systemversion "latest"
+	cdialect "c17"
 	cppdialect "c++20"
 
 	filter "configurations:Debug"
@@ -69,14 +71,16 @@ project "ImGui"
 		"%{prj.name}",
 	}
 
+	systemversion "latest"
+	cdialect "c17"
+	cppdialect "c++20"
+
 		filter "system:windows"
 			systemversion "latest"
-			cppdialect "C++17"
 
 		filter "system:linux"
 			pic "On"
 			systemversion "latest"
-			cppdialect "C++17"
 
 		filter "configurations:Debug"
 			runtime "Debug"
@@ -127,6 +131,10 @@ project "GLFW"
 		"%{prj.name}/src/glfw_config.h",
 	}
 
+	systemversion "latest"
+	cdialect "c17"
+	cppdialect "c++20"
+
 	filter "system:windows"
 		systemversion "latest"
 
@@ -167,3 +175,54 @@ project "GLFW"
 		runtime "Release"
 		optimize "on"
 		symbols "off"
+
+project "glm"
+	kind "StaticLib"
+	language "c++"
+	staticruntime "off"
+	location "%{prj.name}"
+
+	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/glm/**.hpp",
+		"%{prj.name}/glm/**.h",
+		"%{prj.name}/glm/detail/glm.cpp",
+		"%{prj.name}/glm/**.inl",
+	}
+
+	includedirs
+	{
+		"%{prj.name}/",
+	}
+
+	defines
+	{
+		"GLM_FORCE_SSE2",
+		"GLM_FORCE_SSE3",
+		"GLM_FORCE_SSSE3",
+		"GLM_FORCE_SSE41",
+		"GLM_FORCE_SSE42",
+		"GLM_FORCE_AVX",
+		"GLM_FORCE_AVX2",
+		"GLM_FORCE_SWIZZLE",
+	}
+
+	systemversion "latest"
+	cdialect "c17"
+	cppdialect "c++20"
+
+	filter "configurations:Debug"
+	runtime "Debug"
+	symbols "on"
+
+	filter "configurations:Release"
+	runtime "Release"
+	optimize "on"
+
+	filter "configurations:Dist"
+	runtime "Release"
+	optimize "on"
+    symbols "off"
