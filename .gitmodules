@@ -1,9 +1,3 @@
-[submodule "Wulled/Engine/vendor/proj/git/glfw"]
-	path = Wulled/Engine/vendor/proj/git/glfw
-	url = https://github.com/glfw/glfw
-[submodule "Wulled/Engine/vendor/proj/git/spdlog"]
-	path = Wulled/Engine/vendor/proj/git/spdlog
-	url = https://github.com/gabime/spdlog
 [submodule "Wulled/Engine/vendor/proj/git/imgui"]
 	path = Wulled/Engine/vendor/proj/git/imgui
 	url = https://github.com/ocornut/imgui
@@ -11,3 +5,9 @@
 [submodule "Wulled/Engine/vendor/proj/git/glm"]
 	path = Wulled/Engine/vendor/proj/git/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "Wulled/Engine/vendor/proj/git/spdlog"]
+	path = Wulled/Engine/vendor/proj/git/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "Wulled/Engine/vendor/proj/git/GLFW"]
+	path = Wulled/Engine/vendor/proj/git/GLFW
+	url = https://github.com/glfw/glfw.git

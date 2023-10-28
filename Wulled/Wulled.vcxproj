@@ -95,7 +95,7 @@
       <ImportLibrary>bin\windows-x86_64-Debug\Wulled\Wulled.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST bin\windows-x86_64-Debug\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-Debug\Wulled\Wulled.dll ..\bin\windows-x86_64-Debug\SandBox &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-Debug\Wulled\Wulled.dll ..\bin\windows-x86_64-Debug\SandBox &gt; nul)</Command>
+      <Command>IF EXIST bin\windows-x86_64-Debug\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-Debug\Wulled\Wulled.dll ..\DLL &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-Debug\Wulled\Wulled.dll ..\DLL &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,7 +123,7 @@
       <ImportLibrary>bin\windows-x86_64-Release\Wulled\Wulled.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST bin\windows-x86_64-Release\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-Release\Wulled\Wulled.dll ..\bin\windows-x86_64-Release\SandBox &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-Release\Wulled\Wulled.dll ..\bin\windows-x86_64-Release\SandBox &gt; nul)</Command>
+      <Command>IF EXIST bin\windows-x86_64-Release\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-Release\Wulled\Wulled.dll ..\DLL &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-Release\Wulled\Wulled.dll ..\DLL &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
@@ -154,7 +154,7 @@
       <ImportLibrary>bin\windows-x86_64-dist\Wulled\Wulled.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST bin\windows-x86_64-dist\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-dist\Wulled\Wulled.dll ..\bin\windows-x86_64-dist\SandBox &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-dist\Wulled\Wulled.dll ..\bin\windows-x86_64-dist\SandBox &gt; nul)</Command>
+      <Command>IF EXIST bin\windows-x86_64-dist\Wulled\Wulled.dll\ (xcopy /Q /E /Y /I bin\windows-x86_64-dist\Wulled\Wulled.dll ..\DLL &gt; nul) ELSE (xcopy /Q /Y /I bin\windows-x86_64-dist\Wulled\Wulled.dll ..\DLL &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
