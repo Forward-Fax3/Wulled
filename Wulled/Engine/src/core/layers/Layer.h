@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/pch/wldpch.h"
+
 
 #include "Engine/src/Core/Events/Event.h"
 
@@ -15,6 +15,7 @@ namespace WLD
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
+		virtual void OnImGuiDraw() {}
 		virtual void OnEvent(Event& e) {}
 
 		inline const std::string GetName() const { return m_DebugName; }

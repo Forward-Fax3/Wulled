@@ -1,5 +1,6 @@
 #pragma once
-#include "Engine/src/Core/Window.h"
+#include "Engine/src/core/Window.h"
+#include "Engine/src/core/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -31,6 +32,7 @@ namespace WLD
 
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

@@ -13,6 +13,8 @@
 #include "KeyEvent.h"
 #include "MouseEvent.h"
 
+#include "OpenGLContext.h"
+
 
 namespace WLD
 {
@@ -59,9 +61,9 @@ namespace WLD
 		}
 
 		m_Window = glfwCreateWindow((int32_t)props.Width, props.Height, props.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int32_t status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		WLD_CORE_ASSERT(status, "Failed to initialize Glad!")
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -149,8 +151,6 @@ namespace WLD
 			MouseMovedEvent event((float)xpos, (float)ypos);
 			data.EventCallback(event);
 		});
-
-		// WLD_CORE_INFO("OpenGL ver: {0}", glGetString(GL_VERSION));
 	}
 
 	void WinWindow::Shutdown()
@@ -161,7 +161,7 @@ namespace WLD
 	void WinWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WinWindow::SetVSync(bool enabled)

@@ -6,11 +6,6 @@
 #include "application.h"
 #include "ApplicationEvent.h"
 
-#include "GLFW/glfw3.h"
-#include "glad/glad.h"
-
-#include "Input.h"
-
 namespace WLD
 {
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
@@ -19,15 +14,15 @@ namespace WLD
 
 	Application::Application(bool* run)
 		: m_run(run)
-	{		
+	{
 		WLD_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-		
-		uint32_t id;
-		glGenBuffers(1, &id);
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -64,13 +59,15 @@ namespace WLD
 	{
 		while (m_run[0])
 		{
-			glClearColor(1.0f, 105.0f / 255.0f, 180.0f/255.0f, 1.0f);
-
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiDraw();
+			m_ImGuiLayer->end();
+
 			m_Window->OnUpdate();
-			glClear(GL_COLOR_BUFFER_BIT);
 		}
 	}
 

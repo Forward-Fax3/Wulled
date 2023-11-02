@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <memory>
@@ -13,3 +14,5 @@
 #include <unordered_set>
 
 #include <windows.h>
+
+#undef _CRT_SECURE_NO_WARNINGS

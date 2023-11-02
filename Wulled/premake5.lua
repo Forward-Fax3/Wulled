@@ -1,6 +1,7 @@
 project "Wulled"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	staticruntime "on"
 
 	targetdir ("bin/" .. output .. "/%{prj.name}")
 	objdir ("bin/" .. output .. "/intermediate/%{prj.name}")
@@ -44,15 +45,16 @@ project "Wulled"
 
 		defines
 		{
-			"EN_BUILD_DLL",
+--			"WLD_DLL",
+--			"WLD_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
 
-		postbuildcommands
-		{
-			("{copy} %{cfg.buildtarget.relpath} ../DLL")
-		}
+--		postbuildcommands
+--		{
+--			("{copy} $(OutputPath)/Wulled.dll ../bin/" .. output .. "/sandbox")
+--		}
 	
 	filter "configurations:Debug"
 		defines 
@@ -61,7 +63,6 @@ project "Wulled"
 			"EN_ENABLE_ASSERTS",
 		}
 		symbols "On"
-		buildoptions "/MDd"
 	
 	filter "configurations:Release"
 		defines 
@@ -70,10 +71,8 @@ project "Wulled"
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
-		buildoptions "/MD"
 
 	filter "configurations:dist"
 		defines "ENGINE_DIST"
 		optimize "On"
 		symbols "Off"
-		buildoptions "/MD"

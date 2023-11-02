@@ -1,9 +1,8 @@
 #pragma once
-#include "Engine/src/Core/pch/wldpch.h"
+
 #include "Engine/src/Core/EngineCore.h"
 
 #include "imgui.h"
-#include "Engine/src/platform/openGL/ImGuiOpenGLRenderer.h"
 
 #include "Engine/src/Core/layers/Layer.h"
 
@@ -21,10 +20,12 @@ namespace WLD
 		ImGuiLayer();
 		~ImGuiLayer() override;
 
-		void OnAttach() override;
-		void OnDetach() override;
-		virtual void OnUpdate() override;
-		void OnEvent(Event& e) override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiDraw() override;
+
+		void Begin();
+		void end();
 
 	protected:
 		float m_Time;
@@ -32,14 +33,5 @@ namespace WLD
 
 	private:
 		ImGuiIO& init();
-
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-		bool OnMouseMovedEvent(MouseMovedEvent& e);
-		bool OnMouseScrolledEvent(MouseScrolledEvent& e);
-		bool OnKeyPressedEvent(KeyPressedEvent& e);
-		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-		bool OnKeyTypedEvent(KeyTypedEvent& e);
-		bool OnWindowResizeEvent(WindowResizeEvent& e);
 	};
 }

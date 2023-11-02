@@ -8,6 +8,7 @@
 
 namespace WLD
 {
+
 	std::unique_ptr<Input> Input::s_Instance = std::make_unique<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
@@ -24,22 +25,23 @@ namespace WLD
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePositionImpl()
+	std::pair<double, double> WindowsInput::GetMousePositionImpl()
 	{
 		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 
-		return { xPos, yPos };
+		// std::pair<double, double> pos = std::pair<double, double>(xPos, yPos);
+		return std::pair<double, double>(xPos, yPos);
 	}
 
-	float WindowsInput::GetMouseXImpl()
+	double WindowsInput::GetMouseXImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();
 		return x;
 	}
 
-	float WindowsInput::GetMouseYImpl()
+	double WindowsInput::GetMouseYImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();
 		return y;

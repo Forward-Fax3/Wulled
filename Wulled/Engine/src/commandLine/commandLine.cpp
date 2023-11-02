@@ -38,7 +38,7 @@ void Command(bool* run)
 			std::cout << 
 				"The program is paused\n"
 				"please press enter to resume...";
-			system("pause<nul");
+			system("pause>nul");
 		}
 		else
 		{

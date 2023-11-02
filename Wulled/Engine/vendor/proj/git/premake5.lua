@@ -1,7 +1,7 @@
 project "spdlog"
 	kind "StaticLib"
 	language "c++"
-	staticruntime "off"
+	staticruntime "on"
 	location "%{prj.name}"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
@@ -70,6 +70,11 @@ project "ImGui"
 	{
 		"%{prj.name}",
 	}
+
+--	defines
+--	{
+--		"IMGUI_API=__declspec(dllexport)"
+--	}
 
 	systemversion "latest"
 	cdialect "c17"
@@ -179,7 +184,7 @@ project "GLFW"
 project "glm"
 	kind "StaticLib"
 	language "c++"
-	staticruntime "off"
+	staticruntime "on"
 	location "%{prj.name}"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")

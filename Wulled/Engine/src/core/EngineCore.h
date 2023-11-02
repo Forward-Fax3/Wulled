@@ -1,11 +1,14 @@
 #pragma once
 #define CORE
 
-
-#if EN_BUILD_DLL
+#if WLD_DLL
+#if WLD_BUILD_DLL
 	#define WLD_API __declspec(dllexport)
 #else
 	#define WLD_API __declspec(dllimport)
+#endif
+#else
+	#define WLD_API
 #endif
 
 #ifdef EN_ENABLE_ASSERTS

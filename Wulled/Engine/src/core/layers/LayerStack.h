@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/pch/wldpch.h"
+
 
 #include "Engine/src/Core/EngineCore.h"
 
@@ -25,6 +25,6 @@ namespace WLD
 
 	private:
 		std::vector<Layer*> m_Layers;
-		std::vector<Layer*>::iterator m_LayerInsert;
+		uint64_t m_LayerInsertIndex;
 	};
 }

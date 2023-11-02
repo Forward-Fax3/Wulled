@@ -2,7 +2,8 @@
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
-#include "ImGuiOpenGLRenderer.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
 
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
@@ -30,9 +31,7 @@ namespace WLD
 
 	ImGuiLayer::~ImGuiLayer()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui::DestroyPlatformWindows();
-		ImGui::DestroyContext();
+		OnDetach();
 	}
 
 	ImGuiIO& ImGuiLayer::init()
@@ -45,138 +44,89 @@ namespace WLD
 
 	void ImGuiLayer::OnAttach()
 	{
-		m_io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		m_io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;		   // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 		
-		m_io.KeyMap[ImGuiKey_Tab] = WLD_KEY_TAB;
-		m_io.KeyMap[ImGuiKey_LeftArrow] = WLD_KEY_LEFT;
-		m_io.KeyMap[ImGuiKey_RightArrow] = WLD_KEY_RIGHT;
-		m_io.KeyMap[ImGuiKey_UpArrow] = WLD_KEY_UP;
-		m_io.KeyMap[ImGuiKey_DownArrow] = WLD_KEY_DOWN;
-		m_io.KeyMap[ImGuiKey_PageUp] = WLD_KEY_PAGE_UP;
-		m_io.KeyMap[ImGuiKey_PageDown] = WLD_KEY_PAGE_DOWN;
-		m_io.KeyMap[ImGuiKey_Home] = WLD_KEY_HOME;
-		m_io.KeyMap[ImGuiKey_End] = WLD_KEY_END;
-		m_io.KeyMap[ImGuiKey_Insert] = WLD_KEY_INSERT;
-		m_io.KeyMap[ImGuiKey_Delete] = WLD_KEY_DELETE;
-		m_io.KeyMap[ImGuiKey_Backspace] = WLD_KEY_BACKSPACE;
-		m_io.KeyMap[ImGuiKey_Space] = WLD_KEY_SPACE;
-		m_io.KeyMap[ImGuiKey_Enter] = WLD_KEY_ENTER;
-		m_io.KeyMap[ImGuiKey_Escape] = WLD_KEY_ESCAPE;
+		Application& app = Application::Get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
-		for (uint8_t i = 0; i < 26; ++i)
-			m_io.KeyMap[ImGuiKey_A + i] = WLD_KEY_A + i;
-
-		ImGui_ImplOpenGL3_Init("#version 430");
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplOpenGL3_Init("#version 460");
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyPlatformWindows();
+		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnUpdate()
+	void ImGuiLayer::OnImGuiDraw()
 	{
 		Window& window = Application::Get().GetWindow();
-		m_io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
+		auto& m_io = ImGui::GetIO();
+		m_io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 		
+		float timeHold = 1/60;
 		float time = (float)glfwGetTime();
-		m_io.DeltaTime = m_Time > 0.0f ? (float)(time - m_Time) : (float)(1.0f / 144.0f);
-		m_Time = time;
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui::NewFrame();
-
-		static bool show = false;
-		ImGui::ShowDemoWindow(&show);
+		m_io.DeltaTime = timeHold > 0.0f ? (float)(time - timeHold) : (float)(1.0f / 144.0f);
+		timeHold = time;
 
 		bool VSync = window.IsVSync();
 		ImGui::Begin("test");
 		ImGui::Checkbox("VSync", &VSync);
-		if (!show)
-			show = ImGui::Button("Demo window");
 		ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", 1000.0f / m_io.Framerate, m_io.Framerate);
 		ImGui::End();
-
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		ImGui::EndFrame();
 
 		if (VSync != window.IsVSync())
 			window.SetVSync(VSync);
 	}
 
-	void ImGuiLayer::OnEvent(Event& e)
-	{		
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
-		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
-		dispatcher.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
-		dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
-		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
-		dispatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-		dispatcher.Dispatch<KeyTypedEvent>(BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
+	void ImGuiLayer::Begin()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 	}
 
-	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
+	void ImGuiLayer::end()
 	{
-		m_io.MouseDown[e.GetMouseButton()] = true;
-		return false;
-	}
+		ImGuiIO& io = ImGui::GetIO();
+		Application& app = Application::Get();
+		io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
 
-	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
-	{
-		m_io.MouseDown[e.GetMouseButton()] = false;
-		return false;
-	}
+		// Rendering
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e)
-	{
-		m_io.MousePos = ImVec2(e.GetX(), e.GetY());
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e)
-	{
-		m_io.MouseWheelH += e.GetXOffset();
-		m_io.MouseWheel += e.GetYOffset();
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
-	{
-		m_io.KeysDown[e.GetKeyCode()] = true;
-
-		m_io.KeyCtrl = m_io.KeysDown[WLD_KEY_LEFT_CONTROL] || m_io.KeysDown[WLD_KEY_RIGHT_CONTROL];
-		m_io.KeyAlt = m_io.KeysDown[WLD_KEY_LEFT_ALT] || m_io.KeysDown[WLD_KEY_RIGHT_ALT];
-		m_io.KeyShift = m_io.KeysDown[WLD_KEY_LEFT_SHIFT] || m_io.KeysDown[WLD_KEY_RIGHT_SHIFT];
-		m_io.KeySuper = m_io.KeysDown[WLD_KEY_LEFT_SUPER] || m_io.KeysDown[WLD_KEY_RIGHT_SUPER];
-		return false;
-	}
-	
-	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
-	{
-		m_io.KeysDown[e.GetKeyCode()] = false;
-		return false;
-	}
-
-	bool WLD::ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e)
-	{
-		int32_t keycode = e.GetKeyCode();
-
-		if (keycode > 0 && keycode < 0x10000)
-			m_io.AddInputCharacter((uint8_t)keycode);
-
-		return false;
-	}
-	
-	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
-	{
-		m_io.DisplaySize = ImVec2(e.GetWidth(), e.GetHight());
-		m_io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-		glViewport(0, 0, e.GetWidth(), e.GetHight());
-
-		return false;
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(window);
+		}
 	}
 }

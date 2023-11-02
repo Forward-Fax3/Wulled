@@ -23,12 +23,13 @@ include "Wulled/Engine/vendor/proj/source"
 include "Wulled"
 
 pchheader "wldpch.h"
-pchsource "%{prj.name}/Engine/src/core/pch/wldpch.cpp"
+pchsource "%{prj.name}/Engine/src/pch/wldpch.cpp"
 
 project "SandBox"
 	location "%{prj.name}"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "on"
 
 	targetdir ("bin/" .. output .. "/%{prj.name}")
 	objdir ("bin/" .. output .. "/intermediate/%{prj.name}")
@@ -56,10 +57,10 @@ project "SandBox"
 		"Wulled"
 	}
 
-	prelinkcommands
-	{
-		("{copy} ../../Wulled/DLL $(OutputPath)")
-	}
+--	defines
+--	{
+--		"WLD_DLL",
+--	}
 
 	filter "system:windows"
 		cppdialect "c++20"
@@ -74,7 +75,6 @@ project "SandBox"
 			"EN_ENABLE_ASSERTS"
 		}
 		symbols "On"
-		buildoptions "/MDd"
 	
 	filter "configurations:Release"
 		defines 
@@ -83,10 +83,8 @@ project "SandBox"
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
-		buildoptions "/MD"
 
 	filter "configurations:dist"
 		defines "ENGINE_DIST"
 		optimize "On"
 		symbols "Off"
-		buildoptions "/MD"

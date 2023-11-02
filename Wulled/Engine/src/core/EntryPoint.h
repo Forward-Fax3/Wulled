@@ -10,19 +10,20 @@ extern WLD::Application* WLD::CreateApplication(bool* run);
 int main()
 {
 	WLD::Log::Init();
-	bool* run = new bool[2];
+	bool* run = new bool[2]; // 0 - run, 1 - restart
 	std::thread command = std::thread(Command, run);
 	command.detach();
 
 	do 
 	{
-		run[0] = true;
-		run[1] = false;
+		run[0] = true; // set run to true
+		run[1] = false; // set restart to false console will set it to true if restart is needed
 		WLD::Application* application = WLD::CreateApplication(run);
 		application->run();
 		delete application;	
 	
 	} while (run[1]);
+	delete[] run;
 }
 
 // struct AppRun
