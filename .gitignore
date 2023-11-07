@@ -7,4 +7,4 @@ IDEs/
 #files
 *.user
 **/recovery.txt
-GenerateProjects.bat
+build.bat
