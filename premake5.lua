@@ -17,6 +17,7 @@ IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/source/Glad/include/"
 IncludeDir["ImGui"] = "Wulled/Engine/vendor/proj/git/imgui/"
 IncludeDir["spdlog"] = "Wulled/Engine/vendor/proj/git/spdlog/include/"
 IncludeDir["glm"] = "Wulled/Engine/vendor/proj/git/glm/"
+IncludeDir["DXTK12"] = "Wulled/Engine/vendor/proj/git/DXTK12/"
 
 include "Wulled/Engine/vendor/proj/git"
 include "Wulled/Engine/vendor/proj/source"
@@ -50,6 +51,7 @@ project "SandBox"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.DXTK12}",
 	}
 
 	links

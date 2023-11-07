@@ -25,6 +25,7 @@ project "Wulled"
 		"../%{IncludeDir.ImGui}",
 		"../%{IncludeDir.spdlog}",
 		"../%{IncludeDir.glm}",
+		"../%{IncludeDir.DXTK12}",
 	}
 
 	links
@@ -34,6 +35,7 @@ project "Wulled"
 		"ImGui",
 		"spdlog",
 		"glm",
+		"DXTK12",
 		"opengl32.lib",
 	}
 

@@ -33,6 +33,10 @@ namespace WLD
 		inline static Application& Get() { return *s_Instance; }
 		inline static Application* GetPtr() { return s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		inline double GetDeltaTime() { return m_deltaTime; }
+
+	private:
+		void calcDeltaTime();
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
@@ -41,6 +45,7 @@ namespace WLD
 		ImGuiLayer* m_ImGuiLayer;
 		bool* m_run;
 		LayerStack m_LayerStack;
+		double m_deltaTime = 0.0f;
 
 		static Application* s_Instance;
 	};

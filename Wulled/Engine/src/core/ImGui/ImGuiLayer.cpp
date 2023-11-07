@@ -85,15 +85,12 @@ namespace WLD
 
 	void ImGuiLayer::OnImGuiDraw()
 	{
-		Window& window = Application::Get().GetWindow();
+		Application& app = Application::Get();
+		Window& window = app.GetWindow();
 		auto& m_io = ImGui::GetIO();
 		m_io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 		
-		float timeHold = 1/60;
-		float time = (float)glfwGetTime();
-		m_io.DeltaTime = timeHold > 0.0f ? (float)(time - timeHold) : (float)(1.0f / 144.0f);
-		timeHold = time;
-
+		m_io.DeltaTime = static_cast<float>(app.GetDeltaTime());
 		bool VSync = window.IsVSync();
 		ImGui::Begin("test");
 		ImGui::Checkbox("VSync", &VSync);

@@ -40,9 +40,8 @@ namespace WLD
 			WLD_CORE_ASSERT
 			(
 				false,
-				"{0}\n"
-				"Vertex shader compilation failure!",
-				(const char*)infoLog.data()
+				"Vertex shader compilation failure! {1}",
+				infoLog.data()
 			);
 		}
 
@@ -74,11 +73,10 @@ namespace WLD
 
 			// Use the infoLog as you see fit.
 
-			WLD_CORE_ASSERT
+			WLD_CORE_FATAL
 			(
-				false,
-				"{0}\n"
-				"Fragment shader compilation failure!",
+				"Fragment shader compilation failure!\n"
+				"{0}",
 				infoLog.data()
 			);
 		}
@@ -142,5 +140,10 @@ namespace WLD
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetUniformMat4fv(std::string name, glm::mat4 MVP)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, GL_FALSE, &MVP[0][0]);
 	}
 }

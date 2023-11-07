@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Buffer.h"
 #include "OpenGLBuffer.h"
+#include "DX12Buffer.h"
 
 
 namespace WLD
@@ -16,7 +17,7 @@ namespace WLD
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 //		case RendererAPI::API::DirectX11: return new DX11VertexBuffer(vertices, size);
-//		case RendererAPI::API::DirectX12: return new DX12VertexBuffer(vertices, size);
+		case RendererAPI::API::DirectX12: return new DX12VertexBuffer(vertices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}
@@ -30,7 +31,7 @@ namespace WLD
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, size);
 //		case RendererAPI::API::DirectX11: return new DX11IndexBuffer(indices, size);
-//		case RendererAPI::API::DirectX12: return new DX12IndexBuffer(indices, size);
+		case RendererAPI::API::DirectX12: return new DX12IndexBuffer(indices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}

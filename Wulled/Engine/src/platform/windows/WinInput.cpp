@@ -31,7 +31,6 @@ namespace WLD
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 
-		// std::pair<double, double> pos = std::pair<double, double>(xPos, yPos);
 		return std::pair<double, double>(xPos, yPos);
 	}
 

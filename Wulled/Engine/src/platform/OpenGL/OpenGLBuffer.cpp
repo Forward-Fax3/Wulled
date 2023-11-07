@@ -6,7 +6,6 @@
 namespace WLD
 {
 	// Vertex Buffer
-
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		glCreateBuffers(1, &m_RendererID);
@@ -30,7 +29,6 @@ namespace WLD
 	}
 
 	// Index Buffer
-
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)
 	{

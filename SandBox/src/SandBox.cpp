@@ -1,46 +1,46 @@
 #include "app.h"
+#include "Engine/src/core/Log.h"
 
 #include <iostream>
 
 #include "Engine/src/core/renderer/renderer.h"
 #include "Engine/src/core/renderer/Shader.h"
 
+#include "glm/glm.hpp"
+#include "Engine/src/core/Renderer/PerspectiveCamera.h"
+
+namespace std
+{
+	pair<double, double> operator-(const pair<double, double>& lhs, const pair<double, double>& rhs)
+	{
+		return { lhs.first - rhs.first, lhs.second - rhs.second };
+	}
+
+	pair<double, double> operator+(const pair<double, double>& lhs, const pair<double, double>& rhs)
+	{
+		return { lhs.first + rhs.first, lhs.second + rhs.second };
+	}
+}
+
 
 class ExampleLayer : public WLD::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example")
-	{
-	}
-
-	void OnUpdate() override
-	{
-		if (WLD::Input::IsKeyPressed(WLD_KEY_TAB))
-			LOG_TRACE("Tab key is pressed (poll)!");
-	}
-
-	void OnImGuiDraw() override
-	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
-		ImGui::End();
-	}
-};
-
-class RenderLayer : public WLD::Layer
-{
-public:
-	RenderLayer()
 		: Layer("Render")
 	{
 		// multicolour squire data
-		float multiColourVertices[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			 0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		float multiColourVertices[] =
+		{
+			-0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 0.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f,
+													   
+			-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
+			 0.0f,  0.5f, -0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		};
 
 		uint32_t multiColourIndices[] =
@@ -49,26 +49,32 @@ public:
 			1, 2, 4,
 			2, 3, 4,
 			3, 0, 4,
+
+			2, 1, 7,
+			1, 5, 7,
+			5, 6, 7,
+			6, 2, 7
 		};
 
 		std::string multiColourVertexSrc =
-			R"(
+		R"(
 			#version 460 core
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Colour;
 
 			out vec4 v_Colour;
+			uniform mat4 u_MVP;
 			
 			void main()
 			{
 				v_Colour = a_Colour;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_MVP * vec4(a_Position, 1.0);
 			}
 		)";
 
 		std::string multiColourFragmentSrc =
-			R"(
+		R"(
 			#version 460 core
 			
 			layout(location = 0) out vec4 colour;
@@ -97,7 +103,7 @@ public:
 		};
 
 		std::string backgroundVertexSrc =
-			R"(
+		R"(
 			#version 460 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -109,7 +115,7 @@ public:
 		)";
 
 		std::string backgroundFragmentSrc =
-			R"(
+		R"(
 			#version 460 core
 			
 			layout(location = 0) out vec4 colour;
@@ -154,21 +160,61 @@ public:
 
 		m_BackgroundVA->AddVertexBuffer(vertexBuffer);
 		m_BackgroundVA->SetIndexBuffer(indexBuffer);
+
+		WLD::Window& window = WLD::Application::Get().GetWindow();
+		m_Camera.reset(new WLD::PerspectiveCamera(45.0f, static_cast<float>(window.GetHeight()), static_cast<float>(window.GetWidth()), 0.001f, 100.0f));
 	}
 
 	void OnUpdate() override
 	{
-
 		WLD::RenderCommand::Clear();
-		WLD::Renderer::BeginScene();
+		WLD::Renderer::BeginScene(m_Camera);
 
-		m_BackgroundShader->Bind();
-		WLD::Renderer::Submit(m_BackgroundVA);
+		WLD::Renderer::Submit(m_BackgroundVA, m_BackgroundShader);
 
-		m_MultiColourShader->Bind();
-		WLD::Renderer::Submit(m_MultiColourVertexArray);
+		m_Camera->setPosition(getMovement());
+		std::pair<double, double> rotation = getRotation();
+		m_Camera->setRotation({ rotation.first / 2.0, rotation.second / 2.0, 0.0});
+		glm::mat4 mvp = m_Camera->getProjection();
+
+		WLD::Renderer::Submit(m_MultiColourVertexArray, m_MultiColourShader);
 
 		WLD::Renderer::EndScene();
+	}
+
+	glm::vec3 getMovement()
+	{
+		static float x = 0.0f, y = 0.0f, z = 0.0f;
+
+		float deltaTime = static_cast<float>(WLD::Application::Get().GetDeltaTime());
+
+		if (WLD::Input::IsKeyPressed(WLD_KEY_DOWN) || WLD::Input::IsKeyPressed(WLD_KEY_S))		z += 1.0f * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_UP) || WLD::Input::IsKeyPressed(WLD_KEY_W))		z -= 1.0f * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_RIGHT) || WLD::Input::IsKeyPressed(WLD_KEY_D))		x += 1.0f * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_LEFT) || WLD::Input::IsKeyPressed(WLD_KEY_A))		x -= 1.0f * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_UP) || WLD::Input::IsKeyPressed(WLD_KEY_R))	y += 1.0f * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_DOWN) || WLD::Input::IsKeyPressed(WLD_KEY_F))	y -= 1.0f * deltaTime;
+
+		return { x, y, z };
+	}
+
+	std::pair<double, double> getRotation()
+	{
+		std::pair<double, double> posNow = WLD::Input::GetMousePosition();
+		static std::pair<double, double> lastPos = posNow;
+		static std::pair<double, double> total = { 0.0, 0.0 };
+		std::pair<double, double> delta = posNow - lastPos;
+
+		if (WLD::Input::IsMousButtonPressed(WLD_MOUSE_BUTTON_RIGHT) || WLD::Input::IsKeyPressed(WLD_KEY_LEFT_CONTROL))
+			total = total + delta;
+
+		if (total.first < -360.0)       total.first  += 720.0;
+		else if (total.first > 360.0)   total.first  -= 720.0;
+		if (total.second < -360.0)      total.second += 720.0;
+		else if (total.second > 360.0)  total.second -= 720.0;
+
+		lastPos = posNow;
+		return total;
 	}
 
 private:
@@ -177,20 +223,7 @@ private:
 
 	std::shared_ptr<WLD::Shader> m_BackgroundShader;
 	std::shared_ptr<WLD::VertexArray> m_BackgroundVA;
-};
-
-class ImGuiDemo : public WLD::Layer
-{
-public:
-	ImGuiDemo()
-		: Layer("ImGuiDemo")
-	{
-	}
-
-	virtual void OnImGuiDraw() override
-	{
-		ImGui::ShowDemoWindow();
-	}
+	std::shared_ptr<WLD::PerspectiveCamera> m_Camera;
 };
 
 class SandBox : public WLD::Application
@@ -201,8 +234,6 @@ public:
 	{
 		std::cout << "sand box created" << std::endl;
 		PushLayer(new ExampleLayer);
-		PushLayer(new RenderLayer);
-		PushOverlay(new ImGuiDemo);
 	}
 
 	~SandBox()

@@ -7,7 +7,7 @@
 
 namespace WLD
 {
-	struct WindowProps
+	struct WLD_API WindowProps
 	{
 		std::string Title;
 		uint32_t Width, Height;

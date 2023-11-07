@@ -18,7 +18,7 @@ namespace WLD
 		WLD_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps("Wulled", 1920, 1080)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
 		m_ImGuiLayer = new ImGuiLayer();
@@ -68,7 +68,16 @@ namespace WLD
 			m_ImGuiLayer->end();
 
 			m_Window->OnUpdate();
+			calcDeltaTime();
 		}
+	}
+	
+	void Application::calcDeltaTime()
+	{
+		static double lastFrame = 1.0 / 60.0;
+		double currentFrame = glfwGetTime();
+		m_deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

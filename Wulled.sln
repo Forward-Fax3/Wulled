@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXTK12", "Wulled\Engine\vendor\proj\git\DXTK12\DXTK12.vcxproj", "{4391E5AC-2F33-1083-18EE-23D7042F97D3}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Wulled\Engine\vendor\proj\git\GLFW\GLFW.vcxproj", "{154B857C-0182-860D-AA6E-6C109684020F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "Wulled\Engine\vendor\proj\source\Glad\Glad.vcxproj", "{BDD6857C-A90D-870D-52FA-6C103E10030F}"
@@ -22,6 +24,12 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Debug|x64.ActiveCfg = Debug|x64
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Debug|x64.Build.0 = Debug|x64
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.dist|x64.ActiveCfg = dist|x64
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.dist|x64.Build.0 = dist|x64
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Release|x64.ActiveCfg = Release|x64
+		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Release|x64.Build.0 = Release|x64
 		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.ActiveCfg = Debug|x64
 		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.Build.0 = Debug|x64
 		{154B857C-0182-860D-AA6E-6C109684020F}.dist|x64.ActiveCfg = dist|x64

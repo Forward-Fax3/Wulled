@@ -76,7 +76,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;ENGINE_DEBUG;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -123,7 +123,7 @@
       <PrecompiledHeaderFile>wldpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\GLFW\include;Engine\vendor\proj\source\Glad\include;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -160,6 +160,7 @@
     <ClInclude Include="Engine\src\core\MouseButtonCodes.h" />
     <ClInclude Include="Engine\src\core\Renderer\Buffer.h" />
     <ClInclude Include="Engine\src\core\Renderer\GraphicsContext.h" />
+    <ClInclude Include="Engine\src\core\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="Engine\src\core\Renderer\RenderCommand.h" />
     <ClInclude Include="Engine\src\core\Renderer\Renderer.h" />
     <ClInclude Include="Engine\src\core\Renderer\RendererAPI.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Engine\src\core\layers\Layer.h" />
     <ClInclude Include="Engine\src\core\layers\LayerStack.h" />
     <ClInclude Include="Engine\src\pch\wldpch.h" />
+    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.h" />
@@ -185,6 +187,7 @@
     <ClCompile Include="Engine\src\core\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Engine\src\core\Log.cpp" />
     <ClCompile Include="Engine\src\core\Renderer\Buffer.cpp" />
+    <ClCompile Include="Engine\src\core\Renderer\PersectiveCamera.cpp" />
     <ClCompile Include="Engine\src\core\Renderer\RenderCommand.cpp" />
     <ClCompile Include="Engine\src\core\Renderer\Renderer.cpp" />
     <ClCompile Include="Engine\src\core\Renderer\RendererAPI.cpp" />
@@ -196,9 +199,10 @@
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='dist|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Engine\src\platform\windows\WinInput.cpp" />
@@ -219,6 +223,9 @@
     </ProjectReference>
     <ProjectReference Include="Engine\vendor\proj\git\glm\glm.vcxproj">
       <Project>{6577880B-D180-887C-5AFC-9E7CC604947C}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Engine\vendor\proj\git\DXTK12\DXTK12.vcxproj">
+      <Project>{4391E5AC-2F33-1083-18EE-23D7042F97D3}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "Engine/src/Core/EngineCore.h"
 
 
@@ -51,7 +49,7 @@ namespace WLD
 		inline bool& GetHandled() { return m_Handled; }
 
 	protected:
-		bool m_Handled;
+		bool m_Handled = false;
 	};
 
 	class EventDispatcher
