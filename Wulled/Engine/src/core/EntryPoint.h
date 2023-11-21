@@ -11,7 +11,7 @@ int main()
 {
 	WLD::Log::Init();
 	bool* run = new bool[2]; // 0 - run, 1 - restart
-	std::thread command = std::thread(Command, run);
+	std::thread command(Command, run);
 	command.detach();
 
 	do 
@@ -23,6 +23,8 @@ int main()
 		delete application;	
 	
 	} while (run[1]);
+
+	command.~thread();
 	delete[] run;
 }
 

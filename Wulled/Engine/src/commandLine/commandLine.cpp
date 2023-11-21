@@ -4,10 +4,10 @@
 #include <iostream>
 
 #include <windows.h>
-
 #include <thread>
 
 #include "commandLine.h"
+#include "Log.h"
 
 
 void Command(bool* run)

@@ -7,7 +7,7 @@
 #include "GLFW/glfw3.h"
 
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)

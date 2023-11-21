@@ -6,9 +6,9 @@
 
 struct GLFWwindow;
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
-	class WLD_API OpenGLContext : public GraphicsContext
+	class WLD_API OpenGLContext : public Renderer::GraphicsContext
 	{
 	public:
 		OpenGLContext(GLFWwindow* windowHandle);

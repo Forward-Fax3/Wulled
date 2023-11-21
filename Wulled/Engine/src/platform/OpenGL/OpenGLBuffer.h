@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
-	class WLD_API OpenGLVertexBuffer : public VertexBuffer
+	class WLD_API OpenGLVertexBuffer : public Renderer::Buffers::VertexBuffer
 	{
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
@@ -14,15 +14,15 @@ namespace WLD
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
-		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
+		virtual void SetLayout(const Renderer::Buffers::BufferLayout& layout) override { m_Layout = layout; }
+		virtual const Renderer::Buffers::BufferLayout& GetLayout() const override { return m_Layout; }
 
 	private:
 		uint32_t m_RendererID;
-		BufferLayout m_Layout;
+		Renderer::Buffers::BufferLayout m_Layout;
 	};
 
-	class WLD_API OpenGLIndexBuffer : public IndexBuffer
+	class WLD_API OpenGLIndexBuffer : public Renderer::Buffers::IndexBuffer
 	{
 	public:
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);

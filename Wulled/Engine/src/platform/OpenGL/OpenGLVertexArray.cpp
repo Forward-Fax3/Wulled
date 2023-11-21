@@ -4,8 +4,10 @@
 #include <glad/glad.h>
 
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
+	using namespace Renderer::Buffers;
+
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
 		switch (type)

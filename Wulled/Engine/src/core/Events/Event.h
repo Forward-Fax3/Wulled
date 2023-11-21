@@ -52,7 +52,7 @@ namespace WLD
 		bool m_Handled = false;
 	};
 
-	class EventDispatcher
+	class WLD_API EventDispatcher
 	{
 		template<typename T>
 		using EventFn = std::function<bool(T&)>;

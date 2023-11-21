@@ -3,8 +3,8 @@
 #include "LayerStack.h"
 #include "Window.h"
 #include "WinWindow.h"
-#include "application.h"
 #include "ApplicationEvent.h"
+#include "application.h"
 
 namespace WLD
 {
@@ -19,7 +19,7 @@ namespace WLD
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps("Wulled", 1920, 1080)));
-		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent)); 
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -45,7 +45,8 @@ namespace WLD
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		if (dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose)))
+			return;
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{

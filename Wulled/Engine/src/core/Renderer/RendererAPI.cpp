@@ -2,7 +2,7 @@
 #include "RendererAPI.h"
 
 
-namespace WLD
+namespace WLD::Graphics::Renderer
 {
 	RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
 //	RendererAPI::API RendererAPI::s_API = RendererAPI::API::DirectX11;

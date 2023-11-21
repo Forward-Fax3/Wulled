@@ -4,10 +4,10 @@
 // #include "DX12Context.h"
 
 
-namespace WLD
+namespace WLD::Graphics::dx12
 {
 	// Vertex Buffer
-	WLD::DX12VertexBuffer::DX12VertexBuffer(float* vertices, uint32_t size)
+	DX12VertexBuffer::DX12VertexBuffer(float* vertices, uint32_t size)
 	{
 		
 	}

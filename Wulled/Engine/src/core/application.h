@@ -12,6 +12,8 @@
 #include "Engine/src/core/Renderer/Buffer.h"
 #include "Engine/src/core/Renderer/VertexArray.h"
 
+#include <thread>
+
 
 namespace WLD
 {
@@ -33,7 +35,7 @@ namespace WLD
 		inline static Application& Get() { return *s_Instance; }
 		inline static Application* GetPtr() { return s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
-		inline double GetDeltaTime() { return m_deltaTime; }
+		inline double GetDeltaTime() const { return m_deltaTime; }
 
 	private:
 		void calcDeltaTime();
@@ -46,6 +48,8 @@ namespace WLD
 		bool* m_run;
 		LayerStack m_LayerStack;
 		double m_deltaTime = 0.0f;
+
+		std::thread m_thread;
 
 		static Application* s_Instance;
 	};

@@ -15,6 +15,8 @@
 
 #include "OpenGLContext.h"
 
+#include <future>
+
 
 namespace WLD
 {
@@ -61,7 +63,7 @@ namespace WLD
 		}
 
 		m_Window = glfwCreateWindow((int32_t)props.Width, props.Height, props.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = new Graphics::OpenGL::OpenGLContext(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -69,35 +71,47 @@ namespace WLD
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			data.Width = width;
-			data.Height = height;
-			WindowResizeEvent event(width, height);
-			data.EventCallback(event);
+			std::function func = [](GLFWwindow* window, int width, int height)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				data.Width = width;
+				data.Height = height;
+				WindowResizeEvent event(width, height);
+				data.EventCallback(event);
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, width, height);
 		});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent event;
-			data.EventCallback(event);
+			std::function func = [](GLFWwindow* window)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowCloseEvent event;
+				data.EventCallback(event);
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window);
 		});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-			switch (action)
+			std::function func = [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
-				case GLFW_PRESS:
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				switch (action)
 				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
-					break;
-				}
 				case GLFW_RELEASE:
 				{
 					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event(key, 0);
 					data.EventCallback(event);
 					break;
 				}
@@ -107,22 +121,32 @@ namespace WLD
 					data.EventCallback(event);
 					break;
 				}
-			}
+				}
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, key, scancode, action, mods);
 		});
 
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint32_t character)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			KeyTypedEvent event(character);
-			data.EventCallback(event);
+			std::function func = [](GLFWwindow* window, uint32_t character)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				KeyTypedEvent event(character);
+				data.EventCallback(event);
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, character);
 		});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-			switch (action)
+			std::function func = [](GLFWwindow* window, int button, int action, int mods)
 			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				switch (action)
+				{
 				case GLFW_PRESS:
 				{
 					MouseButtonPressedEvent event(button);
@@ -135,21 +159,34 @@ namespace WLD
 					data.EventCallback(event);
 					break;
 				}
-			}
+				}
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, button, action, mods);
 		});
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			MouseScrolledEvent event((float)xoffset, (float)yoffset);
-			data.EventCallback(event);
+			std::function func = [](GLFWwindow* window, double xoffset, double yoffset)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				MouseScrolledEvent event((float)xoffset, (float)yoffset);
+				data.EventCallback(event);
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, xoffset, yoffset);
 		});
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xpos, double ypos)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			MouseMovedEvent event((float)xpos, (float)ypos);
-			data.EventCallback(event);
+			std::function func = [](GLFWwindow* window, double xpos, double ypos)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				MouseMovedEvent event((float)xpos, (float)ypos);
+				data.EventCallback(event);
+			};
+
+			std::future<void> th = std::async(std::launch::async, func, window, xpos, ypos);
 		});
 	}
 

@@ -26,14 +26,6 @@ namespace WLD
 
 		inline virtual void* GetNativeWindow() const { return m_Window; };
 
-	private:
-		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
-
-	private:
-		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
-
 		struct WindowData
 		{
 			std::string Title;
@@ -42,6 +34,14 @@ namespace WLD
 
 			EventCallbackFn EventCallback;
 		};
+
+	private:
+		virtual void Init(const WindowProps& props);
+		virtual void Shutdown();
+
+	private:
+		GLFWwindow* m_Window;
+		Graphics::Renderer::GraphicsContext* m_Context;
 
 		WindowData m_Data;
 	};

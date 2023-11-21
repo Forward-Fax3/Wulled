@@ -2,9 +2,9 @@
 #include "Engine/src/core/renderer/VertexArray.h"
 
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
-	class WLD_API OpenGLVertexArray : public VertexArray
+	class WLD_API OpenGLVertexArray : public Renderer::VertexArray
 	{
 	public:
 		OpenGLVertexArray();
@@ -13,15 +13,15 @@ namespace WLD
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& vertexBuffer) override;
+		virtual void AddVertexBuffer(const std::shared_ptr<Renderer::Buffers::VertexBuffer>& vertexBuffer) override;
+		virtual void SetIndexBuffer(const std::shared_ptr<Renderer::Buffers::IndexBuffer>& vertexBuffer) override;
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; };
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; };
+		virtual const std::vector<std::shared_ptr<Renderer::Buffers::VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; };
+		virtual const std::shared_ptr<Renderer::Buffers::IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; };
 
 	private:
 		uint32_t m_RendererID;
-		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		std::vector<std::shared_ptr<Renderer::Buffers::VertexBuffer>> m_VertexBuffers;
+		std::shared_ptr<Renderer::Buffers::IndexBuffer> m_IndexBuffer;
 	};
 }

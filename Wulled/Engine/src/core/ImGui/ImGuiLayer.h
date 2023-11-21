@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Engine/src/Core/EngineCore.h"
 
 #include "imgui.h"
@@ -28,7 +27,6 @@ namespace WLD
 		void end();
 
 	protected:
-		float m_Time;
 		ImGuiIO& m_io;
 
 	private:

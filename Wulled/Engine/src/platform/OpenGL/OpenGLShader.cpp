@@ -6,16 +6,16 @@
 #include <glad/glad.h>
 
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string_view& vertexSrc, const std::string_view& fragmentSrc)
 	{
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		const GLchar* source = (const GLchar*)vertexSrc.c_str();
+		const GLchar* source = (const GLchar*)vertexSrc.data();
 		glShaderSource(vertexShader, 1, &source, 0);
 
 		// Compile the vertex shader
@@ -50,7 +50,7 @@ namespace WLD
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = (const GLchar*)fragmentSrc.c_str();
+		source = (const GLchar*)fragmentSrc.data();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
@@ -142,8 +142,8 @@ namespace WLD
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetUniformMat4fv(std::string name, glm::mat4 MVP)
+	void OpenGLShader::SetUniformMat4fv(std::string_view name, glm::mat4 MVP)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, GL_FALSE, &MVP[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.data()), 1, GL_FALSE, &MVP[0][0]);
 	}
 }

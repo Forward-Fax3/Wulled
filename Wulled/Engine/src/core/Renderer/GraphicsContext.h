@@ -2,7 +2,7 @@
 #include "Engine/src/core/EngineCore.h"
 
 
-namespace WLD
+namespace WLD::Graphics::Renderer
 {
 	class WLD_API GraphicsContext
 	{

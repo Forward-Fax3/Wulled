@@ -3,9 +3,9 @@
 #include "Engine/src/core/Renderer/Buffer.h"
 
 
-namespace WLD
+namespace WLD::Graphics::dx12
 {
-	class WLD_API DX12VertexBuffer : public VertexBuffer
+	class WLD_API DX12VertexBuffer : public Renderer::Buffers::VertexBuffer
 	{
 	public:
 		DX12VertexBuffer(float* vertices, uint32_t size);
@@ -14,15 +14,15 @@ namespace WLD
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
-		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
+		virtual void SetLayout(const Renderer::Buffers::BufferLayout& layout) override { m_Layout = layout; }
+		virtual const Renderer::Buffers::BufferLayout& GetLayout() const override { return m_Layout; }
 
 	private:
 		uint32_t m_RendererID;
-		BufferLayout m_Layout;
+		Renderer::Buffers::BufferLayout m_Layout;
 	};
 
-class WLD_API DX12IndexBuffer : public IndexBuffer
+class WLD_API DX12IndexBuffer : public Renderer::Buffers::IndexBuffer
 	{
 	public:
 		DX12IndexBuffer(uint32_t* indices, uint32_t count);

@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 
-namespace WLD
+namespace WLD::Graphics::OpenGL
 {
 	// Vertex Buffer
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)

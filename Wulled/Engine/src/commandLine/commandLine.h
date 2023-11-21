@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/application.h"
-#include <thread>
+#include <future>
 
 
 WLD_API void Command(bool* run);

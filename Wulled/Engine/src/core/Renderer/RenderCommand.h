@@ -3,7 +3,7 @@
 #include "Engine/src/core/Renderer/RendererAPI.h"
 
 
-namespace WLD
+namespace WLD::Graphics::Renderer
 {
 	class WLD_API RenderCommand
 	{
