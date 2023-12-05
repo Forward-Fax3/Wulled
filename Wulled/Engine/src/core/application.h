@@ -8,9 +8,9 @@
 
 #include "Engine/src/Core/ImGui/ImGuiLayer.h"
 
-#include "Engine/src/core/Renderer/Shader.h"
-#include "Engine/src/core/Renderer/Buffer.h"
-#include "Engine/src/core/Renderer/VertexArray.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/Buffer.h"
+#include "Engine/src/core/graphics/Renderer/VertexArray.h"
 
 #include <thread>
 
@@ -36,23 +36,24 @@ namespace WLD
 		inline static Application* GetPtr() { return s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 		inline double GetDeltaTime() const { return m_deltaTime; }
+		inline bool* GetRun() { return m_run; }
 
 	private:
 		void calcDeltaTime();
 
-	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
+	private:
 		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<LayerStack> m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
-		bool* m_run;
-		LayerStack m_LayerStack;
-		double m_deltaTime = 0.0f;
 
-		std::thread m_thread;
+		double m_deltaTime = 0.0f;
+		bool* m_run;
 
 		static Application* s_Instance;
 	};
 
-	Application* CreateApplication(bool* run);
+	Application* CreateApplication(bool* run, int argc, char** argv);
 }

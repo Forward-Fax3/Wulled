@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/core/renderer/VertexArray.h"
+#include "Engine/src/core/graphics/renderer/VertexArray.h"
 
 
 namespace WLD::Graphics::OpenGL

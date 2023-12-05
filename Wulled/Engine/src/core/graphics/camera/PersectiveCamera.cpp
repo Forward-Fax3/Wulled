@@ -7,7 +7,7 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "application.h"
-#include "GLFW/glfw3.h"
+#include "glatter/glatter.h"
 
 
 namespace WLD::Graphics::Camera

@@ -6,6 +6,9 @@
 #include "ApplicationEvent.h"
 #include "application.h"
 
+#include <chrono>
+
+
 namespace WLD
 {
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
@@ -13,12 +16,12 @@ namespace WLD
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(bool* run)
-		: m_run(run)
+		: m_run(run), m_LayerStack(new LayerStack)
 	{
 		WLD_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps("Wulled", 1920, 1080)));
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(L"SandBox", 1920, 1080)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent)); 
 
 		m_ImGuiLayer = new ImGuiLayer();
@@ -32,23 +35,23 @@ namespace WLD
 
 	void Application::PushLayer(Layer* layer)
 	{
-		m_LayerStack.PushLayer(layer);
+		m_LayerStack->PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
-		m_LayerStack.PushOverlay(overlay);
+		m_LayerStack->PushOverlay(overlay);
 		overlay->OnAttach(); 
 	}
 
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		if (dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose)))
-			return;
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin(); )
 		{
 			(*--it)->OnEvent(e);
 			if (e.GetHandled())
@@ -58,13 +61,22 @@ namespace WLD
 
 	void Application::run()
 	{
+		MSG msg;
+
 		while (m_run[0])
 		{
-			for (Layer* layer : m_LayerStack)
+			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			{
+				if (msg.message == WM_QUIT) break;
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+
+			for (Layer* layer : *m_LayerStack)
 				layer->OnUpdate();
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
+			for (Layer* layer : *m_LayerStack)
 				layer->OnImGuiDraw();
 			m_ImGuiLayer->end();
 
@@ -75,15 +87,21 @@ namespace WLD
 	
 	void Application::calcDeltaTime()
 	{
-		static double lastFrame = 1.0 / 60.0;
-		double currentFrame = glfwGetTime();
-		m_deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		const auto currentTime = std::chrono::steady_clock::now();
+		static auto lastTime = currentTime;
+		m_deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(currentTime - lastTime).count() / 1000000.0f;
+		lastTime = currentTime;
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_run[0] = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		m_Window->onWindowResize(e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }

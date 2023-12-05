@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BDD6857C-A90D-870D-52FA-6C103E10030F}</ProjectGuid>
+    <ProjectGuid>{318F18A6-1D5C-73B1-4675-615932A1A83F}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Glad</RootNamespace>
+    <RootNamespace>libepoxy</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -54,21 +54,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\intermediate\Glad\</IntDir>
-    <TargetName>Glad</TargetName>
+    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\libepoxy\</OutDir>
+    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Debug\intermediate\libepoxy\</IntDir>
+    <TargetName>libepoxy</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Release\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Release\intermediate\Glad\</IntDir>
-    <TargetName>Glad</TargetName>
+    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-Release\libepoxy\</OutDir>
+    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-Release\intermediate\libepoxy\</IntDir>
+    <TargetName>libepoxy</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
-    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-dist\Glad\</OutDir>
-    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-dist\intermediate\Glad\</IntDir>
-    <TargetName>Glad</TargetName>
+    <OutDir>..\..\..\..\..\..\bin\windows-x86_64-dist\libepoxy\</OutDir>
+    <IntDir>..\..\..\..\..\..\bin\windows-x86_64-dist\intermediate\libepoxy\</IntDir>
+    <TargetName>libepoxy</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,13 +132,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="include\KHR\khrplatform.h" />
-    <ClInclude Include="include\glad\glad.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\glad.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

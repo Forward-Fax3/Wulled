@@ -1,8 +1,8 @@
 #pragma once
 #include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/Renderer/RenderCommand.h"
-#include "Engine/src/core/Renderer/PerspectiveCamera.h"
-#include "Engine/src/core/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/RenderCommand.h"
+#include "Engine/src/core/graphics/camera/PerspectiveCamera.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
 
 
 namespace WLD::Graphics::Renderer
@@ -16,6 +16,7 @@ namespace WLD::Graphics::Renderer
 		static void Submit(const std::weak_ptr<VertexArray>& vertexArray, const std::weak_ptr<Shader>& shader);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		inline static void SetAPI(RendererAPI::API api) { RendererAPI::SetAPI(api); }
 
 	private:
 		struct SceneData

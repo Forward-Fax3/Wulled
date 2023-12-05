@@ -1,5 +1,7 @@
 #pragma once
 #include "Engine/src/Core/EngineCore.h"
+#define __
+#include <stdint.h>
 
 
 namespace WLD

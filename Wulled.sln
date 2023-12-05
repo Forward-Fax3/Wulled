@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXTK12", "Wulled\Engine\vendor\proj\git\DXTK12\DXTK12.vcxproj", "{4391E5AC-2F33-1083-18EE-23D7042F97D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Wulled\Engine\vendor\proj\git\GLFW\GLFW.vcxproj", "{154B857C-0182-860D-AA6E-6C109684020F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "Wulled\Engine\vendor\proj\source\Glad\Glad.vcxproj", "{BDD6857C-A90D-870D-52FA-6C103E10030F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Wulled\Engine\vendor\proj\git\ImGui\ImGui.vcxproj", "{C0FF640D-2C14-8DBE-F595-301E616989EF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandBox", "SandBox\SandBox.vcxproj", "{D43924E3-4019-A37E-4931-2E55B58F09E0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wulled", "Wulled\Wulled.vcxproj", "{321852DB-1EBA-7CB1-0775-9005F3B50302}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glatter", "Wulled\Engine\vendor\proj\git\glatter\glatter.vcxproj", "{B81278FF-24F2-F69A-2D0A-827199685DFC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glm", "Wulled\Engine\vendor\proj\git\glm\glm.vcxproj", "{6577880B-D180-887C-5AFC-9E7CC604947C}"
 EndProject
@@ -30,18 +28,6 @@ Global
 		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.dist|x64.Build.0 = dist|x64
 		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Release|x64.ActiveCfg = Release|x64
 		{4391E5AC-2F33-1083-18EE-23D7042F97D3}.Release|x64.Build.0 = Release|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.ActiveCfg = Debug|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.Build.0 = Debug|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.dist|x64.ActiveCfg = dist|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.dist|x64.Build.0 = dist|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.Release|x64.ActiveCfg = Release|x64
-		{154B857C-0182-860D-AA6E-6C109684020F}.Release|x64.Build.0 = Release|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.Debug|x64.ActiveCfg = Debug|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.Debug|x64.Build.0 = Debug|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.dist|x64.ActiveCfg = dist|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.dist|x64.Build.0 = dist|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.Release|x64.ActiveCfg = Release|x64
-		{BDD6857C-A90D-870D-52FA-6C103E10030F}.Release|x64.Build.0 = Release|x64
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.Debug|x64.ActiveCfg = Debug|x64
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.Debug|x64.Build.0 = Debug|x64
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.dist|x64.ActiveCfg = dist|x64
@@ -60,6 +46,12 @@ Global
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.dist|x64.Build.0 = dist|x64
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.Release|x64.ActiveCfg = Release|x64
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.Release|x64.Build.0 = Release|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Debug|x64.ActiveCfg = Debug|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Debug|x64.Build.0 = Debug|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.dist|x64.ActiveCfg = dist|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.dist|x64.Build.0 = dist|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Release|x64.ActiveCfg = Release|x64
+		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Release|x64.Build.0 = Release|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Debug|x64.ActiveCfg = Debug|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Debug|x64.Build.0 = Debug|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.dist|x64.ActiveCfg = dist|x64

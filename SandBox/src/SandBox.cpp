@@ -1,23 +1,19 @@
+#define ENTRY_FILE
 #include "app.h"
+#include "apiset.h"
 #include "Engine/src/core/Log.h"
 
 #include <iostream>
 
-#include "Engine/src/core/renderer/renderer.h"
-#include "Engine/src/core/renderer/Shader.h"
-
-#include "glm/glm.hpp"
-#include "Engine/src/core/Renderer/PerspectiveCamera.h"
-
 
 namespace std
 {
-	pair<double, double> operator-(const pair<double, double>& lhs, const pair<double, double>& rhs)
+	pair<LONG, LONG> operator-(const pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
 	{
 		return { lhs.first - rhs.first, lhs.second - rhs.second };
 	}
 
-	pair<double, double> operator+=(pair<double, double>& lhs, const pair<double, double>& rhs)
+	pair<LONG, LONG> operator+=(pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
 	{
 		lhs.first += rhs.first;
 		lhs.second += rhs.second;
@@ -26,6 +22,8 @@ namespace std
 }
 
 #define toFloat(x) static_cast<float>(x)
+
+#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
 
 class ExampleLayer : public WLD::Layer
@@ -207,6 +205,12 @@ public:
 		m_Camera->setRotation(rot);
 	}
 
+	void OnEvent(WLD::Event& e) override
+	{
+		WLD::EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WLD::WindowResizeEvent>(BIND_EVENT_FN(ExampleLayer::OnWindowResize));
+	}
+
 private:
 	glm::vec3 getMovement(float speed)
 	{
@@ -214,35 +218,41 @@ private:
 
 		float deltaTime = toFloat(WLD::Application::Get().GetDeltaTime());
 
-		if (WLD::Input::IsKeyPressed(WLD_KEY_UP) || WLD::Input::IsKeyPressed(WLD_KEY_W))		x += speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_DOWN) || WLD::Input::IsKeyPressed(WLD_KEY_S))		x -= speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_UP) || WLD::Input::IsKeyPressed(WLD_KEY_R))	y += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_UP)        || WLD::Input::IsKeyPressed(WLD_KEY_W))	x += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_DOWN)      || WLD::Input::IsKeyPressed(WLD_KEY_S))	x -= speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_UP)   || WLD::Input::IsKeyPressed(WLD_KEY_R)) y += speed * deltaTime;
 		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_DOWN) || WLD::Input::IsKeyPressed(WLD_KEY_F))	y -= speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_RIGHT) || WLD::Input::IsKeyPressed(WLD_KEY_D))		z += speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_LEFT) || WLD::Input::IsKeyPressed(WLD_KEY_A))		z -= speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_RIGHT)     || WLD::Input::IsKeyPressed(WLD_KEY_D))	z += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_LEFT)      || WLD::Input::IsKeyPressed(WLD_KEY_A))	z -= speed * deltaTime;
 
 		return { x, y, z };
 	}
 
-	std::pair<double, double> getRotation()
+	std::pair<LONG, LONG> getRotation()
 	{
-		std::pair<double, double> posNow = WLD::Input::GetMousePosition();
-		static std::pair<double, double> lastPos = posNow;
-		static std::pair<double, double> total = { 0.0, 0.0 };
-		std::pair<double, double> delta = posNow - lastPos;
+		std::pair<LONG, LONG> posNow = WLD::Input::GetMousePosition();
+		static std::pair<LONG, LONG> lastPos = posNow;
+		static std::pair<LONG, LONG> total = { 0, 0 };
+		std::pair<LONG, LONG> delta = posNow - lastPos;
 
 		if (WLD::Input::IsMousButtonPressed(WLD_MOUSE_BUTTON_RIGHT) ||
 			WLD::Input::IsKeyPressed(WLD_KEY_LEFT_CONTROL) ||
 			WLD::Input::IsKeyPressed(WLD_KEY_RIGHT_CONTROL))
 			total += delta;
 
-		if (total.first < -360.0)       total.first  += 720.0;
-		else if (total.first > 360.0)   total.first  -= 720.0;
-		if (total.second < -360.0)      total.second += 720.0;
-		else if (total.second > 360.0)  total.second -= 720.0;
+//		     if (total.first  < -360)  total.first  += 720;
+//		else if (total.first  >  360)  total.first  -= 720;
+//		     if (total.second < -360)  total.second += 720;
+//		else if (total.second >  360)  total.second -= 720;
 
 		lastPos = posNow;
 		return total;
+	}
+
+	bool OnWindowResize(WLD::WindowResizeEvent& e)
+	{
+		m_Camera->setProjection(45.0f, toFloat(e.GetHeight()), toFloat(e.GetWidth()), 0.001f, 100.0f);
+		return true;
 	}
 
 private:
@@ -270,12 +280,28 @@ public:
 	{
 		std::cout << "sand box destroyed" << std::endl;
 	}
-
-private:
-
 };
 
-WLD::Application* WLD::CreateApplication(bool* run)
+WLD::Application* WLD::CreateApplication(bool* run, int argc, char** argv)
 {
+	if (argc > 1 && run[2] == false)
+	{
+		if (strcmp(argv[1], "-opengl"))
+		{
+			WLD::Graphics::Renderer::Renderer::SetAPI(WLD::Graphics::Renderer::RendererAPI::API::OpenGL);
+			run[2] = true;
+		}
+		else if (strcmp(argv[1], "-dx12"))
+		{
+			WLD::Graphics::Renderer::Renderer::SetAPI(WLD::Graphics::Renderer::RendererAPI::API::DirectX12);
+			run[2] = true;
+		}
+	}
+
+	if (!run[2])
+	{
+		return new SetAPI(run);
+	}
+
 	return new SandBox(run);
 }

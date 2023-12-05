@@ -3,8 +3,11 @@
 #include "EngineCore.h"
 #include "WinInput.h"
 #include "application.h"
+#include "KeyCodes.h"
+#include "MouseButtonCodes.h"
+#include <Window.h>
 
-#include <GLFW/glfw3.h>
+#include "glatter/glatter.h"
 
 namespace WLD
 {
@@ -13,25 +16,20 @@ namespace WLD
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetKey(window, keycode);
-		return state == GLFW_PRESS || state == GLFW_REPEAT;
+		return GetAsyncKeyState(WLDKeyToVKey(keycode));
 	}
 
 	bool WindowsInput::IsMouseButtonPressedImpl(int button)
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetMouseButton(window, button);
-		return state == GLFW_PRESS;
+		return GetAsyncKeyState(WLDMouseToVKMouse(button));
 	}
 
-	std::pair<double, double> WindowsInput::GetMousePositionImpl()
+	std::pair<LONG, LONG> WindowsInput::GetMousePositionImpl()
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		double xPos, yPos;
-		glfwGetCursorPos(window, &xPos, &yPos);
+		POINT point;
+		GetCursorPos(&point);
 
-		return std::pair<double, double>(xPos, yPos);
+		return std::pair<LONG, LONG>(point.x, point.y);
 	}
 
 	double WindowsInput::GetMouseXImpl()

@@ -2,30 +2,25 @@
 #include "Engine/src/core/EngineCore.h"
 
 #include "Engine/src/core/graphics/GraphicsContext.h"
+#include <stdint.h>
+
+#include <Windows.h>
 
 
-struct GLFWwindow;
-
-namespace WLD::Graphics::OpenGL
+namespace WLD::Graphics::dx12
 {
-	class WLD_API OpenGLContext : public Renderer::GraphicsContext
+	class WLD_API DX12Context : public Renderer::GraphicsContext
 	{
 	public:
-		OpenGLContext(HWND* windowHandle);
+		DX12Context(HWND* windowHandle);
 
 		virtual void Init() override;
-		virtual void Shutdown() override;
+		virtual void Shutdown() override {};
 		virtual void SwapBuffers() override;
 		virtual void OnWindowResize(uint32_t width, uint32_t height) override;
-
-		virtual void makeCurrent() override;
+		virtual void makeCurrent() override {};
 
 	private:
 		HWND* m_WindowHandle;
-		HDC m_HDC;
-		HGLRC m_hglrc;
-		PIXELFORMATDESCRIPTOR m_pfd;
 	};
 }
-
-

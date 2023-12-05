@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/Renderer/Buffer.h"
+#include "Engine/src/core/graphics/Renderer/Buffer.h"
 
 
 namespace WLD::Graphics::dx12
@@ -13,7 +13,7 @@ namespace WLD::Graphics::dx12
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
-
+		
 		virtual void SetLayout(const Renderer::Buffers::BufferLayout& layout) override { m_Layout = layout; }
 		virtual const Renderer::Buffers::BufferLayout& GetLayout() const override { return m_Layout; }
 

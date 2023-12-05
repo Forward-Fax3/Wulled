@@ -1,7 +1,8 @@
 #include "wldpch.h"
 #include "OpenGLBuffer.h"
 
-#include <glad/glad.h>
+#include "glatter/glatter.h"
+
 
 namespace WLD::Graphics::OpenGL
 {

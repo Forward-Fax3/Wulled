@@ -10,7 +10,7 @@ namespace WLD
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 
 		inline static bool IsMousButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
-		inline static std::pair<double, double> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
+		inline static std::pair<LONG, LONG> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
 		inline static double GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		inline static double GetMouseY() { return s_Instance->GetMouseYImpl(); }
 
@@ -18,7 +18,7 @@ namespace WLD
 		virtual bool IsKeyPressedImpl(int keycode) = 0;
 		 
 		virtual bool IsMouseButtonPressedImpl(int buuton) = 0;
-		virtual std::pair<double, double> GetMousePositionImpl() = 0;
+		virtual std::pair<LONG, LONG> GetMousePositionImpl() = 0;
 		virtual double GetMouseXImpl() = 0;
 		virtual double GetMouseYImpl() = 0;
 

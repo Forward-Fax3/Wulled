@@ -4,27 +4,22 @@
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
-//#include "backends/imgui_impl_dx12.h"
-
-#include "GLFW/glfw3.h"
-#include "glad/glad.h"
+#include "backends/imgui_impl_dx12.h"
+#include "backends/imgui_impl_win32.h"
 
 #include "application.h"
-#include "WinWindow.h"
-
-#include "Event.h"
-#include "ApplicationEvent.h"
-#include "KeyEvent.h"
-#include "MouseEvent.h"
-
-#include "MouseButtonCodes.h"
-#include "KeyCodes.h"
-
+#include "RendererAPI.h"
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+static int const NUM_FRAMES_IN_FLIGHT = 3;
+static ID3D12Device* g_pd3dDevice = nullptr;
+static ID3D12DescriptorHeap* g_pd3dSrvDescHeap = nullptr;
+
+
 namespace WLD
 {
+//public:
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer"), m_io(init())
 	{
@@ -67,19 +62,14 @@ namespace WLD
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
-		
-		Application& app = Application::Get();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
-		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init("#version 460");
+		APIInit();
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
+		APIShutdown();
+		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyPlatformWindows();
 		ImGui::DestroyContext();
 	}
@@ -92,28 +82,28 @@ namespace WLD
 		m_io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 		
 		m_io.DeltaTime = static_cast<float>(app.GetDeltaTime());
-		bool VSync = window.IsVSync();
+//		bool VSync = window.IsVSync();
 		ImGui::Begin("test");
-		ImGui::Checkbox("VSync", &VSync);
+//		ImGui::Checkbox("VSync", &VSync);
 		ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", 1000.0f / m_io.Framerate, m_io.Framerate);
 		ImGui::End();
 
-		if (VSync != window.IsVSync())
-			window.SetVSync(VSync);
+//		if (VSync != window.IsVSync())
+//			window.SetVSync(VSync);
 	}
 
 	void ImGuiLayer::Begin()
 	{
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
+		ImGui_ImplX_NewFrame();
+		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 	}
 
 	void ImGuiLayer::end()
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
+		Window& window = Application::Get().GetWindow();
+		io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 
 		// Rendering
 		ImGui::Render();
@@ -121,10 +111,75 @@ namespace WLD
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(window);
+			window.GetNativeGraphicsContext().makeCurrent();
 		}
+	}
+
+//private:
+	void ImGuiLayer::OpenGLInit()
+	{
+		HWND window = Application::Get().GetWindow().GetNativeWindow();
+
+		// Setup Platform/Renderer bindings
+		ImGui_ImplWin32_InitForOpenGL(window);
+		ImGui_ImplOpenGL3_Init();
+
+		ImGui_ImplX_NewFrame = [&]() { ImGui_ImplOpenGL3_NewFrame(); };
+	}
+
+	void ImGuiLayer::DX12Init()
+	{
+		HWND hwnd = Application::Get().GetWindow().GetNativeWindow();
+
+		ImGui_ImplWin32_Init(hwnd);
+//		ImGui_ImplDX12_Init(g_pd3dDevice, NUM_FRAMES_IN_FLIGHT,
+//			DXGI_FORMAT_R8G8B8A8_UNORM, g_pd3dSrvDescHeap,
+//			g_pd3dSrvDescHeap->GetCPUDescriptorHandleForHeapStart(),
+//			g_pd3dSrvDescHeap->GetGPUDescriptorHandleForHeapStart());
+
+		ImGui_ImplX_NewFrame = [&]() { ImGui_ImplDX12_NewFrame(); };
+
+	}
+
+	void ImGuiLayer::OpenGLShutdown()
+	{
+		ImGui_ImplOpenGL3_Shutdown();
+	}
+
+	void ImGuiLayer::DX12Shutdown()
+	{
+		ImGui_ImplDX12_Shutdown();
+	}
+
+	void ImGuiLayer::APIInit()
+	{
+		switch (Graphics::Renderer::RendererAPI::GetAPI())
+		{
+		case Graphics::Renderer::RendererAPI::API::OpenGL:
+			OpenGLInit(); return;
+		case Graphics::Renderer::RendererAPI::API::DX12:
+			DX12Init(); return;
+		}
+	}
+
+	void ImGuiLayer::APIShutdown()
+	{
+		switch (Graphics::Renderer::RendererAPI::GetAPI())
+		{
+		case Graphics::Renderer::RendererAPI::API::OpenGL:
+			OpenGLShutdown(); return;
+		case Graphics::Renderer::RendererAPI::API::DX12:
+			DX12Shutdown(); return;
+		}
+	}
+
+	bool ImGuiLayer::OnWindowResize(WindowResizeEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		Application& app = Application::Get();
+		io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
+		return true;
 	}
 }

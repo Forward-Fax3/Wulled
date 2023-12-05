@@ -8,9 +8,6 @@
 [submodule "Wulled/Engine/vendor/proj/git/spdlog"]
 	path = Wulled/Engine/vendor/proj/git/spdlog
 	url = https://github.com/gabime/spdlog.git
-[submodule "Wulled/Engine/vendor/proj/git/GLFW"]
-	path = Wulled/Engine/vendor/proj/git/GLFW
-	url = https://github.com/glfw/glfw.git
 [submodule "Wulled/Engine/vendor/proj/git/DXTK12"]
 	path = Wulled/Engine/vendor/proj/git/DXTK12
 	url = https://github.com/microsoft/DirectXTK12.git

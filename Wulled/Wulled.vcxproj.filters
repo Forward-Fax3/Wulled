@@ -19,8 +19,14 @@
     <Filter Include="Engine\src\core\ImGui">
       <UniqueIdentifier>{D44FE61D-40BC-A118-09B0-397675DBC380}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\src\core\Renderer">
-      <UniqueIdentifier>{10163088-FC3A-7F08-2586-6498110A7E26}</UniqueIdentifier>
+    <Filter Include="Engine\src\core\graphics">
+      <UniqueIdentifier>{CA36D3B4-B65B-2235-DFA6-07C5CB2A2153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\src\core\graphics\Renderer">
+      <UniqueIdentifier>{B0BDB1B3-1C2C-0733-6515-C232D1C2FCCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\src\core\graphics\camera">
+      <UniqueIdentifier>{22184508-8EFB-5348-97FE-818403611A99}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\src\core\layers">
       <UniqueIdentifier>{C9DA962B-B5D4-BF7D-9E41-568E8ADA25EA}</UniqueIdentifier>
@@ -63,6 +69,9 @@
     <ClInclude Include="Engine\src\core\Events\MouseEvent.h">
       <Filter>Engine\src\core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\Events\windowEvent.h">
+      <Filter>Engine\src\core\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\ImGui\ImGuiLayer.h">
       <Filter>Engine\src\core\ImGui</Filter>
     </ClInclude>
@@ -78,35 +87,35 @@
     <ClInclude Include="Engine\src\core\MouseButtonCodes.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\Buffer.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\GraphicsContext.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\PerspectiveCamera.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\RenderCommand.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\Renderer.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\RendererAPI.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\Shader.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\core\Renderer\VertexArray.h">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\src\core\Window.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\core\application.h">
       <Filter>Engine\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\GraphicsContext.h">
+      <Filter>Engine\src\core\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Buffer.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\RenderCommand.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Renderer.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\RendererAPI.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\camera\PerspectiveCamera.h">
+      <Filter>Engine\src\core\graphics\camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\core\layers\Layer.h">
       <Filter>Engine\src\core\layers</Filter>
@@ -118,6 +127,9 @@
       <Filter>Engine\src\pch</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h">
@@ -135,6 +147,9 @@
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\platform\windows\WinEvent.h">
+      <Filter>Engine\src\platform\windows</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\platform\windows\WinInput.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
@@ -147,38 +162,41 @@
     <ClCompile Include="Engine\src\commandLine\commandLine.cpp">
       <Filter>Engine\src\commandLine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\core\ImGui\ImGuiBuild.cpp">
-      <Filter>Engine\src\core\ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\src\core\ImGui\ImGuiLayer.cpp">
       <Filter>Engine\src\core\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\Log.cpp">
       <Filter>Engine\src\core</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\Buffer.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\PersectiveCamera.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\RenderCommand.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\Renderer.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\RendererAPI.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\Shader.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\core\Renderer\VertexArray.cpp">
-      <Filter>Engine\src\core\Renderer</Filter>
+    <ClCompile Include="Engine\src\core\Window.cpp">
+      <Filter>Engine\src\core</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\application.cpp">
       <Filter>Engine\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\GraphicsContext.cpp">
+      <Filter>Engine\src\core\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Buffer.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\RenderCommand.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Renderer.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\RendererAPI.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Shader.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp">
+      <Filter>Engine\src\core\graphics\camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\layers\Layer.cpp">
       <Filter>Engine\src\core\layers</Filter>
@@ -190,6 +208,9 @@
       <Filter>Engine\src\pch</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp">
@@ -206,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\windows\WinEvent.cpp">
+      <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\windows\WinInput.cpp">
       <Filter>Engine\src\platform\windows</Filter>

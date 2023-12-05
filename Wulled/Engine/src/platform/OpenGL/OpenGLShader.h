@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
 #include "glm/glm.hpp"
 
 

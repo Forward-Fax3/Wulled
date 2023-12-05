@@ -23,7 +23,7 @@ namespace WLD
 	class WLD_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int32_t keycode, int32_t repeatCount)
+		KeyPressedEvent(int32_t keycode, uint32_t repeatCount)
 		: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
 		inline int32_t GetReatCount() const { return m_RepeatCount; }
@@ -38,7 +38,7 @@ namespace WLD
 		EVENT_CLASS_TYPE(KeyPressed)
 
 	private:
-		int32_t m_RepeatCount;
+		uint32_t m_RepeatCount;
 	};
 
 	class WLD_API KeyTypedEvent : public KeyEvent

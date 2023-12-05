@@ -10,13 +10,15 @@
 #include "Engine/src/core/KeyCodes.h"
 #include "Engine/src/core/MouseButtonCodes.h"
 
-#include "Engine/src/core/renderer/renderer.h"
-#include "Engine/src/core/renderer/renderCommand.h"
+#include "Engine/src/core/graphics/renderer/renderer.h"
+#include "Engine/src/core/graphics/renderer/renderCommand.h"
 
-#include "Engine/src/core/renderer/Shader.h"
-#include "Engine/src/core/renderer/Buffer.h"
-#include "Engine/src/core/renderer/VertexArray.h"
+#include "Engine/src/core/graphics/renderer/Shader.h"
+#include "Engine/src/core/graphics/renderer/Buffer.h"
+#include "Engine/src/core/graphics/renderer/VertexArray.h"
 
 //--------------------- Entry Point ---------------------
+#ifdef ENTRY_FILE
 #include "Engine/src/Core/EntryPoint.h"
+#endif
 //-------------------------------------------------------

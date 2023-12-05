@@ -67,8 +67,10 @@ namespace WLD
 	class WLD_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int32_t button)
-			: MouseButtonEvent(button) {}
+		MouseButtonPressedEvent(int32_t button, uint32_t repeat)
+			: MouseButtonEvent(button), m_RepeatCount(repeat) {}
+
+		inline int32_t GetReatCount() const { return m_RepeatCount; }
 
 		std::string ToString() const override
 		{
@@ -78,6 +80,9 @@ namespace WLD
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonPressed)
+
+	private:
+		uint32_t m_RepeatCount;
 	};
 
 	class WLD_API MouseButtonReleasedEvent : public MouseButtonEvent

@@ -3,7 +3,7 @@
 
 #include "OpenGLShader.h"
 
-#include <glad/glad.h>
+#include "glatter/glatter.h"
 
 
 namespace WLD::Graphics::OpenGL

@@ -13,8 +13,8 @@ namespace WLD
 		WindowResizeEvent(uint32_t width, uint32_t height)
 			: m_Width(width), m_Hight(height) {}
 
-		inline uint32_t GetWidth() const { return m_Width; }
-		inline uint32_t GetHight() const { return m_Hight; }
+		inline uint32_t GetWidth()  const { return m_Width; }
+		inline uint32_t GetHeight() const { return m_Hight; }
 
 		std::string ToString() const override
 		{

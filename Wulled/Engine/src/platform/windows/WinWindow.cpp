@@ -1,38 +1,59 @@
 #include "wldpch.h"
 #include "WinWindow.h"
-
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include "Renderer.h"
 
 #include "log.h"
-
 #include "EngineCore.h"
 
 #include "Event.h"
 #include "ApplicationEvent.h"
 #include "KeyEvent.h"
 #include "MouseEvent.h"
+#include "application.h"
+#include "WinEvent.h"
 
+#include "KeyCodes.h"
+#include "MouseButtonCodes.h"
 #include "OpenGLContext.h"
 
 #include <future>
 
+#include <windows.h>
+#include <strsafe.h>
+
+
+void ErrorExit(LPTSTR lpszFunction)
+{
+	// Retrieve the system error message for the last-error code
+
+	LPVOID lpMsgBuf = NULL;
+	DWORD dw = GetLastError();
+
+	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, dw, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&lpMsgBuf, 0, NULL);
+
+	// Display the error message and exit the process
+
+	LPTSTR lpDisplayBuf = (LPTSTR)LocalAlloc(LMEM_ZEROINIT, (lstrlen((LPCTSTR)lpMsgBuf) + lstrlen((LPCTSTR)lpszFunction) + 40) * sizeof(TCHAR));
+	if (!lpDisplayBuf)
+	{
+		LocalFree(lpMsgBuf);
+		return;
+	}
+
+	StringCchPrintfW(lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("%s failed with error %d: %s"), lpszFunction, dw, lpMsgBuf);
+	MessageBoxW(NULL, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK);
+
+	LocalFree(lpMsgBuf);
+	LocalFree(lpDisplayBuf);
+#ifdef _DIST
+	ExitProcess(dw);
+#endif
+}
 
 namespace WLD
 {
-	static bool s_GLFWInitialaized = false;
-
-	static void GLFWErrorCallback(int error, const char* description)
-	{
-		WLD_CORE_ERROR("GLFW Error ({0}), {1}", error, description);
-	}
-
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WinWindow(props);
-	}
-
 	WinWindow::WinWindow(const WindowProps& props)
+		: m_HWND(nullptr), m_Context(nullptr)
 	{
 		this->WinWindow::Init(props);
 	}
@@ -44,171 +65,166 @@ namespace WLD
 
 	void WinWindow::Init(const WindowProps& props)
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-		
-		WLD_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		m_WindowEvent = new WinEvent();
+		s_WindowEvent = &m_WindowEvent;
 
-		if (!s_GLFWInitialaized)
+		size_t outSize;
+		m_Data.TitleC = new char[wcslen(props.Title) + 1];
+		wcstombs_s(&outSize, m_Data.TitleC, wcslen(props.Title) + 1, props.Title, wcslen(props.Title));
+		
+		WLD_CORE_INFO("Creating window {0} ({1}, {2})", m_Data.TitleC, props.Width, props.Height);
+
+		if (!m_HWND)
 		{
-			// TODO: GLFWTerminate on shutdown
-			int32_t success = glfwInit();
-			WLD_CORE_ASSERT(success, "Could not initialize GLFW!");
-			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialaized = true;
+			m_WindowClass = { sizeof(WNDCLASSEXW), CS_HREDRAW | CS_VREDRAW | CS_OWNDC, WinProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, props.Title, NULL };
+
+			if (!m_WindowClass.hInstance)
+			{
+				ErrorExit((LPTSTR)TEXT("GetModuleHandle"));
+				WLD_CORE_FATAL("Failed to get HINSTANCE!");
+			}
+
+			RegisterClassExW(&m_WindowClass);
+			m_HWND = CreateWindowExW
+			(
+				0,                              // Optional window styles.
+				m_WindowClass.lpszClassName,    // Window class
+				L"Wulled",						// Window text
+				WS_OVERLAPPEDWINDOW,            // Window style
+
+				// Size and position
+				CW_USEDEFAULT, CW_USEDEFAULT,
+				props.Width, props.Height,
+
+				NULL,						// Parent window    
+				NULL,						// Menu
+				m_WindowClass.hInstance,	// Instance handle
+				NULL						// Additional application data
+			);
+			
+			if (!m_HWND)
+			{
+				ErrorExit((LPTSTR)TEXT("CreateWindowEx"));
+				WLD_CORE_FATAL("Failed to create window!");
+			}
 		}
 
-		m_Window = glfwCreateWindow((int32_t)props.Width, props.Height, props.Title.c_str(), nullptr, nullptr);
-		m_Context = new Graphics::OpenGL::OpenGLContext(m_Window);
+		m_Context = Graphics::Renderer::GraphicsContext::createGraphicsContext(&m_HWND);
 		m_Context->Init();
 
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		::ShowWindow(m_HWND, SW_SHOWDEFAULT);
+		::UpdateWindow(m_HWND);
+
 		SetVSync(true);
 
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		m_WindowEvent->SetWindowSizeCallback([&](HWND window, int width, int height)
 		{
-			std::function func = [](GLFWwindow* window, int width, int height)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.Width = width;
-				data.Height = height;
-				WindowResizeEvent event(width, height);
-				data.EventCallback(event);
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window, width, height);
+			WindowResizeEvent event(width, height);
+			m_Data.EventCallback(event);
 		});
 
-		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		m_WindowEvent->SetWindowCloseCallback([&](HWND window)
 		{
-			std::function func = [](GLFWwindow* window)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				WindowCloseEvent event;
-				data.EventCallback(event);
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window);
+			WindowCloseEvent event;
+			m_Data.EventCallback(event);
 		});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		m_WindowEvent->SetKeyCallback([&](HWND window, int key, int scancode, int action, int mods)
 		{
-			std::function func = [](GLFWwindow* window, int key, int scancode, int action, int mods)
+			static uint32_t repeat = 0;
+
+			switch (action)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-				switch (action)
-				{
-				case GLFW_RELEASE:
-				{
-					KeyReleasedEvent event(key);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_PRESS:
-				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_REPEAT:
-				{
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
-					break;
-				}
-				}
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window, key, scancode, action, mods);
+			case WLD_RELEASE:
+			{
+				KeyReleasedEvent event(key);
+				m_Data.EventCallback(event);
+				repeat = 0;
+				break;
+			}
+			case WLD_PRESS:
+			{
+				KeyPressedEvent event(key, repeat);
+				m_Data.EventCallback(event);
+				repeat++;
+				break;
+			}
+			}
 		});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint32_t character)
-		{
-			std::function func = [](GLFWwindow* window, uint32_t character)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				KeyTypedEvent event(character);
-				data.EventCallback(event);
-			};
+//		m_WindowEvent->SetCharCallback([&](HWND window, uint32_t character)
+//		{
+//			KeyTypedEvent event(character);
+//			m_Data.EventCallback(event);
+//		});
 
-			std::future<void> th = std::async(std::launch::async, func, window, character);
+		m_WindowEvent->SetMouseButtonCallback([&](HWND window, int button, int action, int mods)
+		{
+			static uint32_t repeat = 0;
+
+			switch (action)
+			{
+			case WLD_RELEASE:
+			{
+				MouseButtonReleasedEvent event(button);
+				m_Data.EventCallback(event);
+				repeat = 0;
+				break;
+			}
+			case WLD_PRESS:
+			{
+				MouseButtonPressedEvent event(button, repeat);
+				m_Data.EventCallback(event);
+				repeat++;
+				break;
+			}
+			}
 		});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		m_WindowEvent->SetScrollCallback([&](HWND window, double xoffset, double yoffset)
 		{
-			std::function func = [](GLFWwindow* window, int button, int action, int mods)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-				switch (action)
-				{
-				case GLFW_PRESS:
-				{
-					MouseButtonPressedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
-				case GLFW_RELEASE:
-				{
-					MouseButtonReleasedEvent event(button);
-					data.EventCallback(event);
-					break;
-				}
-				}
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window, button, action, mods);
+			MouseScrolledEvent event(static_cast<float>(xoffset), static_cast<float>(yoffset));
+			m_Data.EventCallback(event);
 		});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+		
+		m_WindowEvent->setCursorPosCallback([&](HWND window, int xpos, int ypos)
 		{
-			std::function func = [](GLFWwindow* window, double xoffset, double yoffset)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				MouseScrolledEvent event((float)xoffset, (float)yoffset);
-				data.EventCallback(event);
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window, xoffset, yoffset);
-		});
-
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xpos, double ypos)
-		{
-			std::function func = [](GLFWwindow* window, double xpos, double ypos)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				MouseMovedEvent event((float)xpos, (float)ypos);
-				data.EventCallback(event);
-			};
-
-			std::future<void> th = std::async(std::launch::async, func, window, xpos, ypos);
+			MouseMovedEvent event(static_cast<float>(xpos), static_cast<float>(ypos));
+			m_Data.EventCallback(event);;
 		});
 	}
 
 	void WinWindow::Shutdown()
 	{
-		glfwDestroyWindow(m_Window);
+		m_Context->Shutdown();
+		::DestroyWindow(m_HWND);
+		::UnregisterClassW(m_WindowClass.lpszClassName, m_WindowClass.hInstance);
+		delete[] m_Data.TitleC;
 	}
 
 	void WinWindow::OnUpdate()
 	{
-		glfwPollEvents();
+//		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WinWindow::SetVSync(bool enabled)
 	{
-		glfwSwapInterval((int32_t)enabled);
+//		glfwSwapInterval((int32_t)enabled);
 		m_Data.VSync = enabled;
 	}
 
 	bool WinWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	LRESULT WinWindow::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	{
+		return (**s_WindowEvent).callEvent(hwnd, uMsg, wParam, lParam);
 	}
 }

@@ -20,22 +20,20 @@ project "Wulled"
 
 		"Engine/src/**",
 
-		"../%{IncludeDir.GLFW}",
-		"../%{IncludeDir.Glad}",
 		"../%{IncludeDir.ImGui}",
 		"../%{IncludeDir.spdlog}",
 		"../%{IncludeDir.glm}",
 		"../%{IncludeDir.DXTK12}",
+		"../%{IncludeDir.glatter}",
 	}
 
 	links
 	{
-		"GLFW",
-		"Glad",
 		"ImGui",
 		"spdlog",
 		"glm",
 		"DXTK12",
+		"glatter",
 		"opengl32.lib",
 	}
 
@@ -61,6 +59,7 @@ project "Wulled"
 	filter "configurations:Debug"
 		defines 
 		{
+			"_DEBUG",
 			"ENGINE_DEBUG",
 			"EN_ENABLE_ASSERTS",
 		}
@@ -69,12 +68,17 @@ project "Wulled"
 	filter "configurations:Release"
 		defines 
 		{
+			"_RELEASE",
 			"ENGINE_RELEASE",
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
 
 	filter "configurations:dist"
-		defines "ENGINE_DIST"
+		defines
+		{
+			"_DIST",
+			"ENGINE_DIST"
+		}
 		optimize "On"
 		symbols "Off"

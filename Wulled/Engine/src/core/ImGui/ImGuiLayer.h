@@ -26,10 +26,23 @@ namespace WLD
 		void Begin();
 		void end();
 
+	private:
+		void OpenGLInit();
+		void DX12Init();
+		void OpenGLShutdown();
+		void DX12Shutdown();
+
+		void APIInit();
+		void APIShutdown();
+
+		bool OnWindowResize(WindowResizeEvent& e);
+
 	protected:
 		ImGuiIO& m_io;
 
 	private:
 		ImGuiIO& init();
+
+		std::function<void()> ImGui_ImplX_NewFrame;
 	};
 }

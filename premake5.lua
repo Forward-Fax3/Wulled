@@ -12,12 +12,11 @@ output = "%{cfg.system}-%{cfg.architecture}-%{cfg.buildcfg}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Wulled/Engine/vendor/proj/git/GLFW/include/"
-IncludeDir["Glad"] = "Wulled/Engine/vendor/proj/source/Glad/include/"
-IncludeDir["ImGui"] = "Wulled/Engine/vendor/proj/git/imgui/"
-IncludeDir["spdlog"] = "Wulled/Engine/vendor/proj/git/spdlog/include/"
-IncludeDir["glm"] = "Wulled/Engine/vendor/proj/git/glm/"
-IncludeDir["DXTK12"] = "Wulled/Engine/vendor/proj/git/DXTK12/"
+IncludeDir["ImGui"]    = "Wulled/Engine/vendor/proj/git/imgui/"
+IncludeDir["spdlog"]   = "Wulled/Engine/vendor/proj/git/spdlog/include/"
+IncludeDir["glm"]      = "Wulled/Engine/vendor/proj/git/glm/"
+IncludeDir["DXTK12"]   = "Wulled/Engine/vendor/proj/git/DXTK12/"
+IncludeDir["glatter"]  = "Wulled/Engine/vendor/proj/git/glatter/include/"
 
 include "Wulled/Engine/vendor/proj/git"
 include "Wulled/Engine/vendor/proj/source"
@@ -46,12 +45,11 @@ project "SandBox"
 	{
 		"Wulled",
 
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.DXTK12}",
+		"%{IncludeDir.glatter}",
 	}
 
 	links
@@ -73,6 +71,7 @@ project "SandBox"
 	filter "configurations:Debug"
 		defines 
 		{
+			"_DEBUG",
 			"ENGINE_DEBUG",
 			"EN_ENABLE_ASSERTS"
 		}
@@ -81,12 +80,17 @@ project "SandBox"
 	filter "configurations:Release"
 		defines 
 		{
+			"_RELEASE",
 			"ENGINE_RELEASE",
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
 
 	filter "configurations:dist"
-		defines "ENGINE_DIST"
+		defines
+		{
+			"_DIST",
+			"ENGINE_DIST"
+		}
 		optimize "On"
 		symbols "Off"
