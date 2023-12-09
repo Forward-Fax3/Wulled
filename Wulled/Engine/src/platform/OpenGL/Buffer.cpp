@@ -1,5 +1,5 @@
 #include "wldpch.h"
-#include "OpenGLBuffer.h"
+#include "OpenGL/Buffer.h"
 
 #include "glatter/glatter.h"
 

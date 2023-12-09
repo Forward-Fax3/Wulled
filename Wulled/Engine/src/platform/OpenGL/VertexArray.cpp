@@ -1,5 +1,5 @@
 #include "wldpch.h"
-#include "OpenGLVertexArray.h"
+#include "OpenGL/VertexArray.h"
 
 #include "glatter/glatter.h"
 
@@ -24,7 +24,7 @@ namespace WLD::Graphics::OpenGL
 		case ShaderDataType::Int4:		return GL_INT;
 		case ShaderDataType::Bool:		return GL_BOOL;
 
-		default: WLD_ASSERT(false, "Unknown ShaderDataType!"); return 0;
+		default: WLD_CORE_ASSERT(false, "Unknown ShaderDataType!"); return 0;
 		}
 	}
 
@@ -48,7 +48,7 @@ namespace WLD::Graphics::OpenGL
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
@@ -74,7 +74,7 @@ namespace WLD::Graphics::OpenGL
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 
 		glBindVertexArray(m_RendererID);

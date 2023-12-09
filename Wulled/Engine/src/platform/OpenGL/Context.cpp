@@ -1,14 +1,9 @@
-#include"wldpch.h"
-#include "log.h"
+#include "wldpch.h"
+#define EN_ENABLE_ASSERTS
 
 #include "Application.h"
-#include "OpenGLContext.h"
+#include "OpenGL/Context.h"
 #include "glatter/glatter.h"
-
-bool glSwapBuffers(HDC hdc)
-{
-	return SwapBuffers(hdc);
-}
 
 
 namespace WLD::Graphics::OpenGL
@@ -19,9 +14,9 @@ namespace WLD::Graphics::OpenGL
 		WLD_CORE_ASSERT(windowHandle, "Window handle is null!")
 	}
 
-	void OpenGLContext::Init()
+	void OpenGLContext::CreateDevice()
 	{
-		m_pfd =
+		PIXELFORMATDESCRIPTOR PFD =
 		{
 			sizeof(PIXELFORMATDESCRIPTOR),
 			1,
@@ -42,12 +37,42 @@ namespace WLD::Graphics::OpenGL
 		};
 
 		m_HDC = GetDC(*m_WindowHandle);
+		WLD_CORE_ASSERT(m_HDC, "Failed to get device context!");
 
-		SetPixelFormat(m_HDC, ChoosePixelFormat(m_HDC, &m_pfd), &m_pfd);
+		int PF = ChoosePixelFormat(m_HDC, &PFD);
+		WLD_CORE_ASSERT(PF, "Failed to choose pixel format!");
+		WLD_CORE_ASSERT(SetPixelFormat(m_HDC, PF, &PFD), "Failed to set pixel format!");
+		WLD_CORE_ASSERT(ReleaseDC(*m_WindowHandle, m_HDC), "Failed to release device context!");
 
-		m_hglrc = wglCreateContext(m_HDC);
-		wglMakeCurrent(m_HDC, m_hglrc);
+		if (!s_hglrc)
+			s_hglrc = wglCreateContext(m_HDC);
+	}
 
+	void OpenGLContext::Shutdown()
+	{
+		wglMakeCurrent(m_HDC, NULL);
+		wglDeleteContext(s_hglrc);
+		s_hglrc = NULL;
+	}
+
+	void OpenGLContext::SwapBuffers()
+	{
+		::SwapBuffers(m_HDC);
+		wglSwapIntervalEXT(Application::Get().GetWindow().IsVSync());
+	}
+
+	void OpenGLContext::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
+	void OpenGLContext::MakeCurrent()
+	{
+		wglMakeCurrent(m_HDC, s_hglrc);
+	}
+
+	void OpenGLContext::Info()
+	{
 		WLD_CORE_INFO
 		(
 			"OpenGL Info:\n"
@@ -58,28 +83,5 @@ namespace WLD::Graphics::OpenGL
 			(const char*)glGetString(GL_RENDERER), // 1
 			(const char*)glGetString(GL_VERSION)   // 2
 		);
-	}
-
-	void OpenGLContext::Shutdown()
-	{
-		wglMakeCurrent(m_HDC, NULL);
-		wglDeleteContext(m_hglrc);
-	}
-
-	void OpenGLContext::SwapBuffers()
-	{
-//		glfwSwapBuffers(m_WindowHandle);
-		glSwapBuffers(m_HDC);
-	}
-
-	void OpenGLContext::OnWindowResize(uint32_t width, uint32_t height)
-	{
-//		glfwSetWindowSize(static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow()), width, height);
-		glViewport(0, 0, width, height);
-	}
-
-	void OpenGLContext::makeCurrent()
-	{
-		wglMakeCurrent(m_HDC, m_hglrc);
 	}
 }

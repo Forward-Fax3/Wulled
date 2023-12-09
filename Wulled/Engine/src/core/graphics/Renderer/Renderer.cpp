@@ -1,11 +1,13 @@
 #include "wldpch.h"
 #include "Renderer.h"
+#include "OpenGL/Shader.h"
+
 
 namespace WLD::Graphics::Renderer
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
-	void Renderer::BeginScene(std::shared_ptr<Camera::PerspectiveCamera>& camera)
+	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera>& camera)
 	{
 		m_SceneData->camera = camera;
 	}
@@ -15,12 +17,16 @@ namespace WLD::Graphics::Renderer
 		m_SceneData->camera.reset();
 	}
 
-	void Renderer::Submit(const std::weak_ptr<VertexArray>& vertexArray, const std::weak_ptr<Shader>& shader)
+	void Renderer::Submit(const WLD::Ref<VertexArray>& vertexArray, const WLD::Ref<Shader>& shader, const glm::mat4& transform)
 	{
-		shader.lock()->Bind();
-		shader.lock()->SetUniformMat4fv("u_MVP", m_SceneData->camera->getProjection());
-		vertexArray.lock()->Bind();
-		vertexArray.lock()->GetIndexBuffer()->Bind();
+		shader->Bind();
+		std::dynamic_pointer_cast<OpenGL::OpenGLShader>(shader)->SetUniformMat4fv("u_MVP", m_SceneData->camera->getProjection());
+		std::dynamic_pointer_cast<OpenGL::OpenGLShader>(shader)->SetUniformMat4fv("u_Transform", transform);
+		if (GetAPI() == RendererAPI::API::OpenGL)
+		{
+			vertexArray->Bind();
+			vertexArray->GetIndexBuffer()->Bind();
+		}
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

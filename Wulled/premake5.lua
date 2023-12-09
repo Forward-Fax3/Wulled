@@ -18,8 +18,12 @@ project "Wulled"
 	{
 		"../%{prj.name}",
 
-		"Engine/src/**",
-
+		"Engine/src/core/**",
+		"Engine/src/core",
+		"Engine/src/commandLine",
+		"Engine/src/pch",
+		"Engine/src/platform",
+		
 		"../%{IncludeDir.ImGui}",
 		"../%{IncludeDir.spdlog}",
 		"../%{IncludeDir.glm}",
@@ -57,15 +61,19 @@ project "Wulled"
 --		}
 	
 	filter "configurations:Debug"
+		runtime "Debug"
 		defines 
 		{
 			"_DEBUG",
 			"ENGINE_DEBUG",
+			"DX12_ENABLE_DEBUG_LAYER",
 			"EN_ENABLE_ASSERTS",
 		}
+		optimize "Off"
 		symbols "On"
 	
 	filter "configurations:Release"
+		runtime "Release"
 		defines 
 		{
 			"_RELEASE",
@@ -73,8 +81,10 @@ project "Wulled"
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
+		symbols "On"
 
 	filter "configurations:dist"
+		runtime "Release"
 		defines
 		{
 			"_DIST",

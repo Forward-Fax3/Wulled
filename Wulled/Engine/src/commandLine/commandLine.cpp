@@ -24,14 +24,20 @@ void Command(bool* run)
 		for (char& c : input)
 			c = ::tolower(c);
 
-		if (input == "exit")
+		if (strcmp(input.c_str(), "exit"))
 		{
 			run[0] = false;
 		}
-		else if (input == "restart")
+		else if (strcmp(input.c_str(), "restart"))
 		{
 			run[0] = false;
 			run[1] = true;
+		}
+		else if (strcmp(input.c_str(), "help"))
+		{
+			WLD_CORE_INFO("Commands:");
+			WLD_CORE_INFO("exit - exits the program");
+			WLD_CORE_INFO("restart - restarts the program");
 		}
 		else
 		{

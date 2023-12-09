@@ -45,8 +45,8 @@ namespace WLD
 		virtual WNDCLASS* GetNativeWindowClassPtr() const = 0;
 		virtual WinEventCallBack& GetNativeEventCallback() const = 0;
 		virtual WinEventCallBack* GetNativeEventCallbackPtr() const = 0;
-		virtual Graphics::Renderer::GraphicsContext& GetNativeGraphicsContext() const = 0;
-		virtual Graphics::Renderer::GraphicsContext* GetNativeGraphicsContextPtr() const = 0;
+		virtual Graphics::GraphicsContext& GetNativeGraphicsContext() const = 0;
+		virtual Graphics::GraphicsContext* GetNativeGraphicsContextPtr() const = 0;
 
 		virtual void onWindowResize(uint32_t width, uint32_t height) = 0;
 

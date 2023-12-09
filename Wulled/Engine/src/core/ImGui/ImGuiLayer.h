@@ -34,6 +34,9 @@ namespace WLD
 
 		void APIInit();
 		void APIShutdown();
+		
+		void DX12RenderDrawData();
+		void OpenGLRenderDrawData();
 
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -43,6 +46,7 @@ namespace WLD
 	private:
 		ImGuiIO& init();
 
-		std::function<void()> ImGui_ImplX_NewFrame;
+		void (*ImGui_ImplX_NewFrame)(void);
+		std::function<void()> ImGui_ImplX_RenderDrawData;
 	};
 }

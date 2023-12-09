@@ -19,6 +19,9 @@
     <Filter Include="Engine\src\core\ImGui">
       <UniqueIdentifier>{D44FE61D-40BC-A118-09B0-397675DBC380}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\src\core\Time">
+      <UniqueIdentifier>{088A5AB3-F418-E47C-9D37-F87789A5F422}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\src\core\graphics">
       <UniqueIdentifier>{CA36D3B4-B65B-2235-DFA6-07C5CB2A2153}</UniqueIdentifier>
     </Filter>
@@ -42,6 +45,9 @@
     </Filter>
     <Filter Include="Engine\src\platform\OpenGL">
       <UniqueIdentifier>{9A96497D-86A6-F54D-EF5F-5A6CDB8EE4E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\src\platform\OpenGL\ImGui">
+      <UniqueIdentifier>{441733F1-3068-1E33-59CC-0CF5457CB19C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\src\platform\windows">
       <UniqueIdentifier>{80DCDF1D-ECE9-0D04-75D0-09EFE1DCD9BA}</UniqueIdentifier>
@@ -87,6 +93,9 @@
     <ClInclude Include="Engine\src\core\MouseButtonCodes.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\Time\WLDTime.h">
+      <Filter>Engine\src\core\Time</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\Window.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
@@ -114,6 +123,9 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\texture.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\graphics\camera\PerspectiveCamera.h">
       <Filter>Engine\src\core\graphics\camera</Filter>
     </ClInclude>
@@ -126,34 +138,49 @@
     <ClInclude Include="Engine\src\pch\wldpch.h">
       <Filter>Engine\src\pch</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h">
+    <ClInclude Include="Engine\src\platform\DX12\Buffer.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h">
+    <ClInclude Include="Engine\src\platform\DX12\Context.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h">
+    <ClInclude Include="Engine\src\platform\DX12\RendererAPI.h">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\DX12\Shader.h">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\DX12\VertexArray.h">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\OpenGL\Buffer.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\Context.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\ImGui\VP.h">
+      <Filter>Engine\src\platform\OpenGL\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\OpenGL\RendererAPI.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLShader.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\Shader.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\Texture.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\WinEvent.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\VertexArray.h">
+      <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\windows\Event.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\WinInput.h">
+    <ClInclude Include="Engine\src\platform\windows\Input.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\WinWindow.h">
+    <ClInclude Include="Engine\src\platform\windows\Window.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
     <ClInclude Include="app.h" />
@@ -167,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\core\Log.cpp">
       <Filter>Engine\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\Time\WLDTime.cpp">
+      <Filter>Engine\src\core\Time</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\Window.cpp">
       <Filter>Engine\src\core</Filter>
@@ -195,6 +225,9 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\texture.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp">
       <Filter>Engine\src\core\graphics\camera</Filter>
     </ClCompile>
@@ -207,34 +240,49 @@
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <Filter>Engine\src\pch</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\Buffer.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\Context.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\RendererAPI.cpp">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\Shader.cpp">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\VertexArray.cpp">
+      <Filter>Engine\src\platform\DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\Buffer.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\Context.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\ImGui\VP.cpp">
+      <Filter>Engine\src\platform\OpenGL\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\RendererAPI.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLShader.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\Shader.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\Texture.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\WinEvent.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\VertexArray.cpp">
+      <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\windows\Event.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\WinInput.cpp">
+    <ClCompile Include="Engine\src\platform\windows\Input.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\WinWindow.cpp">
+    <ClCompile Include="Engine\src\platform\windows\Window.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
   </ItemGroup>

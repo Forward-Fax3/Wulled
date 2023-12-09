@@ -69,15 +69,19 @@ project "SandBox"
 		systemversion "latest"
 	
 	filter "configurations:Debug"
+		runtime "Debug"
 		defines 
 		{
 			"_DEBUG",
 			"ENGINE_DEBUG",
+			"DX12_ENABLE_DEBUG_LAYER",
 			"EN_ENABLE_ASSERTS"
 		}
+		optimize "Off"
 		symbols "On"
 	
 	filter "configurations:Release"
+		runtime "Release"
 		defines 
 		{
 			"_RELEASE",
@@ -85,8 +89,10 @@ project "SandBox"
 			"EN_ENABLE_ASSERTS"
 		}
 		optimize "On"
+		symbols "On"
 
 	filter "configurations:dist"
+		runtime "Release"
 		defines
 		{
 			"_DIST",

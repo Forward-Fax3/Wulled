@@ -25,14 +25,14 @@ namespace WLD
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
-		inline virtual HWND& GetNativeWindow()                                            const override { return (HWND&)m_HWND; }
-		inline virtual HWND* GetNativeWindowPtr()                                         const override { return (HWND*)&m_HWND; }
-		inline virtual WNDCLASS& GetNativeWindowClass()                                   const override { return (WNDCLASS&)m_WindowClass; }
-		inline virtual WNDCLASS* GetNativeWindowClassPtr()                                const override { return (WNDCLASS*)&m_WindowClass; }
-		inline virtual WinEventCallBack& GetNativeEventCallback()                         const override { return (WinEventCallBack&)*m_WindowEvent; }
-		inline virtual WinEventCallBack* GetNativeEventCallbackPtr()                      const override { return (WinEventCallBack*)m_WindowEvent; }
-		inline virtual Graphics::Renderer::GraphicsContext& GetNativeGraphicsContext()    const override { return (Graphics::Renderer::GraphicsContext&)*m_Context; }
-		inline virtual Graphics::Renderer::GraphicsContext* GetNativeGraphicsContextPtr() const override { return (Graphics::Renderer::GraphicsContext*)m_Context; }
+		inline virtual HWND& GetNativeWindow()                                  const override { return (HWND&)m_HWND; }
+		inline virtual HWND* GetNativeWindowPtr()                               const override { return (HWND*)&m_HWND; }
+		inline virtual WNDCLASS& GetNativeWindowClass()                         const override { return (WNDCLASS&)m_WindowClass; }
+		inline virtual WNDCLASS* GetNativeWindowClassPtr()                      const override { return (WNDCLASS*)&m_WindowClass; }
+		inline virtual WinEventCallBack& GetNativeEventCallback()               const override { return (WinEventCallBack&)*m_WindowEvent; }
+		inline virtual WinEventCallBack* GetNativeEventCallbackPtr()            const override { return (WinEventCallBack*)m_WindowEvent; }
+		inline virtual Graphics::GraphicsContext& GetNativeGraphicsContext()    const override { return (Graphics::GraphicsContext&)*m_Context; }
+		inline virtual Graphics::GraphicsContext* GetNativeGraphicsContextPtr() const override { return (Graphics::GraphicsContext*)m_Context; }
 		
 		virtual void onWindowResize(uint32_t width, uint32_t height) override { m_Context->OnWindowResize(width, height); }
 
@@ -54,7 +54,7 @@ namespace WLD
 		WNDCLASSEXW m_WindowClass;
 		HWND m_HWND;
 
-		Graphics::Renderer::GraphicsContext* m_Context;
+		Graphics::GraphicsContext* m_Context;
 
 
 		WindowData m_Data;

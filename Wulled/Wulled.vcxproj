@@ -75,8 +75,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;_DEBUG;ENGINE_DEBUG;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -110,6 +111,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -123,7 +125,7 @@
       <PrecompiledHeaderFile>wldpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\commandLine;Engine\src\core;Engine\src\pch;Engine\src\platform;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform;Engine\vendor\proj\git\imgui;Engine\vendor\proj\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -159,6 +161,7 @@
     <ClInclude Include="Engine\src\core\KeyCodes.h" />
     <ClInclude Include="Engine\src\core\Log.h" />
     <ClInclude Include="Engine\src\core\MouseButtonCodes.h" />
+    <ClInclude Include="Engine\src\core\Time\WLDTime.h" />
     <ClInclude Include="Engine\src\core\Window.h" />
     <ClInclude Include="Engine\src\core\application.h" />
     <ClInclude Include="Engine\src\core\graphics\GraphicsContext.h" />
@@ -168,26 +171,33 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\RendererAPI.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\texture.h" />
     <ClInclude Include="Engine\src\core\graphics\camera\PerspectiveCamera.h" />
     <ClInclude Include="Engine\src\core\layers\Layer.h" />
     <ClInclude Include="Engine\src\core\layers\LayerStack.h" />
     <ClInclude Include="Engine\src\pch\wldpch.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h" />
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="Engine\src\platform\windows\WinEvent.h" />
-    <ClInclude Include="Engine\src\platform\windows\WinInput.h" />
-    <ClInclude Include="Engine\src\platform\windows\WinWindow.h" />
+    <ClInclude Include="Engine\src\platform\DX12\Buffer.h" />
+    <ClInclude Include="Engine\src\platform\DX12\Context.h" />
+    <ClInclude Include="Engine\src\platform\DX12\RendererAPI.h" />
+    <ClInclude Include="Engine\src\platform\DX12\Shader.h" />
+    <ClInclude Include="Engine\src\platform\DX12\VertexArray.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\Buffer.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\Context.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\ImGui\VP.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\RendererAPI.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\Shader.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\Texture.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\VertexArray.h" />
+    <ClInclude Include="Engine\src\platform\windows\Event.h" />
+    <ClInclude Include="Engine\src\platform\windows\Input.h" />
+    <ClInclude Include="Engine\src\platform\windows\Window.h" />
     <ClInclude Include="app.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\src\commandLine\commandLine.cpp" />
     <ClCompile Include="Engine\src\core\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Engine\src\core\Log.cpp" />
+    <ClCompile Include="Engine\src\core\Time\WLDTime.cpp" />
     <ClCompile Include="Engine\src\core\Window.cpp" />
     <ClCompile Include="Engine\src\core\application.cpp" />
     <ClCompile Include="Engine\src\core\graphics\GraphicsContext.cpp" />
@@ -197,22 +207,50 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\RendererAPI.cpp" />
     <ClCompile Include="Engine\src\core\graphics\Renderer\Shader.cpp" />
     <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\texture.cpp" />
     <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp" />
     <ClCompile Include="Engine\src\core\layers\Layer.cpp" />
     <ClCompile Include="Engine\src\core\layers\LayerStack.cpp" />
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='dist|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp" />
-    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="Engine\src\platform\windows\WinEvent.cpp" />
-    <ClCompile Include="Engine\src\platform\windows\WinInput.cpp" />
-    <ClCompile Include="Engine\src\platform\windows\WinWindow.cpp" />
+    <ClCompile Include="Engine\src\platform\DX12\Buffer.cpp">
+      <ObjectFileName>$(IntDir)\Buffer1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\Context.cpp" />
+    <ClCompile Include="Engine\src\platform\DX12\RendererAPI.cpp">
+      <ObjectFileName>$(IntDir)\RendererAPI1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\Shader.cpp">
+      <ObjectFileName>$(IntDir)\Shader1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\DX12\VertexArray.cpp">
+      <ObjectFileName>$(IntDir)\VertexArray1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\Buffer.cpp">
+      <ObjectFileName>$(IntDir)\Buffer2.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\Context.cpp">
+      <ObjectFileName>$(IntDir)\Context1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\ImGui\VP.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\RendererAPI.cpp">
+      <ObjectFileName>$(IntDir)\RendererAPI2.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\Shader.cpp">
+      <ObjectFileName>$(IntDir)\Shader2.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\Texture.cpp">
+      <ObjectFileName>$(IntDir)\Texture1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\OpenGL\VertexArray.cpp">
+      <ObjectFileName>$(IntDir)\VertexArray2.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\windows\Event.cpp" />
+    <ClCompile Include="Engine\src\platform\windows\Input.cpp" />
+    <ClCompile Include="Engine\src\platform\windows\Window.cpp">
+      <ObjectFileName>$(IntDir)\Window1.obj</ObjectFileName>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Engine\vendor\proj\git\ImGui\ImGui.vcxproj">

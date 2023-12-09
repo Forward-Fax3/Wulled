@@ -1,7 +1,7 @@
 #include "wldpch.h"
-#include "log.h"
-
-#include "OpenGLShader.h"
+// #define EN_ENABLE_ASSERTS
+#include "OpenGL/Shader.h"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "glatter/glatter.h"
 
@@ -73,8 +73,9 @@ namespace WLD::Graphics::OpenGL
 
 			// Use the infoLog as you see fit.
 
-			WLD_CORE_FATAL
+			WLD_CORE_ASSERT
 			(
+				false,
 				"Fragment shader compilation failure!\n"
 				"{0}",
 				infoLog.data()
@@ -142,8 +143,43 @@ namespace WLD::Graphics::OpenGL
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetUniformMat4fv(std::string_view name, glm::mat4 MVP)
+	void OpenGLShader::SetUniformInt(std::string_view name, const int value)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.data()), 1, GL_FALSE, &MVP[0][0]);
+		glUniform1i(glGetUniformLocation(m_RendererID, name.data()), value);
+	}
+
+	void OpenGLShader::SetUniformFloat(std::string_view name, const float value)
+	{
+		glUniform1f(glGetUniformLocation(m_RendererID, name.data()), value);
+	}
+
+	void OpenGLShader::SetUniformFloat2(std::string_view name, const glm::vec2& values)
+	{
+		glUniform2f(glGetUniformLocation(m_RendererID, name.data()), values.x, values.y);
+	}
+
+	void OpenGLShader::SetUniformFloat3(std::string_view name, const glm::vec3& values)
+	{
+		glUniform3f(glGetUniformLocation(m_RendererID, name.data()), values.x, values.y, values.z);
+	}
+
+	void OpenGLShader::SetUniformFloat4(std::string_view name, const glm::vec4& values)
+	{
+		glUniform4f(glGetUniformLocation(m_RendererID, name.data()), values.x, values.y, values.z, values.w);
+	}
+
+	void OpenGLShader::SetUniformMat2fv(std::string_view name, const glm::mat2& matrix)
+	{
+		glUniformMatrix2fv(glGetUniformLocation(m_RendererID, name.data()), 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	void OpenGLShader::SetUniformMat3fv(std::string_view name, const glm::mat3& matrix)
+	{
+		glUniformMatrix3fv(glGetUniformLocation(m_RendererID, name.data()), 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	void OpenGLShader::SetUniformMat4fv(std::string_view name, const glm::mat4& matrix)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.data()), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

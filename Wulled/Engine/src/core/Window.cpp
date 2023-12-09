@@ -3,7 +3,7 @@
 #include "EngineCore.h"
 #include "log.h"
 
-#include "WinWindow.h"
+#include "Windows/Window.h"
 
 
 namespace WLD
@@ -11,7 +11,7 @@ namespace WLD
 	Window* Window::Create(const WindowProps& props)
 	{
 		Window* window = new(std::nothrow) WinWindow(props);
-		WLD_ASSERT(window, "Failed to create window!");
+		WLD_CORE_ASSERT(window, "Failed to create window!");
 		return window;
 	}
 }

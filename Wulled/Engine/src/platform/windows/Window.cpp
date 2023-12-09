@@ -1,5 +1,5 @@
 #include "wldpch.h"
-#include "WinWindow.h"
+#include "Windows/Window.h"
 #include "Renderer.h"
 
 #include "log.h"
@@ -10,11 +10,10 @@
 #include "KeyEvent.h"
 #include "MouseEvent.h"
 #include "application.h"
-#include "WinEvent.h"
+#include "Windows/Event.h"
 
 #include "KeyCodes.h"
 #include "MouseButtonCodes.h"
-#include "OpenGLContext.h"
 
 #include <future>
 
@@ -112,9 +111,11 @@ namespace WLD
 			}
 		}
 
-		m_Context = Graphics::Renderer::GraphicsContext::createGraphicsContext(&m_HWND);
-		m_Context->Init();
-
+		m_Context = Graphics::GraphicsContext::createGraphicsContext(&m_HWND);
+		m_Context->CreateDevice();
+		m_Context->MakeCurrent();
+		m_Context->Info();
+		
 		::ShowWindow(m_HWND, SW_SHOWDEFAULT);
 		::UpdateWindow(m_HWND);
 
@@ -203,18 +204,28 @@ namespace WLD
 		m_Context->Shutdown();
 		::DestroyWindow(m_HWND);
 		::UnregisterClassW(m_WindowClass.lpszClassName, m_WindowClass.hInstance);
+		delete m_Context;
+		delete m_WindowEvent;
+		s_WindowEvent = nullptr;
 		delete[] m_Data.TitleC;
 	}
 
 	void WinWindow::OnUpdate()
 	{
-//		glfwPollEvents();
+		MSG msg;
+
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
 		m_Context->SwapBuffers();
+		WLD::Graphics::Renderer::RenderCommand::Clear();
 	}
 
 	void WinWindow::SetVSync(bool enabled)
 	{
-//		glfwSwapInterval((int32_t)enabled);
 		m_Data.VSync = enabled;
 	}
 

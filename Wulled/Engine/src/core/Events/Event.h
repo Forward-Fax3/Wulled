@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/src/Core/EngineCore.h"
-#define __
+#include <string>
 #include <stdint.h>
 
 

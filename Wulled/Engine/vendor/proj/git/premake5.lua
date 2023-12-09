@@ -90,10 +90,6 @@ project "ImGui"
 		filter "system:windows"
 			systemversion "latest"
 
-		filter "system:linux"
-			pic "On"
-			systemversion "latest"
-
 		filter "configurations:Debug"
 			runtime "Debug"
 			symbols "on"
@@ -209,7 +205,7 @@ project "DXTK12"
 	{
 		"d3d12.lib",
 		"dxgi.lib",
-		"d3dcompiler.lib"
+		"d3dcompiler.lib",
 	}
 
 	systemversion "latest"
@@ -219,6 +215,10 @@ project "DXTK12"
 	filter "configurations:Debug"
 	runtime "Debug"
 	symbols "on"
+	defines
+	{
+		"DX12_ENABLE_DEBUG_LAYER",
+	}
 
 	filter "configurations:Release"
 	runtime "Release"

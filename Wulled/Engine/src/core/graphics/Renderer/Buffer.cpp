@@ -4,8 +4,8 @@
 
 #include "Renderer.h"
 #include "Buffer.h"
-#include "OpenGLBuffer.h"
-#include "DX12Buffer.h"
+#include "OpenGL/Buffer.h"
+#include "DX12/Buffer.h"
 
 
 namespace WLD::Graphics::Renderer::Buffers
@@ -53,7 +53,7 @@ namespace WLD::Graphics::Renderer::Buffers
 		case ShaderDataType::Int4:		return 4 * 4;
 		case ShaderDataType::Bool:		return 1;
 
-		default: WLD_ASSERT(false, "Unknown ShaderDataType!"); return 0;
+		default: WLD_CORE_ASSERT(false, "Unknown ShaderDataType!"); return 0;
 		}
 	}
 
@@ -73,7 +73,7 @@ namespace WLD::Graphics::Renderer::Buffers
 		case ShaderDataType::Int4:		return 4;
 		case ShaderDataType::Bool:		return 1;
 
-		default: WLD_ASSERT(false, "Unknown ShaderDataType!"); return 0;
+		default: WLD_CORE_ASSERT(false, "Unknown ShaderDataType!"); return 0;
 		}
 	}
 

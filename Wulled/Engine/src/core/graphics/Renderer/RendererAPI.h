@@ -15,8 +15,6 @@ namespace WLD::Graphics::Renderer
 			OpenGL,
 //			DirectX11,
 			DirectX12,
-			DX12 = DirectX12,
-			D3D12 = DirectX12,
 		};
 
 	public:
@@ -24,9 +22,10 @@ namespace WLD::Graphics::Renderer
 
 		virtual void DrawIndexed(const std::weak_ptr<VertexArray>& vertexArray) = 0;
 
-		inline static API GetAPI() { return s_API; }
-		inline static void SetAPI(API api) { s_NextAPI = api; }
-		inline static void updateAPI() { s_API = s_NextAPI; }
+		static inline API GetAPI() { return s_API; }
+		static inline void SetNextAPI(API api) { s_NextAPI = api; }
+		static inline void SetAPI(API api) { s_API = api; }
+		static inline void updateAPI() { s_API = s_NextAPI; }
 
 	private:
 		static API s_API;

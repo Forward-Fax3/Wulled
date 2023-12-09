@@ -11,19 +11,20 @@ extern WLD::Application* WLD::CreateApplication(bool* run, int argc, char** argv
 int main(int argc, char** argv)
 {
 	WLD::Log::Init();
-	bool* run = new bool[3]; // 0 - run, 1 - restart
+	bool* run = new bool[4]; // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
 	std::thread command(Command, run);
 	command.detach();
 	run[2] = false;
+	run[3] = false;
 
 	do 
 	{
 		WLD::Graphics::Renderer::RendererAPI::updateAPI();
-		run[0] = true; // set run to true
-		run[1] = false; // set restart to false console will set it to true if restart is needed
+		run[0] = true;  // set run to true
+		run[1] = false; // set restart to false
 		WLD::Application* application = WLD::CreateApplication(run, argc, argv);
 		application->run();
-		delete application;	
+		delete application;
 	
 	} while (run[1]);
 

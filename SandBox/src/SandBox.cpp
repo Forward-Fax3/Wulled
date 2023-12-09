@@ -2,28 +2,28 @@
 #include "app.h"
 #include "apiset.h"
 #include "Engine/src/core/Log.h"
+#include "glm/gtx/transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "Engine/src/platform/OpenGL/Shader.h"
 
 #include <iostream>
 
-
 namespace std
 {
-	pair<LONG, LONG> operator-(const pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
+	static pair<LONG, LONG> operator-(const pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
 	{
 		return { lhs.first - rhs.first, lhs.second - rhs.second };
 	}
 
-	pair<LONG, LONG> operator+=(pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
+	static pair<LONG, LONG> operator+=(pair<LONG, LONG>& lhs, const pair<LONG, LONG>& rhs)
 	{
 		lhs.first += rhs.first;
-		lhs.second += rhs.second;
+		lhs.second -= rhs.second;
 		return lhs;
 	}
 }
 
 #define toFloat(x) static_cast<float>(x)
-
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
 
 class ExampleLayer : public WLD::Layer
@@ -68,11 +68,12 @@ public:
 
 			out vec4 v_Colour;
 			uniform mat4 u_MVP;
+			uniform mat4 u_Transform;
 			
 			void main()
 			{
 				v_Colour = a_Colour;
-				gl_Position = u_MVP * vec4(a_Position, 1.0);
+				gl_Position = u_MVP * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -93,10 +94,10 @@ public:
 		// background data
 		float backgroundVertices[] =
 		{
-			-1.0f, -1.0f, 0.0f,
-			-1.0f,  1.0f, 0.0f,
-			 1.0f,  1.0f, 0.0f,
-			 1.0f, -1.0f, 0.0f
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+			 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+			 1.0f, -1.0f, 0.0f, 1.0f, 0.0f
 		};
 
 		uint32_t backgroundIndices[] =
@@ -123,9 +124,42 @@ public:
 			
 			layout(location = 0) out vec4 colour;
 			
+			uniform vec3 u_Colour;
+
 			void main()
 			{
-				colour = vec4(1.0f, 105.0f / 255.0f, 180.0f / 255.0f, 1.0f);
+				colour = vec4(u_Colour, 1.0f);
+			}
+		)";
+
+		// texture shader data
+		std::string_view TexureVertexSrc =
+		R"(
+			#version 460 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			out vec2 v_TexCoord;
+			
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string_view TexureFragmentSrc =
+		R"(
+			#version 460 core
+			
+			layout(location = 0) out vec4 colour;
+			
+			in vec2 v_TexCoord;
+
+			void main()
+			{
+				colour = vec4(v_TexCoord, 0.0, 1.0f);
 			}
 		)";
 
@@ -158,12 +192,17 @@ public:
 
 		vertexBuffer->SetLayout
 		({
-			{ WLD::Graphics::Renderer::Buffers::ShaderDataType::Float3, "a_Position" }
+			{ WLD::Graphics::Renderer::Buffers::ShaderDataType::Float3, "a_Position" },
+			{ WLD::Graphics::Renderer::Buffers::ShaderDataType::Float2, "a_TexCoord" }
 		});
 
 		m_BackgroundVA->AddVertexBuffer(vertexBuffer);
 		m_BackgroundVA->SetIndexBuffer(indexBuffer);
 
+		// texture shader creation
+		m_TextureShader.reset(WLD::Graphics::Renderer::Shader::Create(TexureVertexSrc, TexureFragmentSrc));
+
+		// camera creation
 		WLD::Window& window = WLD::Application::Get().GetWindow();
 		m_Camera.reset(new WLD::Graphics::Camera::PerspectiveCamera(45.0f, toFloat(window.GetHeight()), toFloat(window.GetWidth()), 0.001f, 100.0f));
 		m_Camera->setUp({ 0.0f, 1.0f, 0.0f });
@@ -171,15 +210,23 @@ public:
 
 	void OnUpdate() override
 	{
-		WLD::Graphics::Renderer::RenderCommand::Clear();
 		WLD::Graphics::Renderer::Renderer::BeginScene(m_Camera);
+		m_BackgroundShader->Bind();
+		std::dynamic_pointer_cast<WLD::Graphics::OpenGL::OpenGLShader>(m_BackgroundShader)->SetUniformFloat3("u_Colour", m_SetColour);
 		WLD::Graphics::Renderer::Renderer::Submit(m_BackgroundVA, m_BackgroundShader);
+		WLD::Graphics::Renderer::Renderer::Submit(m_BackgroundVA, m_TextureShader);
 
-		std::pair<double, double> rotation = getRotation();
+		std::pair<LONG, LONG> rotation = getRotation();
 		m_Camera->setFront({toFloat(rotation.first / 2.0), toFloat(rotation.second / 2.0), 0.0f});
 		m_Camera->setPos(getMovement(m_CamSpeed));
 		
-		WLD::Graphics::Renderer::Renderer::Submit(m_MultiColourVertexArray, m_MultiColourShader);
+		for (float i = -2.0f; i < 3.0f; i += 1.0f)
+			for (float j = -2.0f; j < 3.0f; j += 1.0f)
+			{
+				glm::vec3 translation(i * 1.1f, 0.0f, j * 1.1f);
+				glm::mat4 transform(glm::translate(glm::mat4(1.0f), translation));
+				WLD::Graphics::Renderer::Renderer::Submit(m_MultiColourVertexArray, m_MultiColourShader, transform);
+			}
 		WLD::Graphics::Renderer::Renderer::EndScene();
 	}
 
@@ -190,15 +237,20 @@ public:
 
 		ImGui::Begin("3D Object");
 		ImGui::Text("Rotation");
-		ImGui::SliderFloat3("x, y, z", &rot.x, -360.0f, 360.0f);
+		ImGui::SliderFloat3("x, y, z", glm::value_ptr(rot), -180.0f, 180.0f);
 		ImGui::Separator();
 		ImGui::Text("Position");
-		ImGui::SliderFloat3("x, y, z ", &pos.x, -10.0f, 10.0f);
+		ImGui::SliderFloat3("x, y, z ", glm::value_ptr(pos), -10.0f, 10.0f);
 		ImGui::End();
 
 		ImGui::Begin("Camera");
 		ImGui::Text("Speed");
 		ImGui::SliderFloat("speed", &m_CamSpeed, 0.0f, 10.0f, "%.1f");
+		ImGui::End();
+
+		ImGui::Begin("Background");
+		ImGui::Text("Colour");
+		ImGui::ColorEdit3("colour", glm::value_ptr(m_SetColour));
 		ImGui::End();
 
 		m_Camera->setPosition(pos);
@@ -216,14 +268,14 @@ private:
 	{
 		float x = 0.0f, y = 0.0f, z = 0.0f;
 
-		float deltaTime = toFloat(WLD::Application::Get().GetDeltaTime());
+		float deltaTime = WLD::Time::GetDeltaTime();
 
-		if (WLD::Input::IsKeyPressed(WLD_KEY_UP)        || WLD::Input::IsKeyPressed(WLD_KEY_W))	x += speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_DOWN)      || WLD::Input::IsKeyPressed(WLD_KEY_S))	x -= speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_UP)   || WLD::Input::IsKeyPressed(WLD_KEY_R)) y += speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_PAGE_DOWN) || WLD::Input::IsKeyPressed(WLD_KEY_F))	y -= speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_RIGHT)     || WLD::Input::IsKeyPressed(WLD_KEY_D))	z += speed * deltaTime;
-		if (WLD::Input::IsKeyPressed(WLD_KEY_LEFT)      || WLD::Input::IsKeyPressed(WLD_KEY_A))	z -= speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_W)) x += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_S)) x -= speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_R)) y += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_F)) y -= speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_D)) z += speed * deltaTime;
+		if (WLD::Input::IsKeyPressed(WLD_KEY_A)) z -= speed * deltaTime;
 
 		return { x, y, z };
 	}
@@ -256,14 +308,17 @@ private:
 	}
 
 private:
-	std::shared_ptr<WLD::Graphics::Renderer::Shader> m_MultiColourShader;
-	std::shared_ptr<WLD::Graphics::Renderer::VertexArray> m_MultiColourVertexArray;
+	WLD::Ref<WLD::Graphics::Renderer::Shader> m_MultiColourShader;
+	WLD::Ref<WLD::Graphics::Renderer::VertexArray> m_MultiColourVertexArray;
 
-	std::shared_ptr<WLD::Graphics::Renderer::Shader> m_BackgroundShader;
-	std::shared_ptr<WLD::Graphics::Renderer::VertexArray> m_BackgroundVA;
-	std::shared_ptr<WLD::Graphics::Camera::PerspectiveCamera> m_Camera;
+	WLD::Ref<WLD::Graphics::Renderer::Shader> m_BackgroundShader;
+	WLD::Ref<WLD::Graphics::Renderer::Shader> m_TextureShader;
+	WLD::Ref<WLD::Graphics::Renderer::VertexArray> m_BackgroundVA;
+
+	WLD::Ref<WLD::Graphics::Camera::PerspectiveCamera> m_Camera;
 
 	float m_CamSpeed;
+	glm::vec3 m_SetColour = { 255.0f/255.0f, 105.0f/255.0f, 180.0f/255.0f };
 };
 
 class SandBox : public WLD::Application
@@ -284,22 +339,23 @@ public:
 
 WLD::Application* WLD::CreateApplication(bool* run, int argc, char** argv)
 {
-	if (argc > 1 && run[2] == false)
+	if (argc > 1 && !run[2] && !run[3])
 	{
-		if (strcmp(argv[1], "-opengl"))
+		if (!strcmp(argv[1], "-opengl"))
 		{
 			WLD::Graphics::Renderer::Renderer::SetAPI(WLD::Graphics::Renderer::RendererAPI::API::OpenGL);
 			run[2] = true;
 		}
-		else if (strcmp(argv[1], "-dx12"))
+		else if (!strcmp(argv[1], "-dx12"))
 		{
 			WLD::Graphics::Renderer::Renderer::SetAPI(WLD::Graphics::Renderer::RendererAPI::API::DirectX12);
 			run[2] = true;
 		}
 	}
 
-	if (!run[2])
+	if (!run[2] || run[3])
 	{
+		run[3] = false;
 		return new SetAPI(run);
 	}
 

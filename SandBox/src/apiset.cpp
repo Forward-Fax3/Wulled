@@ -29,13 +29,13 @@ void SetAPILayer::OnImGuiDraw()
 	if (currentAPI != RendererAPI::API::OpenGL && isOpenGL)
 	{
 		currentAPI = RendererAPI::API::OpenGL;
-		Renderer::SetAPI(currentAPI);
+		Renderer::SetNextAPI(currentAPI);
 		isDx12 = false;
 	}
 	else if (currentAPI != RendererAPI::API::DirectX12 && isDx12)
 	{
 		currentAPI = RendererAPI::API::DirectX12;
-		Renderer::SetAPI(currentAPI);
+		Renderer::SetNextAPI(currentAPI);
 		isOpenGL = false;
 	}
 
