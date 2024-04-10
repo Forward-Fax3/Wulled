@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;..\Wulled\Engine\vendor\proj\git\STB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;..\Wulled\Engine\vendor\proj\git\STB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -121,7 +121,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\proj\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\glatter\include;..\Wulled\Engine\vendor\proj\git\STB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>

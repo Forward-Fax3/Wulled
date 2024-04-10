@@ -7,8 +7,10 @@ namespace WLD::Graphics::dx12
 {
 	class WLD_API DX12RendererAPI : public Renderer::RendererAPI
 	{
+	public:
+		virtual void Init() override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const std::weak_ptr<Renderer::VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<Renderer::VertexArray>& vertexArray) override;
 	};
 }

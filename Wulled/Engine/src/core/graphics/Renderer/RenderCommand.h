@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine/src/core/WLDMem.h"
 #include "Engine/src/core/EngineCore.h"
 #include "Engine/src/core/graphics/Renderer/RendererAPI.h"
 
@@ -9,13 +10,15 @@ namespace WLD::Graphics::Renderer
 	{
 	public:
 		static void CreateRendererAPI();
-		inline static void DeleteRendererAPI() { delete s_RendererAPI; }
+		static void DeleteRendererAPI();
+
+		inline static void Init() { s_RendererAPI->Init(); }
 
 		inline static void Clear() { s_RendererAPI->Clear(); }
 
-		inline static void DrawIndexed(const std::weak_ptr<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
 
 	private:
-		inline static RendererAPI* s_RendererAPI;
+		static RendererAPI* s_RendererAPI;
 	};
 }

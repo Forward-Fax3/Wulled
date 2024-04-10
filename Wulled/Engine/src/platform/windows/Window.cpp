@@ -1,6 +1,8 @@
 #include "wldpch.h"
+#include "WLDMem.h"
 #include "Windows/Window.h"
 #include "Renderer.h"
+#include "RendererAPI.h"
 
 #include "log.h"
 #include "EngineCore.h"
@@ -39,7 +41,7 @@ void ErrorExit(LPTSTR lpszFunction)
 		return;
 	}
 
-	StringCchPrintfW(lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("%s failed with error %d: %s"), lpszFunction, dw, lpMsgBuf);
+	StringCchPrintfW(lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("%s failed with error %d: %s"), lpszFunction, dw, (void*)lpMsgBuf);
 	MessageBoxW(NULL, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK);
 
 	LocalFree(lpMsgBuf);
@@ -67,11 +69,11 @@ namespace WLD
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-		m_WindowEvent = new WinEvent();
+		m_WindowEvent = CreateMemory(WinEvent);
 		s_WindowEvent = &m_WindowEvent;
 
 		size_t outSize;
-		m_Data.TitleC = new char[wcslen(props.Title) + 1];
+		m_Data.TitleC = CreateArray(char, wcslen(props.Title) + 1);
 		wcstombs_s(&outSize, m_Data.TitleC, wcslen(props.Title) + 1, props.Title, wcslen(props.Title));
 		
 		WLD_CORE_INFO("Creating window {0} ({1}, {2})", m_Data.TitleC, props.Width, props.Height);
@@ -111,7 +113,7 @@ namespace WLD
 			}
 		}
 
-		m_Context = Graphics::GraphicsContext::createGraphicsContext(&m_HWND);
+		m_Context = Graphics::GraphicsContext::createGraphicsContext(&m_HWND, props);
 		m_Context->CreateDevice();
 		m_Context->MakeCurrent();
 		m_Context->Info();
@@ -195,25 +197,23 @@ namespace WLD
 		m_WindowEvent->setCursorPosCallback([&](HWND window, int xpos, int ypos)
 		{
 			MouseMovedEvent event(static_cast<float>(xpos), static_cast<float>(ypos));
-			m_Data.EventCallback(event);;
+			m_Data.EventCallback(event);
 		});
 	}
 
 	void WinWindow::Shutdown()
 	{
-		m_Context->Shutdown();
 		::DestroyWindow(m_HWND);
 		::UnregisterClassW(m_WindowClass.lpszClassName, m_WindowClass.hInstance);
-		delete m_Context;
-		delete m_WindowEvent;
+		m_Context = DestroyMemory(m_Context);
+		m_WindowEvent = DestroyMemory(m_WindowEvent);
 		s_WindowEvent = nullptr;
-		delete[] m_Data.TitleC;
+		m_Data.TitleC = DestroyMemory(m_Data.TitleC);
 	}
 
 	void WinWindow::OnUpdate()
 	{
 		MSG msg;
-
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);

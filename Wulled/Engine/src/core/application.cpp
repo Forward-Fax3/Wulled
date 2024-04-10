@@ -5,7 +5,9 @@
 #include "Windows/Window.h"
 #include "ApplicationEvent.h"
 #include "application.h"
+#include "Renderer.h"
 #include "RenderCommand.h"
+#include "WLDMem.h"
 
 
 namespace WLD
@@ -13,25 +15,28 @@ namespace WLD
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(bool* run)
-		: m_run(run), m_LayerStack(new LayerStack)
+		: m_run(run)
 	{
 		WLD_CORE_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
-		m_Time = new Time();
+		m_LayerStack = CreateScope(LayerStack);
+		m_Time = CreateMemory(Time);
 		PushLayer(m_Time);
 
-		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(L"SandBox", 1920, 1080)));
+		m_Window = Window::Create(WindowProps(L"SandBox", 1920, 1080));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-		Graphics::Renderer::RenderCommand::CreateRendererAPI();
 
-		m_ImGuiLayer = new ImGuiLayer();
+		Graphics::Renderer::Renderer::Init();
+
+		m_ImGuiLayer = CreateMemory(ImGuiLayer);
 		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
 		s_Instance = nullptr;
-		Graphics::Renderer::RenderCommand::DeleteRendererAPI();
+		DestroyScope(m_LayerStack);
+		Graphics::Renderer::Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -43,7 +48,19 @@ namespace WLD
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack->PushOverlay(overlay);
-		overlay->OnAttach(); 
+		overlay->OnAttach();
+	}
+
+	void WLD::Application::PopLayer(Layer* layer)
+	{
+		m_LayerStack->PopLayer(layer);
+		layer->OnDetach();
+	}
+
+	void WLD::Application::PopOverlay(Layer* overlay)
+	{
+		m_LayerStack->PopOverlay(overlay);
+		overlay->OnDetach();
 	}
 
 	void Application::OnEvent(Event& e)
@@ -73,6 +90,7 @@ namespace WLD
 			m_ImGuiLayer->end();
 
 			m_Window->OnUpdate();
+			m_LayerStack->OnUpdate();
 		}
 	}
 

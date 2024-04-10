@@ -3,6 +3,11 @@
 #include "Engine/src/core/EngineCore.h"
 
 
+namespace WLD
+{
+	struct WLD_API WindowProps;
+}
+
 namespace WLD::Graphics
 {
 	class WLD_API GraphicsContext
@@ -15,7 +20,8 @@ namespace WLD::Graphics
 		virtual void MakeCurrent() = 0;
 		virtual void Info() = 0;
 
-		static GraphicsContext* createGraphicsContext(HWND* window);
-
+		static GraphicsContext* createGraphicsContext(HWND* window, const WindowProps& Data);
 	};
 }
+
+#include "Engine/src/core/Window.h"

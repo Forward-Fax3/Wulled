@@ -11,7 +11,7 @@
 
 
 // simple command line interface for the program
-void Command(bool* run)
+void Command(bool* run) // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
 {
 	std::string input;
 
@@ -24,16 +24,16 @@ void Command(bool* run)
 		for (char& c : input)
 			c = ::tolower(c);
 
-		if (strcmp(input.c_str(), "exit"))
+		if (!strcmp(input.c_str(), "exit"))
 		{
 			run[0] = false;
 		}
-		else if (strcmp(input.c_str(), "restart"))
+		else if (!strcmp(input.c_str(), "restart"))
 		{
 			run[0] = false;
 			run[1] = true;
 		}
-		else if (strcmp(input.c_str(), "help"))
+		else if (!strcmp(input.c_str(), "help"))
 		{
 			WLD_CORE_INFO("Commands:");
 			WLD_CORE_INFO("exit - exits the program");

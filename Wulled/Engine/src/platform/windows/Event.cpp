@@ -27,60 +27,60 @@ namespace WLD
 		{
 		case WM_CLOSE:
 			m_WindowCloseCallback(hwnd);
-			return true;
+			return 0;
 		case WM_SIZE:
-{
+		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
 			if (m_WindowResizeCallback)
 				m_WindowResizeCallback(hwnd, width, height);
-			return true;
+			return 0;
 		}
 		case WM_KEYDOWN:
 		{
 			m_KeyCallback(hwnd, wParam, NULL, WLD_PRESS, NULL);
-			return true;
+			return 0;
 		}
 		case WM_KEYUP:
 		{
 			m_KeyCallback(hwnd, wParam, NULL, WLD_RELEASE, NULL);
-			return true;
+			return 0;
 		}
 		case WM_LBUTTONDOWN:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_LEFT, WLD_PRESS, 0);
-			return true;
+			return 0;
 		}
 		case WM_LBUTTONUP:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_LEFT, WLD_RELEASE, 0);
-			return true;
+			return 0;
 		}
 		case WM_MBUTTONDOWN:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_MIDDLE, WLD_PRESS, 0);
-			return true;
+			return 0;
 		}
 		case WM_MBUTTONUP:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_MIDDLE, WLD_RELEASE, 0);
-			return true;
+			return 0;
 		}
 		case WM_RBUTTONDOWN:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_RIGHT, WLD_PRESS, 0);
-			return true;
+			return 0;
 		}
 		case WM_RBUTTONUP:
 		{
 			m_MouseButtonCallback(hwnd, WLD_MOUSE_BUTTON_RIGHT, WLD_RELEASE, 0);
-			return true;
+			return 0;
 		}
 		case WM_MOUSEWHEEL:
 		{
 			int delta = GET_WHEEL_DELTA_WPARAM(wParam);
 			m_ScrollCallback(hwnd, (double)0, (double)delta);
-			return true;
+			return 0;
 		}
 		case WM_MOUSEMOVE:
 		{
@@ -88,7 +88,7 @@ namespace WLD
 			int ypos = GET_Y_LPARAM(lParam);
 
 			m_CursorPosCallback(hwnd, xpos, ypos);
-			return true;
+			return 0;
 		}
 		case WM_PAINT:
 		{
@@ -100,7 +100,7 @@ namespace WLD
 			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
 
 			EndPaint(hwnd, &ps);
-			return true;
+			return 0;
 		}
 		default: return DefWindowProc(hwnd, uMsg, wParam, lParam);
 		}

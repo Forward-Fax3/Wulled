@@ -20,11 +20,11 @@ namespace WLD::Graphics::dx12
 	{
 	}
 
-	void DX12VertexArray::AddVertexBuffer(const Ref<Renderer::Buffers::VertexBuffer>& vertexBuffer)
+	void DX12VertexArray::AddVertexBuffer(const WLD::Ref<Renderer::Buffers::VertexBuffer>& vertexBuffer)
 	{
 	}
 
-	void DX12VertexArray::SetIndexBuffer(const Ref<Renderer::Buffers::IndexBuffer>& vertexBuffer)
+	void DX12VertexArray::SetIndexBuffer(const WLD::Ref<Renderer::Buffers::IndexBuffer>& vertexBuffer)
 	{
 	}
 }

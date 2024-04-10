@@ -1,8 +1,9 @@
 #include "wldpch.h"
-#include "log.h"
+#include "WLDMem.h"
 #include "OpenGL/ImGui/VP.h"
 #include "glatter/glatter.h"
 #include "GraphicsContext.h"
+#include "window.h"
 #include <wingdi.h>
 
 
@@ -10,7 +11,7 @@ void WLD::ImGuiVP::CreateVPWindow(ImGuiViewport* viewport)
 {
 	WLD_CORE_ASSERT((viewport->RendererUserData == NULL), "Already created viewport");
 
-	Graphics::GraphicsContext* context = Graphics::GraphicsContext::createGraphicsContext((HWND*)&viewport->PlatformHandle);
+	Graphics::GraphicsContext* context = Graphics::GraphicsContext::createGraphicsContext((HWND*)&viewport->PlatformHandle, WindowProps(L"Wulled", 1280U, 720U));
 	context->CreateDevice();
 	viewport->RendererUserData = context;
 }
@@ -20,7 +21,7 @@ void WLD::ImGuiVP::DestroyVPWindow(ImGuiViewport* viewport)
 	if (viewport->RendererUserData)
 	{
 		Graphics::GraphicsContext* context = (Graphics::GraphicsContext*)viewport->RendererUserData;
-		delete context;
+		DestroyMemory(context);
 		viewport->RendererUserData = NULL;
 	}
 }

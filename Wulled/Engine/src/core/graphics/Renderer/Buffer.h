@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/src/core/Log.h"
+#include "Engine/src/core/WLDMem.h"
 #include "Engine/src/core/EngineCore.h"
 
 

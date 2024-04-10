@@ -1,27 +1,39 @@
 #include "wldpch.h"
+#include "WLDMem.h"
 #include "Renderer.h"
 #include "OpenGL/Shader.h"
 
 
 namespace WLD::Graphics::Renderer
 {
-	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
-	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera>& camera)
+	void Renderer::Init()
 	{
-		m_SceneData->camera = camera;
+		RenderCommand::CreateRendererAPI();
+		RenderCommand::Init();
+	}
+
+	void Renderer::Shutdown()
+	{
+		RenderCommand::DeleteRendererAPI();
+	}
+
+	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera> camera)
+	{
+		s_SceneData->camera = camera;
 	}
 
 	void Renderer::EndScene()
 	{
-		m_SceneData->camera.reset();
+		s_SceneData->camera.reset();
 	}
 
 	void Renderer::Submit(const WLD::Ref<VertexArray>& vertexArray, const WLD::Ref<Shader>& shader, const glm::mat4& transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGL::OpenGLShader>(shader)->SetUniformMat4fv("u_MVP", m_SceneData->camera->getProjection());
-		std::dynamic_pointer_cast<OpenGL::OpenGLShader>(shader)->SetUniformMat4fv("u_Transform", transform);
+		((Graphics::OpenGL::OpenGLShader*)shader.get())->SetUniformMat4fv("u_MVP", s_SceneData->camera->getProjection());
+		((Graphics::OpenGL::OpenGLShader*)shader.get())->SetUniformMat4fv("u_Transform", transform);
 		if (GetAPI() == RendererAPI::API::OpenGL)
 		{
 			vertexArray->Bind();

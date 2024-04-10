@@ -24,6 +24,8 @@ namespace WLD
 
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+		char* GetTitle() const { return m_Data.TitleC; }
+		wchar_t* GetTitleW() const { return m_Data.Title; }
 
 		inline virtual HWND& GetNativeWindow()                                  const override { return (HWND&)m_HWND; }
 		inline virtual HWND* GetNativeWindowPtr()                               const override { return (HWND*)&m_HWND; }
@@ -33,7 +35,7 @@ namespace WLD
 		inline virtual WinEventCallBack* GetNativeEventCallbackPtr()            const override { return (WinEventCallBack*)m_WindowEvent; }
 		inline virtual Graphics::GraphicsContext& GetNativeGraphicsContext()    const override { return (Graphics::GraphicsContext&)*m_Context; }
 		inline virtual Graphics::GraphicsContext* GetNativeGraphicsContextPtr() const override { return (Graphics::GraphicsContext*)m_Context; }
-		
+
 		virtual void onWindowResize(uint32_t width, uint32_t height) override { m_Context->OnWindowResize(width, height); }
 
 		struct WindowData
@@ -44,18 +46,17 @@ namespace WLD
 			bool VSync = false;
 
 			EventCallbackFn EventCallback;
-		};	
+		};
 
 	private:
-		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
+		void Init(const WindowProps& props);
+		void Shutdown();
 
 	private:
 		WNDCLASSEXW m_WindowClass;
 		HWND m_HWND;
 
 		Graphics::GraphicsContext* m_Context;
-
 
 		WindowData m_Data;
 

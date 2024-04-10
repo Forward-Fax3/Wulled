@@ -29,6 +29,9 @@ project "Wulled"
 		"../%{IncludeDir.glm}",
 		"../%{IncludeDir.DXTK12}",
 		"../%{IncludeDir.glatter}",
+		"../%{IncludeDir.STBImage}",
+
+		"%VULKAN_SDK%/Include",
 	}
 
 	links
@@ -38,7 +41,9 @@ project "Wulled"
 		"glm",
 		"DXTK12",
 		"glatter",
+		"STBImage",
 		"opengl32.lib",
+		"%VULKAN_SDK%/Lib/vulkan-1.lib",
 	}
 
 	filter "system:windows"

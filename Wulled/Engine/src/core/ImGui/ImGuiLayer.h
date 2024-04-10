@@ -40,11 +40,10 @@ namespace WLD
 
 		bool OnWindowResize(WindowResizeEvent& e);
 
-	protected:
-		ImGuiIO& m_io;
+		ImGuiIO& init();
 
 	private:
-		ImGuiIO& init();
+		ImGuiIO& m_io;
 
 		void (*ImGui_ImplX_NewFrame)(void);
 		std::function<void()> ImGui_ImplX_RenderDrawData;

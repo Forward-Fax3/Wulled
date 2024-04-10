@@ -30,6 +30,7 @@ namespace WLD
 
 	ImGuiIO& ImGuiLayer::init()
 	{
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
@@ -39,15 +40,12 @@ namespace WLD
 	void ImGuiLayer::OnAttach()
 	{
 		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;		    // Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+		m_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		//m_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		m_io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+		m_io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//m_io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+		//m_io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
@@ -55,7 +53,7 @@ namespace WLD
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		if (m_io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
@@ -76,9 +74,9 @@ namespace WLD
 	{
 		Application& app = Application::Get();
 		Window& window = app.GetWindow();
-		bool* run = app.GetRun();
-		auto& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
+		bool* run = app.GetRun(); // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
+		m_io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
+		bool APIReset = false;
 		
 		ImGui::Begin("test");
 		ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", Time::GetFrameTime_ms(), Time::GetFPS());
@@ -86,18 +84,39 @@ namespace WLD
 		{
 			bool VSync = window.IsVSync();
 			ImGui::Checkbox("VSync", &VSync);
-			run[3] = ImGui::Button("Reset API");
+			APIReset = ImGui::Button("Reset API");
 
 			if (VSync != window.IsVSync())
 				window.SetVSync(VSync);
 		}
+		bool exit = ImGui::Button("exit");
+		bool restart = ImGui::Button("restart");
+		bool restartWithAPIReset = ImGui::Button("restart/API reset");
 		ImGui::End();
 
-		if (run[3])
+		if (exit)
+		{
+			run[0] = false;
+		}
+
+		if (restart)
+		{
+			run[0] = false;
+			run[1] = true;
+		}
+
+		if (restartWithAPIReset)
 		{
 			run[0] = false;
 			run[1] = true;
 			run[2] = false;
+			run[3] = false;
+		}
+
+		if (APIReset)
+		{
+			run[2] = false;
+			run[3] = true;
 		}
 	}
 
@@ -110,15 +129,14 @@ namespace WLD
 
 	void ImGuiLayer::end()
 	{
-		ImGuiIO& io = ImGui::GetIO();
 		Window& window = Application::Get().GetWindow();
-		io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
+		m_io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplX_RenderDrawData();
 
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		if (m_io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
@@ -130,7 +148,6 @@ namespace WLD
 	void ImGuiLayer::OpenGLInit()
 	{
 		HWND window = Application::Get().GetWindow().GetNativeWindow();
-		auto& io = ImGui::GetIO();
 
 		// Setup Platform/Renderer bindings
 		ImGui_ImplWin32_InitForOpenGL(window);
@@ -140,7 +157,7 @@ namespace WLD
 		std::function<void()> func([&]() { OpenGLRenderDrawData(); });
 		ImGui_ImplX_RenderDrawData.swap(func);
 
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		if (m_io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
 			WLD_CORE_ASSERT(!platform_io.Renderer_CreateWindow, "ImGUi Renderer_CreateWindow is not NULL");
@@ -217,9 +234,8 @@ namespace WLD
 
 	bool ImGuiLayer::OnWindowResize(WindowResizeEvent& e)
 	{
-		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
+		m_io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
 		return true;
 	}
 }

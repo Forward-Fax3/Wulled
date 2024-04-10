@@ -18,6 +18,13 @@ namespace WLD
 
 		inline const std::string GetName() const { return m_DebugName; }
 
+#ifdef IN_LAYERSTACK_CPP
+		inline bool GetDeletionInLayerStack() const { return DeletionInLayerStack; }
+#endif
+
+	protected:
+		bool DeletionInLayerStack = true;
+
 	private:
 		std::string m_DebugName;
 	};

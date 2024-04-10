@@ -1,17 +1,15 @@
 #include "wldpch.h"
-#include "Window.h"
 #include "EngineCore.h"
-#include "log.h"
+#include "WLDMem.h"
+#include "Window.h"
 
 #include "Windows/Window.h"
 
 
 namespace WLD
 {
-	Window* Window::Create(const WindowProps& props)
+	Ref<Window> Window::Create(const WindowProps& props)
 	{
-		Window* window = new(std::nothrow) WinWindow(props);
-		WLD_CORE_ASSERT(window, "Failed to create window!");
-		return window;
+		return CreateRef(WinWindow, props);
 	}
 }

@@ -3,6 +3,7 @@
 #include "Engine/src/core/EngineCore.h"
 #include "Engine/src/core/graphics/Renderer/Shader.h"
 #include "glm/glm.hpp"
+#include "glatter/glatter.h"
 
 
 namespace WLD::Graphics::OpenGL
@@ -10,6 +11,7 @@ namespace WLD::Graphics::OpenGL
 	class WLD_API OpenGLShader : public Renderer::Shader
 	{
 	public:
+		OpenGLShader(const std::string_view& filepath);
 		OpenGLShader(const std::string_view& vertexSrc, const std::string_view& fragmentSrc);
 		~OpenGLShader();
 
@@ -27,6 +29,11 @@ namespace WLD::Graphics::OpenGL
 		void SetUniformMat2fv(std::string_view name, const glm::mat2& matrix);
 		void SetUniformMat3fv(std::string_view name, const glm::mat3& matrix);
 		void SetUniformMat4fv(std::string_view name, const glm::mat4& matrix);
+
+	private:
+		std::string ReadFile(const std::string_view& filepath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string_view& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 
 	private:
 		uint32_t m_RendererID;

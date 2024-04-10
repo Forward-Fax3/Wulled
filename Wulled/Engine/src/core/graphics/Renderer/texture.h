@@ -1,8 +1,9 @@
 #pragma once
 #include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/WLDMem.h"
 
 
-namespace WLD::Renderer
+namespace WLD::Graphics::Renderer
 {
 	class Texture
 	{
@@ -18,6 +19,6 @@ namespace WLD::Renderer
 	class Texture2D : public Texture
 	{
 	public:
-		static Ref<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(const std::string_view& path);
 	};
 }

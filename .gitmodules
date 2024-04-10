@@ -11,3 +11,6 @@
 [submodule "Wulled/Engine/vendor/proj/git/DXTK12"]
 	path = Wulled/Engine/vendor/proj/git/DXTK12
 	url = https://github.com/microsoft/DirectXTK12.git
+[submodule "Wulled/Engine/vendor/proj/git/STB"]
+	path = Wulled/Engine/vendor/proj/git/STB
+	url = https://github.com/nothings/stb.git

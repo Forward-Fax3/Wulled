@@ -3,9 +3,6 @@
 
 #include "DX12/Context.h"
 
-#include "d3d12.h"
-#include "dxgi1_6.h"
-
 
 namespace WLD::Graphics::dx12
 {

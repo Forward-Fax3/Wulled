@@ -2,6 +2,7 @@
 #include <windows.h>
 
 #include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/WLDMem.h"
 #include "Engine/src/Core/Events/Event.h"
 #include "Engine/src/core/Events/windowEvent.h"
 #include "Engine/src/core/graphics/GraphicsContext.h"
@@ -16,7 +17,7 @@ namespace WLD
 		wchar_t* Title;
 		uint32_t Width, Height;
 
-		WindowProps(const wchar_t* title = L"Basic Engine", uint32_t width = 1280, uint32_t height = 720)
+		WindowProps(const wchar_t* title = L"Wulled", uint32_t width = 1280, uint32_t height = 720)
 			: Title((wchar_t*)title), Width(width), Height(height) {}
 	};
 
@@ -50,6 +51,6 @@ namespace WLD
 
 		virtual void onWindowResize(uint32_t width, uint32_t height) = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Ref<Window> Create(const WindowProps& props = WindowProps());
  	};
 }

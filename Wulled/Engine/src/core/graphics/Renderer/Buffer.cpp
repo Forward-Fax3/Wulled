@@ -7,6 +7,8 @@
 #include "OpenGL/Buffer.h"
 #include "DX12/Buffer.h"
 
+#include "WLDMem.h"
+
 
 namespace WLD::Graphics::Renderer::Buffers
 {
@@ -15,9 +17,9 @@ namespace WLD::Graphics::Renderer::Buffers
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGL::OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::OpenGL: return CreateMemory(OpenGL::OpenGLVertexBuffer, vertices, size);
 //		case RendererAPI::API::DirectX11: return new DX11VertexBuffer(vertices, size);
-		case RendererAPI::API::DirectX12: return new dx12::DX12VertexBuffer(vertices, size);
+		case RendererAPI::API::DirectX12: return CreateMemory(dx12::DX12VertexBuffer, vertices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}
@@ -29,9 +31,9 @@ namespace WLD::Graphics::Renderer::Buffers
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGL::OpenGLIndexBuffer(indices, size);
+		case RendererAPI::API::OpenGL: return CreateMemory(OpenGL::OpenGLIndexBuffer, indices, size);
 //		case RendererAPI::API::DirectX11: return new DX11IndexBuffer(indices, size);
-		case RendererAPI::API::DirectX12: return new dx12::DX12IndexBuffer(indices, size);
+		case RendererAPI::API::DirectX12: return CreateMemory(dx12::DX12IndexBuffer, indices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}

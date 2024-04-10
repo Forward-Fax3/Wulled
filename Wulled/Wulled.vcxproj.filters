@@ -49,6 +49,9 @@
     <Filter Include="Engine\src\platform\OpenGL\ImGui">
       <UniqueIdentifier>{441733F1-3068-1E33-59CC-0CF5457CB19C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\src\platform\WLDVk">
+      <UniqueIdentifier>{9D7BA578-093E-D902-52EE-678FBEEFB1E0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\src\platform\windows">
       <UniqueIdentifier>{80DCDF1D-ECE9-0D04-75D0-09EFE1DCD9BA}</UniqueIdentifier>
     </Filter>
@@ -96,6 +99,9 @@
     <ClInclude Include="Engine\src\core\Time\WLDTime.h">
       <Filter>Engine\src\core\Time</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\WLDMem.h">
+      <Filter>Engine\src\core</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\Window.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
@@ -120,10 +126,10 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h">
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Texture.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\core\graphics\Renderer\texture.h">
+    <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\core\graphics\camera\PerspectiveCamera.h">
@@ -174,6 +180,9 @@
     <ClInclude Include="Engine\src\platform\OpenGL\VertexArray.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\Context.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\platform\windows\Event.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
@@ -222,10 +231,10 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\Shader.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Texture.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\core\graphics\Renderer\texture.cpp">
+    <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp">
@@ -275,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\platform\OpenGL\VertexArray.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\Context.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\windows\Event.cpp">
       <Filter>Engine\src\platform\windows</Filter>

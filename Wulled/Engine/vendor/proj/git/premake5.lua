@@ -30,17 +30,17 @@ project "spdlog"
 	cppdialect "c++20"
 
 	filter "configurations:Debug"
-	runtime "Debug"
-	symbols "on"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
-	runtime "Release"
-	optimize "on"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
-	runtime "Release"
-	optimize "on"
-    symbols "off"
+		runtime "Release"
+		optimize "on"
+    	symbols "off"
 	
 project "ImGui"
 	kind "StaticLib"
@@ -87,21 +87,21 @@ project "ImGui"
 	cdialect "c17"
 	cppdialect "c++20"
 
-		filter "system:windows"
-			systemversion "latest"
+	filter "system:windows"
+		systemversion "latest"
 
-		filter "configurations:Debug"
-			runtime "Debug"
-			symbols "on"
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
 
-		filter "configurations:Release"
-			runtime "Release"
-			optimize "on"
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
 
-		filter "configurations:Dist"
-			runtime "Release"
-			optimize "on"
-			symbols "off"
+	filter "configurations:Dist"
+		runtime "Release"
+		optimize "on"
+		symbols "off"
 
 project "glm"
 	kind "StaticLib"
@@ -142,17 +142,17 @@ project "glm"
 	cppdialect "c++20"
 
 	filter "configurations:Debug"
-	runtime "Debug"
-	symbols "on"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
-	runtime "Release"
-	optimize "on"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
-	runtime "Release"
-	optimize "on"
-    symbols "off"
+		runtime "Release"
+		optimize "on"
+    	symbols "off"
 
 project "DXTK12"
 	kind "StaticLib"
@@ -213,21 +213,22 @@ project "DXTK12"
 	cppdialect "c++20"
 
 	filter "configurations:Debug"
-	runtime "Debug"
-	symbols "on"
-	defines
-	{
-		"DX12_ENABLE_DEBUG_LAYER",
-	}
+		runtime "Debug"
+		symbols "on"
+		defines
+		{
+			"DX12_ENABLE_DEBUG_LAYER",
+		}
 
 	filter "configurations:Release"
-	runtime "Release"
-	optimize "on"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
-	runtime "Release"
-	optimize "on"
-    symbols "off"
+		runtime "Release"
+		optimize "on"
+    	symbols "off"
+
 
 project "glatter"
 	kind "StaticLib"
@@ -254,14 +255,52 @@ project "glatter"
 	cppdialect "c++20"
 
 	filter "configurations:Debug"
-	runtime "Debug"
-	symbols "on"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
-	runtime "Release"
-	optimize "on"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
-	runtime "Release"
-	optimize "on"
-    symbols "off"
+		runtime "Release"
+		optimize "on"
+    	symbols "off"
+
+project "STBImage"
+	kind "StaticLib"
+	language "c++"
+	staticruntime "on"
+	location "STB"
+
+	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
+
+	files
+	{
+		"STB/*.h",
+		"STB/*.c",
+		"STB/*.cpp",
+	}
+
+	includedirs
+	{
+		"STB",
+	}
+
+	systemversion "latest"
+	cdialect "c17"
+	cppdialect "c++20"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		runtime "Release"
+		optimize "on"
+    	symbols "off"
