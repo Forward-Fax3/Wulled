@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 
-#include <windows.h>
 #include <thread>
 
 #include "commandLine.h"
@@ -35,13 +34,13 @@ void Command(bool* run) // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
 		}
 		else if (!strcmp(input.c_str(), "help"))
 		{
-			WLD_CORE_INFO("Commands:");
-			WLD_CORE_INFO("exit - exits the program");
-			WLD_CORE_INFO("restart - restarts the program");
+			LOG_CORE_INFO("Commands:");
+			LOG_CORE_INFO("exit - exits the program");
+			LOG_CORE_INFO("restart - restarts the program");
 		}
 		else
 		{
-			WLD_CORE_WARNING("\"{0}\" is not a reconised command", input);
+			LOG_CORE_WARNING("\"{0}\" is not a reconised command", input);
 		}
 	}
 }

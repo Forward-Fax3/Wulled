@@ -1,21 +1,31 @@
+// TODO: Fix loads of stuff and add my own allocator and deallocator
+
 #pragma once
 #include "Engine/src/core/EngineCore.h"
 #include <memory>
 #include <unordered_map>
 #include <atomic>
-#ifdef _DEBUG | MEMORY_DEBUG
+
+#if defined _DEBUG || defined MEMORY_DEBUG
 #include <sstream>
+#if defined MEMORY_DEBUG && !defined _DEBUG
+#define _DEBUG
+#define UNDEFINED_DEBUG
 #endif
+#endif
+
 
 
 namespace WLD
 {
+#if !defined _DIST
 	struct MemoryData
 	{
 		size_t Map = 0;
 		size_t numberOfAllocations = 0;
 		bool WasCreatedManually = 0;
-#ifdef _DEBUG | MEMORY_DEBUG
+
+#ifdef _DEBUG
 		::std::string Location = "";
 #endif
 	};
@@ -30,6 +40,7 @@ namespace WLD
 	static size_t GetAllocatedMemory() { return Memory::Allocated; }
 	static size_t GetAllocatedSmartMemory() { return Memory::AllocatedSmart; }
 	static size_t GetAllocatedTotalMemory() { return Memory::Allocated + Memory::AllocatedSmart; }
+#endif
 
 	template<typename T>
 	class Ref;
@@ -44,6 +55,8 @@ namespace WLD
 		T* ptr = new(::std::nothrow) T;
 		if (!ptr)
 			WLD_CORE_ASSERT(false, "Failed to allocate memory!");
+
+#if !defined _DIST
 		Memory::Allocated += sizeof(T);
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -55,6 +68,7 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr, data });
+#endif
 		return ptr;
 	}
 
@@ -69,6 +83,8 @@ namespace WLD
 		if (!ptr)
 			WLD_CORE_ASSERT(false, "Failed to allocate memory!");
 
+
+#if !defined _DIST
 		Memory::Allocated += sizeof(T);
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -80,15 +96,17 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr, data });
+#endif
 		return ptr;
 	}
 
 	template<typename T>
 	static T* _DestroyMemory(T* ptr, bool FromRef = false)
 	{
+#if !defined _DIST
 		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
 		{
-			WLD_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
 			return ptr;
 		}
 
@@ -96,6 +114,7 @@ namespace WLD
 		if (!FromRef)
 			Memory::Allocated -= data.Map * data.numberOfAllocations;
 		Memory::Map.erase((void*)ptr);
+#endif
 		delete ptr;
 		return nullptr;
 	}
@@ -144,6 +163,8 @@ namespace WLD
 		T* ptr = new(::std::nothrow) T(::std::forward<Args>(args)...)[numberOfT];
 		if (!ptr)
 			WLD_CORE_ASSERT(false, "Failed to allocate memory!");
+
+#if !defined _DIST
 		Memory::Allocated += sizeof(T) * numberOfT;
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -155,6 +176,7 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr, data });
+#endif
 		return ptr;
 	}
 
@@ -168,6 +190,8 @@ namespace WLD
 		T* ptr = new(::std::nothrow) T[numberOfT];
 		if (!ptr)
 			WLD_CORE_ASSERT(false, "Failed to allocate memory!");
+
+#if !defined _DIST
 		Memory::Allocated += sizeof(T) * numberOfT;
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -179,7 +203,27 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr, data });
+#endif
 		return ptr;
+	}
+
+	template<typename T>
+	static T* _DestroyArray(T* ptr, bool FromRef = false)
+	{
+#if !defined _DIST
+		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
+		{
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
+			return ptr;
+		}
+
+		MemoryData data = Memory::Map[(void*)ptr];
+		if (!FromRef)
+			Memory::Allocated -= data.Map * data.numberOfAllocations;
+		Memory::Map.erase((void*)ptr);
+#endif
+		delete[] ptr;
+		return nullptr;
 	}
 
 	template<typename T>
@@ -228,6 +272,8 @@ namespace WLD
 #endif
 	{
 		::std::unique_ptr<T> ptr(::std::make_unique<T>());
+
+#if !defined _DIST
 		Memory::AllocatedSmart += sizeof(T);
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -239,6 +285,7 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr.get(), data });
+#endif
 		return ptr;
 	}
 
@@ -250,6 +297,7 @@ namespace WLD
 #endif
 	{
 		Scope<T> ptr(::std::make_unique<T>(::std::forward<Args>(args)...));
+#if !defined _DIST
 		Memory::AllocatedSmart += sizeof(T);
 		MemoryData data;
 		data.Map = sizeof(T);
@@ -261,27 +309,34 @@ namespace WLD
 		data.Location = ss.str();
 #endif
 		Memory::Map.insert({ (void*)ptr.get(), data });
+#endif
 		return ptr;
 	}
 
+#if !defined _DIST
 #define _DestroyScope(x)\
-	if (::WLD::Memory::Map.find((void*)x.get()) == ::WLD::Memory::Map.end())\
 	{\
-		WLD_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)x.get());\
-		return;\
-	}\
-	::WLD::MemoryData data = ::WLD::Memory::Map[(void*)x.get()];\
-	if (data.WasCreatedManually)\
-	{\
-		::WLD::_DestroyMemory(x.get());\
-		x.reset();\
-	}\
-	else\
-	{\
-		::WLD::Memory::AllocatedSmart -= data.Map;\
-		::WLD::Memory::Map.erase((void*)x.get());\
-		x.reset();\
+		if (::WLD::Memory::Map.find((void*)x.get()) == ::WLD::Memory::Map.end())\
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)x.get());\
+		else\
+		{\
+			::WLD::MemoryData data = ::WLD::Memory::Map[(void*)x.get()];\
+			if (data.WasCreatedManually)\
+			{\
+				::WLD::_DestroyMemory(x.get());\
+				x.reset();\
+			}\
+			else\
+			{\
+				::WLD::Memory::AllocatedSmart -= data.Map;\
+				::WLD::Memory::Map.erase((void*)x.get());\
+				x.reset();\
+			}\
+		}\
 	}
+#else
+#define _DestroyScope(x) x.reset()
+#endif
 
 #ifdef _DEBUG
 
@@ -290,7 +345,8 @@ namespace WLD
 #define CreateRef(x, ...)      ::WLD::_CreateRef<x>(__FILE__, __LINE__, __VA_ARGS__)
 #define CreateScope(x, ...)    ::WLD::_CreateScope<x>(__FILE__, __LINE__, __VA_ARGS__)
 
-#define DestroyMemory(x) ::WLD::_DestroyMemory(x)
+#define DestroyMemory(x) ::WLD::_DestroyMemory(x, false)
+#define DestroyArray(x)  ::WLD::_DestroyArray(x, false)
 #define DestroyScope(x)  _DestroyScope(x)
 
 #else
@@ -301,6 +357,7 @@ namespace WLD
 #define CreateScope(x, ...)    ::WLD::_CreateScope<x>(__VA_ARGS__)
 
 #define DestroyMemory(x) ::WLD::_DestroyMemory(x)
+#define DestroyArray(x)  ::WLD::_DestroyArray(x, false)
 #define DestroyScope(x)  _DestroyScope(x)
 
 #endif
@@ -328,6 +385,7 @@ namespace WLD
 				WLD_CORE_ASSERT(false, "Failed to allocate memory!");
 			*m_RefCount = 1;
 
+#if !defined _DIST
 			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
 			{
 				MemoryData data;
@@ -346,6 +404,7 @@ namespace WLD
 				Memory::Allocated -= data.Map * data.numberOfAllocations;
 				Memory::AllocatedSmart += data.Map * data.numberOfAllocations;
 			}
+#endif
 		}
 
 		template<class child>
@@ -357,7 +416,7 @@ namespace WLD
 				WLD_CORE_ASSERT(false, "Failed to allocate memory!");
 			*m_RefCount = 1;
 
-
+#if !defined _DIST
 			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
 			{
 				MemoryData data;
@@ -376,6 +435,7 @@ namespace WLD
 				Memory::Allocated -= data.Map * data.numberOfAllocations;
 				Memory::AllocatedSmart += data.Map * data.numberOfAllocations;
 			}
+#endif
 		}
 
 		inline Ref(::std::shared_ptr<T> ptr)
@@ -386,6 +446,7 @@ namespace WLD
 				WLD_CORE_ASSERT(false, "Failed to allocate memory!");
 			*m_RefCount = ptr.use_count();
 
+#if !defined _DIST
 			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
 			{
 				MemoryData data;
@@ -393,6 +454,7 @@ namespace WLD
 				data.numberOfAllocations = 0;
 				data.WasCreatedManually = false;
 			}
+#endif
 		}
 
 		inline Ref(const Ref& oldRef)
@@ -452,12 +514,13 @@ namespace WLD
 			(*m_RefCount)--;
 			if (*m_RefCount == 0)
 			{
+#if !defined _DIST
 				if (Memory::Map.find((void*)m_Ptr) != Memory::Map.end())
 				{
 					MemoryData& data = Memory::Map[(void*)m_Ptr];
 					Memory::AllocatedSmart -= data.Map * data.numberOfAllocations;
 				}
-
+#endif
 				m_Ptr = _DestroyMemory(m_Ptr, true);
 				delete m_RefCount;
 			}
@@ -533,6 +596,11 @@ namespace WLD
 			this->~Ref();
 		}
 
+		inline void reset(::std::nullptr_t)
+		{
+			this->~Ref();
+		}
+
 		inline void reset(T* ptr)
 		{
 			Ref<T> temp(ptr);
@@ -572,6 +640,8 @@ namespace WLD
 		}
 
 		inline operator bool() const { return m_Ptr != nullptr; }
+		inline operator T*() const { return m_Ptr; }
+		inline operator T() const { return *m_Ptr; }
 
 	private:
 		T* m_Ptr;
@@ -581,3 +651,7 @@ namespace WLD
 		friend class Ref;
 	};
 }
+
+#if UNDEFINED_DEBUG
+#undef _DEBUG
+#endif

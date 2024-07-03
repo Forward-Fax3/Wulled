@@ -9,12 +9,11 @@
 
 #include "Engine/src/Core/ImGui/ImGuiLayer.h"
 #include "Engine/src/core/Time/WLDTime.h"
+#include "Engine/src/core/Threads/WLDThread.h"
 
 #include "Engine/src/core/graphics/Renderer/Shader.h"
 #include "Engine/src/core/graphics/Renderer/Buffer.h"
 #include "Engine/src/core/graphics/Renderer/VertexArray.h"
-
-#include <thread>
 
 
 namespace WLD
@@ -34,22 +33,28 @@ namespace WLD
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
+		void PushAsyncFunction(std::function<void(void*)> function, void* data);
+
 		inline static Application& Get() { return *s_Instance; }
-		inline static Application* GetPtr() { return s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 		inline bool* GetRun() { return m_run; } // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
 
+	// Functions
 	private:
 		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
+	// Data
 	private:
-		Ref<Window> m_Window;
+		Window* m_Window;
+		WindowProps m_Props;
+		
 		Scope<LayerStack> m_LayerStack;
+		Scope<WLDThreads> m_Threads;
 
-		ImGuiLayer* m_ImGuiLayer;
-		Time* m_Time;
+		ImGuiLayer* m_ImGuiLayer = nullptr;
+		Time* m_Time = nullptr;
 
 		bool* m_run; // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
 

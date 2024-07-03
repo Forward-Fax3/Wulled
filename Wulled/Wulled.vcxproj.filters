@@ -19,6 +19,9 @@
     <Filter Include="Engine\src\core\ImGui">
       <UniqueIdentifier>{D44FE61D-40BC-A118-09B0-397675DBC380}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\src\core\Threads">
+      <UniqueIdentifier>{E4A8D176-50E0-190E-59EA-7D31C5A04007}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\src\core\Time">
       <UniqueIdentifier>{088A5AB3-F418-E47C-9D37-F87789A5F422}</UniqueIdentifier>
     </Filter>
@@ -46,8 +49,8 @@
     <Filter Include="Engine\src\platform\OpenGL">
       <UniqueIdentifier>{9A96497D-86A6-F54D-EF5F-5A6CDB8EE4E6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\src\platform\OpenGL\ImGui">
-      <UniqueIdentifier>{441733F1-3068-1E33-59CC-0CF5457CB19C}</UniqueIdentifier>
+    <Filter Include="Engine\src\platform\OpenGL\OpenGLImGui">
+      <UniqueIdentifier>{E9D6E693-D528-BE83-BE47-FB93AA38D76C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\src\platform\WLDVk">
       <UniqueIdentifier>{9D7BA578-093E-D902-52EE-678FBEEFB1E0}</UniqueIdentifier>
@@ -96,8 +99,14 @@
     <ClInclude Include="Engine\src\core\MouseButtonCodes.h">
       <Filter>Engine\src\core</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\Threads\WLDThread.h">
+      <Filter>Engine\src\core\Threads</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\Time\WLDTime.h">
       <Filter>Engine\src\core\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\core\WLDFileStream.h">
+      <Filter>Engine\src\core</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\core\WLDMem.h">
       <Filter>Engine\src\core</Filter>
@@ -129,6 +138,9 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\Texture.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\UniformBuffer.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
@@ -144,52 +156,70 @@
     <ClInclude Include="Engine\src\pch\wldpch.h">
       <Filter>Engine\src\pch</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\Buffer.h">
+    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\Context.h">
+    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\RendererAPI.h">
+    <ClInclude Include="Engine\src\platform\DX12\DX12RendererAPI.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\Shader.h">
+    <ClInclude Include="Engine\src\platform\DX12\DX12Shader.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\VertexArray.h">
+    <ClInclude Include="Engine\src\platform\DX12\DX12VertexArray.h">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\Buffer.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\Context.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\ImGui\VP.h">
-      <Filter>Engine\src\platform\OpenGL\ImGui</Filter>
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.h">
+      <Filter>Engine\src\platform\OpenGL\OpenGLImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\RendererAPI.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\Shader.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLShader.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\Texture.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLTexture.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\OpenGL\VertexArray.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\WLDVk\Context.h">
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\VkContext.h">
       <Filter>Engine\src\platform\WLDVk</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\Event.h">
+    <ClInclude Include="Engine\src\platform\WLDVk\VkErrors.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\VkRendererAPI.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\VkShader.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\VkSwapChain.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\VkUniformBuffer.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\windows\WinEvent.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\Input.h">
+    <ClInclude Include="Engine\src\platform\windows\WinInput.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\platform\windows\Window.h">
+    <ClInclude Include="Engine\src\platform\windows\WinWindow.h">
       <Filter>Engine\src\platform\windows</Filter>
     </ClInclude>
     <ClInclude Include="app.h" />
@@ -203,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\core\Log.cpp">
       <Filter>Engine\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\core\Threads\WLDThread.cpp">
+      <Filter>Engine\src\core\Threads</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\Time\WLDTime.cpp">
       <Filter>Engine\src\core\Time</Filter>
@@ -234,6 +267,9 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\Texture.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\core\graphics\Renderer\UniformBuffer.cpp">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
@@ -249,52 +285,67 @@
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <Filter>Engine\src\pch</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\Buffer.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\Context.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\RendererAPI.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\DX12RendererAPI.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\Shader.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\DX12Shader.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\VertexArray.cpp">
+    <ClCompile Include="Engine\src\platform\DX12\DX12VertexArray.cpp">
       <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\Buffer.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\Context.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\ImGui\VP.cpp">
-      <Filter>Engine\src\platform\OpenGL\ImGui</Filter>
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.cpp">
+      <Filter>Engine\src\platform\OpenGL\OpenGLImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\RendererAPI.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\Shader.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLShader.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\Texture.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLTexture.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\OpenGL\VertexArray.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\WLDVk\Context.cpp">
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\VkContext.cpp">
       <Filter>Engine\src\platform\WLDVk</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\Event.cpp">
+    <ClCompile Include="Engine\src\platform\WLDVk\VkRendererAPI.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\VkShader.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\VkSwapChain.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\VkUniformBuffer.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\windows\WinEvent.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\Input.cpp">
+    <ClCompile Include="Engine\src\platform\windows\WinInput.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\windows\Window.cpp">
+    <ClCompile Include="Engine\src\platform\windows\WinWindow.cpp">
       <Filter>Engine\src\platform\windows</Filter>
     </ClCompile>
   </ItemGroup>

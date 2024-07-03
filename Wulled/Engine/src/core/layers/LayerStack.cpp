@@ -16,7 +16,7 @@ namespace WLD
 	{
 		for (auto& layer : m_Layers)
 		{
-			WLD_CORE_TRACE("Deleting layer {0}", layer.first->GetName());
+			LOG_CORE_TRACE("Deleting layer {0}", layer.first->GetName());
 			layer.first = DestroyMemory(layer.first);
 		}
 	}
@@ -61,9 +61,10 @@ namespace WLD
 
 	LayerStack::~LayerStack()
 	{
-		for (auto layer : m_Layers)
+		for (auto& layer : m_Layers)
 		{
-			WLD_CORE_TRACE("Deleting layer {0}", layer->GetName());
+			LOG_CORE_TRACE("Deleting layer {0}", layer->GetName());
+			layer->OnDetach();
 			layer = DestroyMemory(layer);
 		}
 		DestroyScope(m_LayerStackQueue);
@@ -134,7 +135,7 @@ namespace WLD
 		layer = DestroyMemory(layer);
 		if (layer)
 		{
-			WLD_CORE_WARNING("Layer {0} was created thought Wulled memory creation but has been deleted", layer->GetName());
+			LOG_CORE_WARNING("Layer {0} was created thought Wulled memory creation but has been deleted", layer->GetName());
 			delete layer;
 		}
 	}
@@ -147,7 +148,7 @@ namespace WLD
 		overlay = DestroyMemory(overlay);
 		if (overlay)
 		{
-			WLD_CORE_WARNING("Overlay {0} was created thought Wulled memory creation but has been deleted", overlay->GetName());
+			LOG_CORE_WARNING("Overlay {0} was created thought Wulled memory creation but has been deleted", overlay->GetName());
 			delete overlay;
 		}
 	}

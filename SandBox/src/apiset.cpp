@@ -12,7 +12,7 @@ SetAPILayer::~SetAPILayer()
 
 void SetAPILayer::OnImGuiDraw()
 {
-	using namespace WLD::Graphics::Renderer;
+	using namespace WLD;
 	
 	RendererAPI::API currentAPI = Renderer::GetAPI();
 	static bool isOpenGL = currentAPI == RendererAPI::API::OpenGL;
@@ -23,7 +23,7 @@ void SetAPILayer::OnImGuiDraw()
 	ImGui::Text("Set API");
 	ImGui::Checkbox("OpenGL", &isOpenGL);
 //	ImGui::Checkbox("DirectX12", &isDx12);
-//	ImGui::Checkbox("Vulkan", &isVulkan);
+	ImGui::Checkbox("Vulkan", &isVulkan);
 	ImGui::Text("More API's to come");
 
 	bool submit = ImGui::Button("submit");

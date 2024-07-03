@@ -3,7 +3,7 @@
 #include "Engine/src/core/WLDMem.h"
 
 
-namespace WLD::Graphics::Renderer
+namespace WLD
 {
 	class Texture
 	{
@@ -19,6 +19,6 @@ namespace WLD::Graphics::Renderer
 	class Texture2D : public Texture
 	{
 	public:
-		static Ref<Texture2D> Create(const std::string_view& path);
+		static Ref<Texture2D> Create(const std::string& path);
 	};
 }

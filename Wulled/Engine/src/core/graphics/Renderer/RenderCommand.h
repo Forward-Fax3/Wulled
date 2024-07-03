@@ -4,7 +4,7 @@
 #include "Engine/src/core/graphics/Renderer/RendererAPI.h"
 
 
-namespace WLD::Graphics::Renderer
+namespace WLD
 {
 	class WLD_API RenderCommand
 	{
@@ -17,6 +17,8 @@ namespace WLD::Graphics::Renderer
 		inline static void Clear() { s_RendererAPI->Clear(); }
 
 		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
+
+		inline static void ToggleWireFrame() { s_RendererAPI->ToggleWireFrame(); }
 
 	private:
 		static RendererAPI* s_RendererAPI;

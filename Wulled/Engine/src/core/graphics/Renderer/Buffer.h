@@ -4,15 +4,15 @@
 #include "Engine/src/core/EngineCore.h"
 
 
-namespace WLD::Graphics::Renderer::Buffers
+namespace WLD
 {
 	enum class WLD_API ShaderDataType : uint8_t
 	{
 		None,
-		Float, Float2, Float3, Float4,
-		Mat3, Mat4,
+		Bool,
 		Int, Int2, Int3, Int4,
-		Bool
+		Float, Float2, Float3, Float4,
+		Mat3, Mat4
 	};
 
 	uint32_t ShaderDataTypeSize(ShaderDataType type);
@@ -22,7 +22,7 @@ namespace WLD::Graphics::Renderer::Buffers
 		std::string Name;
 		ShaderDataType Type;
 		uint32_t Size;
-		uint32_t Offset;
+		uint64_t Offset;
 		bool Normalized;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)

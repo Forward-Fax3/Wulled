@@ -3,9 +3,10 @@
 #include "Engine/src/core/WLDMem.h"
 
 #include "Engine/src/core/graphics/Renderer/VertexArray.h"
+#include "glm/glm.hpp"
 
 
-namespace WLD::Graphics::Renderer
+namespace WLD
 {
 	class WLD_API RendererAPI
 	{
@@ -27,11 +28,16 @@ namespace WLD::Graphics::Renderer
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 
+		inline void ToggleWireFrame() { m_WireFrame = !m_WireFrame; }
+
 		static inline API GetAPI() { return s_API; }
 		static inline void SetAPI(API api) { s_API = api; }
 		static inline API GetNextAPI() { return s_NextAPI; }
 		static inline void SetNextAPI(API api) { s_NextAPI = api; }
-		static inline void updateAPI() { s_API = s_NextAPI; }
+		static inline void UpdateAPI() { s_API = s_NextAPI; }
+
+	protected:
+		bool m_WireFrame = false;
 
 	private:
 		static API s_API;

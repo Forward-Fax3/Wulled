@@ -13,6 +13,4 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include <windows.h>
-
 #undef _CRT_SECURE_NO_WARNINGS

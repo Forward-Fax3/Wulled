@@ -2,7 +2,6 @@
 
 #include "LayerStack.h"
 #include "Window.h"
-#include "Windows/Window.h"
 #include "ApplicationEvent.h"
 #include "application.h"
 #include "Renderer.h"
@@ -19,24 +18,33 @@ namespace WLD
 	{
 		WLD_CORE_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
+
+		m_Threads = CreateScope(WLDThreads);
+		m_Props = WindowProps(L"Sandbox", 1920, 1080);
+
+		m_Window = Window::Create(m_Props);
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
+
 		m_LayerStack = CreateScope(LayerStack);
 		m_Time = CreateMemory(Time);
 		PushLayer(m_Time);
-
-		m_Window = Window::Create(WindowProps(L"SandBox", 1920, 1080));
-		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-
-		Graphics::Renderer::Renderer::Init();
-
-		m_ImGuiLayer = CreateMemory(ImGuiLayer);
-		PushOverlay(m_ImGuiLayer);
+//		m_ImGuiLayer = CreateMemory(ImGuiLayer);
+//		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
-		s_Instance = nullptr;
+		m_Time = nullptr;
+		m_ImGuiLayer = nullptr;
 		DestroyScope(m_LayerStack);
-		Graphics::Renderer::Renderer::Shutdown();
+		Renderer::Shutdown();
+		m_Window = DestroyMemory(m_Window);
+		m_Props = WindowProps();
+		DestroyScope(m_Threads);
+		m_run = nullptr;
+		s_Instance = nullptr;
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -63,6 +71,11 @@ namespace WLD
 		overlay->OnDetach();
 	}
 
+	void Application::PushAsyncFunction(std::function<void(void*)> function, void* data)
+	{
+		m_Threads->PushFunction(function, data);
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
@@ -84,16 +97,16 @@ namespace WLD
 			for (Layer* layer : *m_LayerStack)
 				layer->OnUpdate();
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : *m_LayerStack)
-				layer->OnImGuiDraw();
-			m_ImGuiLayer->end();
+//			m_ImGuiLayer->Begin();
+//			for (Layer* layer : *m_LayerStack)
+//				layer->OnImGuiDraw();
+//			m_ImGuiLayer->end();
 
 			m_Window->OnUpdate();
 			m_LayerStack->OnUpdate();
 		}
 	}
-
+	
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_run[0] = false;

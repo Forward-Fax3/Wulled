@@ -1,4 +1,6 @@
 #pragma once
+#include <SDL_mouse.h>
+
 
 // From glfw3.h
 #define WLD_MOUSE_BUTTON_1         0
@@ -14,28 +16,28 @@
 #define WLD_MOUSE_BUTTON_RIGHT     WLD_MOUSE_BUTTON_2
 #define WLD_MOUSE_BUTTON_MIDDLE    WLD_MOUSE_BUTTON_3
 
-const short inline WLDMouseToVKMouse(short mouseButton)
+const uint32_t inline WLDMouseToSDLMouse(uint32_t mouseButton)
 {
 	switch (mouseButton)
 	{
-	case WLD_MOUSE_BUTTON_1: return VK_LBUTTON ;
-	case WLD_MOUSE_BUTTON_2: return VK_RBUTTON ;
-	case WLD_MOUSE_BUTTON_3: return VK_MBUTTON ;
-	case WLD_MOUSE_BUTTON_4: return VK_XBUTTON1;
-	case WLD_MOUSE_BUTTON_5: return VK_XBUTTON2;
-	default                : return NULL       ;
+	case WLD_MOUSE_BUTTON_1: return SDL_BUTTON_LEFT  ;
+	case WLD_MOUSE_BUTTON_2: return SDL_BUTTON_RIGHT ;
+	case WLD_MOUSE_BUTTON_3: return SDL_BUTTON_MIDDLE;
+	case WLD_MOUSE_BUTTON_4: return SDL_BUTTON_X1    ;
+	case WLD_MOUSE_BUTTON_5: return SDL_BUTTON_X2    ;
+	default                : return NULL             ;
 	}
 }
 
-const short inline VKMouseToWLDMouse(short mouseButton)
+const uint32_t inline SDLMouseToWLDMouse(uint32_t mouseButton)
 {
 	switch (mouseButton)
 	{
-	case VK_LBUTTON : return WLD_MOUSE_BUTTON_1;
-	case VK_RBUTTON : return WLD_MOUSE_BUTTON_2;
-	case VK_MBUTTON : return WLD_MOUSE_BUTTON_3;
-	case VK_XBUTTON1: return WLD_MOUSE_BUTTON_4;
-	case VK_XBUTTON2: return WLD_MOUSE_BUTTON_5;
-	default         : return NULL              ;
+	case SDL_BUTTON_LEFT  : return WLD_MOUSE_BUTTON_1;
+	case SDL_BUTTON_RIGHT : return WLD_MOUSE_BUTTON_2;
+	case SDL_BUTTON_MIDDLE: return WLD_MOUSE_BUTTON_3;
+	case SDL_BUTTON_X1    : return WLD_MOUSE_BUTTON_4;
+	case SDL_BUTTON_X2    : return WLD_MOUSE_BUTTON_5;
+	default               : return NULL              ;
 	}
 }

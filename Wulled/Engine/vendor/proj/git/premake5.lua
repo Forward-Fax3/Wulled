@@ -1,47 +1,48 @@
-project "spdlog"
-	kind "StaticLib"
-	language "c++"
-	staticruntime "on"
-	location "%{prj.name}"
+--project "spdlog"
+--	kind "StaticLib"
+--	language "c++"
+--	staticruntime "on"
+--	location "%{prj.name}"
+--
+--	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
+--	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
+--
+--	files
+--	{
+--		"%{prj.name}/include/**.h",
+--		"%{prj.name}/src/**.cpp",
+--	}
+--
+--	includedirs
+--	{
+--		"%{prj.name}",
+--		"%{prj.name}/include",
+--		"%{prj.name}/src",
+--	}
+--
+--	defines 
+--	{
+--		"SPDLOG_COMPILED_LIB",
+--	}
+--
+--	systemversion "latest"
+--	cdialect "c17"
+--	cppdialect "c++20"
+--
+--	filter "configurations:Debug"
+--		runtime "Debug"
+--		symbols "on"
+--
+--	filter "configurations:Release"
+--		runtime "Release"
+--		optimize "Speed"
+--
+--	filter "configurations:Dist"
+--		runtime "Release"
+--		optimize "Speed"
+--    	symbols "off"
 
-	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
 
-	files
-	{
-		"%{prj.name}/include/**.h",
-		"%{prj.name}/src/**.cpp",
-	}
-
-	includedirs
-	{
-		"%{prj.name}",
-		"%{prj.name}/include",
-		"%{prj.name}/src",
-	}
-
-	defines 
-	{
-		"SPDLOG_COMPILED_LIB",
-	}
-
-	systemversion "latest"
-	cdialect "c17"
-	cppdialect "c++20"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "on"
-    	symbols "off"
-	
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
@@ -58,9 +59,10 @@ project "ImGui"
 		"%{prj.name}/imgui_draw.cpp",
 		"%{prj.name}/imgui_widgets.cpp",
 		"%{prj.name}/imgui_tables.cpp",
-		"%{prj.name}/backends/imgui_impl_win32.cpp",
+		"%{prj.name}/backends/imgui_impl_SDL2.cpp",
 		"%{prj.name}/backends/imgui_impl_opengl3.cpp",
 		"%{prj.name}/backends/imgui_impl_dx12.cpp",
+		"%{prj.name}/backends/imgui_impl_vulkan.cpp",
 		
 		"%{prj.name}/imconfig.h",
 		"%{prj.name}/imgui.h",
@@ -68,20 +70,30 @@ project "ImGui"
 		"%{prj.name}/imstb_rectpack.h",
 		"%{prj.name}/imstb_textedit.h",
 		"%{prj.name}/imstb_truetype.h",
-		"%{prj.name}/backends/imgui_impl_win32.h",
+		"%{prj.name}/backends/imgui_impl_SDL2.h",
 		"%{prj.name}/backends/imgui_impl_opengl3.h",
 		"%{prj.name}/backends/imgui_impl_dx12.h",
+		"%{prj.name}/backends/imgui_impl_vulkan.h",
+
+--		"%{_WORKING_DIR}/%{IncludeDir.SDL}",
 	}
 
 	includedirs
 	{
 		"%{prj.name}",
+		"%{prj.name}/%{_WORKING_DIR}/%{IncludeDir.SDL}",
+		"%VULKAN_SDK%/Include",
 	}
 
 --	defines
 --	{
 --		"IMGUI_API=__declspec(dllexport)"
 --	}
+
+	flags
+	{
+		"MultiProcessorCompile",
+	}
 
 	systemversion "latest"
 	cdialect "c17"
@@ -96,12 +108,17 @@ project "ImGui"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
 
 	filter "configurations:Dist"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
 		symbols "off"
+		flags
+		{
+			"LinkTimeOptimization",
+		}
+
 
 project "glm"
 	kind "StaticLib"
@@ -135,6 +152,12 @@ project "glm"
 		"GLM_FORCE_AVX",
 		"GLM_FORCE_AVX2",
 		"GLM_FORCE_SWIZZLE",
+		"GLM_ENABLE_EXPERIMENTAL",
+	}
+
+	flags
+	{
+		"MultiProcessorCompile",
 	}
 
 	systemversion "latest"
@@ -147,12 +170,17 @@ project "glm"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
 
 	filter "configurations:Dist"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
     	symbols "off"
+		flags
+		{
+			"LinkTimeOptimization",
+		}
+
 
 project "DXTK12"
 	kind "StaticLib"
@@ -208,6 +236,11 @@ project "DXTK12"
 		"d3dcompiler.lib",
 	}
 
+	flags
+	{
+		"MultiProcessorCompile",
+	}
+
 	systemversion "latest"
 	cdialect "c17"
 	cppdialect "c++20"
@@ -222,50 +255,17 @@ project "DXTK12"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
 
 	filter "configurations:Dist"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
     	symbols "off"
+		flags
+		{
+			"LinkTimeOptimization",
+		}
 
-
-project "glatter"
-	kind "StaticLib"
-	language "c++"
-	staticruntime "on"
-	location "%{prj.name}"
-
-	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
-
-	files
-	{
-		"%{prj.name}/include/**.h",
-		"%{prj.name}/src/**.c",
-	}
-
-	includedirs
-	{
-		"%{prj.name}/include",
-	}
-
-	systemversion "latest"
-	cdialect "c17"
-	cppdialect "c++20"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "on"
-    	symbols "off"
 
 project "STBImage"
 	kind "StaticLib"
@@ -288,6 +288,11 @@ project "STBImage"
 		"STB",
 	}
 
+	flags
+	{
+		"MultiProcessorCompile",
+	}
+
 	systemversion "latest"
 	cdialect "c17"
 	cppdialect "c++20"
@@ -298,9 +303,14 @@ project "STBImage"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
 
 	filter "configurations:Dist"
 		runtime "Release"
-		optimize "on"
+		optimize "Speed"
     	symbols "off"
+		flags
+		{
+			"LinkTimeOptimization",
+		}
+

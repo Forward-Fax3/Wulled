@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 
-namespace WLD::Graphics::Camera
+namespace WLD::Camera
 {
 	class WLD_API PerspectiveCamera
 	{
@@ -20,7 +20,8 @@ namespace WLD::Graphics::Camera
 		void setRotation(const glm::vec3& rotation);
 
 		void setPos(const glm::vec3& pos);
-		void setFront(const glm::vec3& front);
+//		void setFront(const glm::vec3& front);
+		void setFront(const glm::vec2& front);
 		void setUp(const glm::vec3& up);
 		
 		glm::mat4 getProjection() const;

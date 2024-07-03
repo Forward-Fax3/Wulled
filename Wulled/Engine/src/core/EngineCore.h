@@ -20,12 +20,12 @@ namespace WLD
 
 #ifdef EN_ENABLE_ASSERTS
 #include "Engine/src/core/Log.h"
-	#define GAME_ASSERT(x, ...) { if(!(x)) { LOG_FATAL("Assertion Failed: " __VA_ARGS__); } } // second input must be a string
-	#define WLD_CORE_ASSERT(x, ...) { if(!(x)) { WLD_CORE_FATAL("Assertion Failed: " __VA_ARGS__); } } // second input must be a string
+	#define GAME_ASSERT(x, ...) { if(!(x)) { LOG_FATAL("Assertion Failed: " __VA_ARGS__); } } // second input MUST be a string
+	#define WLD_CORE_ASSERT(x, ...) { if(!(x)) { LOG_CORE_FATAL("Assertion Failed: " __VA_ARGS__); } } // second input MUST be a string
 #else
 #include "Engine/src/core/Log.h"
 	#define GAME_ASSERT(x, ...) { if(!(x)) { LOG_CRITICAL("Assertion Failed: " __VA_ARGS__); } }
-	#define WLD_CORE_ASSERT(x, ...) { if(!(x)) { WLD_CORE_CRITICAL("Assertion Failed: " __VA_ARGS__); } }
+	#define WLD_CORE_ASSERT(x, ...) { if(!(x)) { LOG_CORE_CRITICAL("Assertion Failed: " __VA_ARGS__); } }
 #endif
 
 

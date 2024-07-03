@@ -1,23 +1,16 @@
 #pragma once
-#include <windows.h>
 #include <functional>
+
+#include <SDL_events.h>
 
 
 namespace WLD
 {
-	class WLD_API WinEventCallBack
+	class WLD_API WinWindowEvent
 	{
 	public:
-		virtual ~WinEventCallBack() = default;
+		virtual ~WinWindowEvent() = default;
 
-		virtual LRESULT callEvent(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) = 0;
-
-		virtual void setCursorPosCallback  (std::function<void(HWND, int, int          )> func) = 0;
-		virtual void SetWindowCloseCallback(std::function<void(HWND                    )> func) = 0;
-		virtual void SetWindowSizeCallback (std::function<void(HWND, int, int          )> func) = 0;
-		virtual void SetKeyCallback        (std::function<void(HWND, int, int, int, int)> func) = 0;
-//		virtual void SetCharCallback	   (std::function<void(HWND, uint32_t          )> func) = 0;
-		virtual void SetMouseButtonCallback(std::function<void(HWND, int, int, int     )> func) = 0;
-		virtual void SetScrollCallback     (std::function<void(HWND, double, double    )> func) = 0;
+		virtual bool CallEvent(SDL_Event* SDLEvent) = 0;
 	};
 }

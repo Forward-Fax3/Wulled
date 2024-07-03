@@ -20,7 +20,7 @@
 #include "Engine/src/core/graphics/renderer/Texture.h"
 #include "Engine/src/core/graphics/renderer/VertexArray.h"
 
-#include "Engine/src/platform/OpenGL/Shader.h"
+#include "Engine/src/platform/OpenGL/OpenGLShader.h"
 
 #include "Engine/src/core/graphics/camera/PerspectiveCamera.h"
 //-------------------------------------------------------

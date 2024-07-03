@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/vendor/proj/git/spdlog/include/spdlog/spdlog.h"
-#include "Engine/vendor/proj/git/spdlog/include/spdlog/fmt/ostr.h"
+#include "Engine/vendor/core/git/spdlog/include/spdlog/spdlog.h"
+#include "Engine/vendor/core/git/spdlog/include/spdlog/fmt/ostr.h"
 
 #include "Engine/src/core/EngineCore.h"
 
@@ -15,6 +15,7 @@ namespace WLD
 
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
 		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+		static void NewLine();
 
 	private:
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;
@@ -24,17 +25,19 @@ namespace WLD
 
 
 // CORE
-#define WLD_CORE_TRACE(...)		::WLD::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define WLD_CORE_INFO(...)		::WLD::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define WLD_CORE_WARNING(...)	::WLD::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define WLD_CORE_ERROR(...)		::WLD::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define WLD_CORE_CRITICAL(...)	::WLD::Log::GetCoreLogger()->critical(__VA_ARGS__)
-#define WLD_CORE_FATAL(...)		::WLD::Log::GetCoreLogger()->critical(__VA_ARGS__); __debugbreak()
-								
-// CLIENT						
+#define LOG_CORE_NEWLINE		::WLD::Log::NewLine
+#define LOG_CORE_TRACE(...)		::WLD::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define LOG_CORE_INFO(...)		::WLD::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define LOG_CORE_WARNING(...)	::WLD::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define LOG_CORE_ERROR(...)		::WLD::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define LOG_CORE_CRITICAL(...)	::WLD::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define LOG_CORE_FATAL(...)		{::WLD::Log::GetCoreLogger()->critical(__VA_ARGS__); __debugbreak();}
+					
+// CLIENT
+#define LOG_NEWLINE				::WLD::Log::NewLine						
 #define LOG_TRACE(...)			::WLD::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define LOG_INFO(...)			::WLD::Log::GetClientLogger()->info(__VA_ARGS__)
 #define LOG_WARNING(...)		::WLD::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define LOG_ERROR(...)			::WLD::Log::GetClientLogger()->error(__VA_ARGS__)
 #define LOG_CRITICAL(...)	    ::WLD::Log::GetClientLogger()->critical(__VA_ARGS__)
-#define LOG_FATAL(...)		    ::WLD::Log::GetClientLogger()->critical(__VA_ARGS__); __debugbreak()
+#define LOG_FATAL(...)		    {::WLD::Log::GetClientLogger()->critical(__VA_ARGS__); __debugbreak();}

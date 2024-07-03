@@ -1,0 +1,13 @@
+﻿  glew.c
+  glewinfo.c
+  visualinfo.c
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\glewinfo.c(16413,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\glewinfo.c(16621,20): warning C4133: '=': incompatible types - from 'char [5]' to 'LPCWSTR'
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\glewinfo.c(16624,9): warning C4133: 'function': incompatible types - from 'char [5]' to 'LPCWSTR'
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\glewinfo.c(16693,19): warning C4133: 'function': incompatible types - from 'char [5]' to 'LPCWSTR'
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\visualinfo.c(1096,20): warning C4133: '=': incompatible types - from 'char [5]' to 'LPCWSTR'
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\visualinfo.c(1099,14): warning C4133: 'function': incompatible types - from 'char [5]' to 'LPCWSTR'
+C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\src\visualinfo.c(1132,19): warning C4133: 'function': incompatible types - from 'char [5]' to 'LPCWSTR'
+  Generating Code...
+glewinfo.obj : warning LNK4006: main already defined in visualinfo.obj; second definition ignored
+  glew.vcxproj -> C:\dev\Projects\personal\c++\Wulled\Wulled\Engine\vendor\proj\source\glew\bin\Debug\glew.lib

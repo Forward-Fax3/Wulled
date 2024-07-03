@@ -3,22 +3,24 @@
 #include "Renderer.h"
 #include "WLDMem.h"
 
-#include "OpenGL/Context.h"
-#include "DX12/Context.h"
-#include "WLDVk/Context.h"
+#include "OpenGLContext.h"
+#include "DX12Context.h"
+#include "VKContext.h"
 
 
-namespace WLD::Graphics
+namespace WLD
 {
-	GraphicsContext* GraphicsContext::createGraphicsContext(HWND* window, const WindowProps& props)
+	GraphicsContext* GraphicsContext::createGraphicsContext(WindowProps& props)
 	{
 		switch (Renderer::Renderer::GetAPI())
 		{
-			case Renderer::RendererAPI::API::None:      WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case Renderer::RendererAPI::API::OpenGL:    return CreateMemory(OpenGL::OpenGLContext, window);
-			case Renderer::RendererAPI::API::DirectX12: return CreateMemory(dx12::DX12Context, window);
-//			case Renderer::RendererAPI::API::Vulkan:    return CreateMemory(Vulkan::VulkanContext, window, props);
-			default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
+		case RendererAPI::API::None:      LOG_CORE_FATAL("RendererAPI::None is currently not supported!"); break;
+		case RendererAPI::API::OpenGL:    return CreateMemory(OpenGLContext, props);
+		case RendererAPI::API::DirectX12: return CreateMemory(DX12Context, props);
+//		case RendererAPI::API::DirectX12: LOG_CORE_FATAL("DirectX12 is currently not supported");
+		case RendererAPI::API::Vulkan:    return CreateMemory(VulkanContext, props);
+		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!");
 		}
+		return nullptr;
 	}
 }

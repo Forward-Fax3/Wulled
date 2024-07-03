@@ -1,15 +1,25 @@
 #include "wldpch.h"
 #include "WLDMem.h"
 #include "Renderer.h"
-#include "OpenGL/Shader.h"
+#include "OpenGLShader.h"
+#include "UniformBuffer.h"
+
+#include "Buffer.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
-namespace WLD::Graphics::Renderer
+namespace WLD
 {
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	Renderer::SceneData* Renderer::s_SceneData = nullptr;
 
 	void Renderer::Init()
 	{
+		s_SceneData = CreateMemory(SceneData);
+		s_SceneData->shader = nullptr;
+		s_SceneData->cameraUniformBuffer = UniformBuffer::Create(sizeof(glm::mat4), 0);
 		RenderCommand::CreateRendererAPI();
 		RenderCommand::Init();
 	}
@@ -17,28 +27,98 @@ namespace WLD::Graphics::Renderer
 	void Renderer::Shutdown()
 	{
 		RenderCommand::DeleteRendererAPI();
+		s_SceneData = DestroyMemory(s_SceneData);
 	}
 
 	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera> camera)
 	{
-		s_SceneData->camera = camera;
+		s_SceneData->cameraUniformBuffer->SetData(glm::value_ptr(camera->getProjection()), sizeof(glm::mat4));
 	}
 
 	void Renderer::EndScene()
 	{
-		s_SceneData->camera.reset();
+		s_SceneData->shader.reset();
+	}
+
+	void Renderer::SetShader(const Ref<Shader>& shader)
+	{
+		s_SceneData->shader = shader;
+	}
+
+	void Renderer::DrawCube(const glm::vec3& position, const glm::vec3& size, const glm::vec4& colour)
+	{
+		float vectors[] =
+		{
+			-0.5f, -0.5f, -0.5f,
+			 0.5f, -0.5f, -0.5f,
+			 0.5f,  0.5f, -0.5f,
+			-0.5f,  0.5f, -0.5f,
+			-0.5f, -0.5f,  0.5f,
+			 0.5f, -0.5f,  0.5f,
+			 0.5f,  0.5f,  0.5f,
+			-0.5f,  0.5f,  0.5f
+		};
+
+		uint32_t indices[] =
+		{
+			0, 1, 2, 2, 3, 0,
+			1, 5, 6, 6, 2, 1,
+			7, 6, 5, 5, 4, 7,
+			4, 0, 3, 3, 7, 4,
+			3, 2, 6, 6, 7, 3,
+			4, 5, 1, 1, 0, 4
+		};
+
+		Ref<VertexBuffer> vBuffer(VertexBuffer::Create(vectors, sizeof(vectors)));
+		Ref<IndexBuffer> iBuffer(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" }
+		};
+		vBuffer->SetLayout(layout);
+
+		Ref<VertexArray> vertexArray = VertexArray::Create();
+
+		vertexArray->AddVertexBuffer(vBuffer);
+		vertexArray->SetIndexBuffer(iBuffer);
+
+		glm::mat4 transform = glm::translate(glm::scale(glm::mat4(1.0f), size), position);
+
+		Submit(vertexArray, transform, colour);
 	}
 
 	void Renderer::Submit(const WLD::Ref<VertexArray>& vertexArray, const WLD::Ref<Shader>& shader, const glm::mat4& transform)
 	{
-		shader->Bind();
-		((Graphics::OpenGL::OpenGLShader*)shader.get())->SetUniformMat4fv("u_MVP", s_SceneData->camera->getProjection());
-		((Graphics::OpenGL::OpenGLShader*)shader.get())->SetUniformMat4fv("u_Transform", transform);
-		if (GetAPI() == RendererAPI::API::OpenGL)
-		{
-			vertexArray->Bind();
-			vertexArray->GetIndexBuffer()->Bind();
-		}
+//		shader->Bind();
+//		shader->SetMat4("u_MVP", s_SceneData->camera->getProjection());
+//		shader->SetMat4("u_Transform", transform);
+//		vertexArray->Bind();
+//		vertexArray->GetIndexBuffer()->Bind();
+//		RenderCommand::DrawIndexed(vertexArray);
+	}
+
+	void Renderer::Submit(const WLD::Ref<VertexArray>& vertexArray, const glm::mat4& transform, const glm::vec4& colour)
+	{
+		vertexArray->Bind();
+		vertexArray->GetIndexBuffer()->Bind();
+		s_SceneData->shader->Bind();
+
+		std::vector<PushConstOpaqueObj> vertOpaqueObjects;
+		vertOpaqueObjects.emplace_back(OpaqueType::Mat4);
+		struct {
+			glm::mat4 _transform = glm::mat4(1.0f);
+		} vertStruct;
+		vertStruct._transform = transform;
+
+		std::vector<PushConstOpaqueObj> fragOpaqueObjects;
+		fragOpaqueObjects.push_back({ OpaqueType::Float4 });
+		struct {
+			glm::vec4 _colour = glm::vec4(0.0f);
+		} pixelStruct;
+		pixelStruct._colour = colour;
+
+		s_SceneData->shader->SetPushConst("vertPushConsts", vertOpaqueObjects, &vertStruct);
+		s_SceneData->shader->SetPushConst("pixelMatrix", fragOpaqueObjects, &pixelStruct);
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

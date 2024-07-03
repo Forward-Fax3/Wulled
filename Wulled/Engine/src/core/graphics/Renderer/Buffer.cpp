@@ -4,22 +4,23 @@
 
 #include "Renderer.h"
 #include "Buffer.h"
-#include "OpenGL/Buffer.h"
-#include "DX12/Buffer.h"
+#include "OpenGLBuffer.h"
+#include "DX12Buffer.h"
 
 #include "WLDMem.h"
 
 
-namespace WLD::Graphics::Renderer::Buffers
+namespace WLD
 {
 	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreateMemory(OpenGL::OpenGLVertexBuffer, vertices, size);
+		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLVertexBuffer, vertices, size);
 //		case RendererAPI::API::DirectX11: return new DX11VertexBuffer(vertices, size);
-		case RendererAPI::API::DirectX12: return CreateMemory(dx12::DX12VertexBuffer, vertices, size);
+		case RendererAPI::API::DirectX12: return CreateMemory(DX12VertexBuffer, vertices, size);
+//		case RendererAPI::API::Vulkan: return createMemory(VulkanVertexBuffer, vertices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}
@@ -27,13 +28,13 @@ namespace WLD::Graphics::Renderer::Buffers
 
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
-
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreateMemory(OpenGL::OpenGLIndexBuffer, indices, size);
+		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLIndexBuffer, indices, size);
 //		case RendererAPI::API::DirectX11: return new DX11IndexBuffer(indices, size);
-		case RendererAPI::API::DirectX12: return CreateMemory(dx12::DX12IndexBuffer, indices, size);
+		case RendererAPI::API::DirectX12: return CreateMemory(DX12IndexBuffer, indices, size);
+//		case RendererAPI::API::Vulkan: return createMemory(VulkanIndexBuffer, indices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}

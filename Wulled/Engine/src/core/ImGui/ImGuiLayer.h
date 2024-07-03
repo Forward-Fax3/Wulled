@@ -10,6 +10,8 @@
 #include "Engine/src/Core/Events/MouseEvent.h"
 #include "Engine/src/Core/Events/ApplicationEvent.h"
 
+#include "Engine/src/Core/graphics/GraphicsContext.h"
+
 
 namespace WLD
 {
@@ -27,25 +29,12 @@ namespace WLD
 		void end();
 
 	private:
-		void OpenGLInit();
-		void DX12Init();
-		void OpenGLShutdown();
-		void DX12Shutdown();
-
-		void APIInit();
-		void APIShutdown();
-		
-		void DX12RenderDrawData();
-		void OpenGLRenderDrawData();
-
 		bool OnWindowResize(WindowResizeEvent& e);
 
 		ImGuiIO& init();
 
 	private:
 		ImGuiIO& m_io;
-
-		void (*ImGui_ImplX_NewFrame)(void);
-		std::function<void()> ImGui_ImplX_RenderDrawData;
+		GraphicsContext& m_Context;
 	};
 }
