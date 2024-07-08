@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/ShaderDataType.h"
+
 #include "shaderc/shaderc.hpp"
+
 #include "glm/glm.hpp"
 
 #include <string>
@@ -30,19 +33,6 @@ namespace WLD
 //		RayIntersection,
 	};
 
-	enum class OpaqueType : uint8_t
-	{
-		None = 0,
-		Bool,
-		Int, Int2, Int3, Int4,
-		Float, Float2, Float3, Float4,
-		Mat2, Mat3, Mat4,
-		Mat2x2 = Mat2, Mat3x3, Mat4x4,
-		Mat2x3, Mat2x4, Mat3x2, Mat3x4, Mat4x2, Mat4x3,
-		Mat2X2 = Mat2, Mat3X3, Mat4X4,
-		Mat2X3, Mat2X4, Mat3X2, Mat3X4, Mat4X2, Mat4X3,
-	};
-
 	struct InputShader // At the moment, only supports GLSL shaders and only from a file
 	{
 		WLD_ShaderType type = WLD_ShaderType::None;
@@ -53,7 +43,7 @@ namespace WLD
 
 	struct PushConstOpaqueObj
 	{
-		OpaqueType type = OpaqueType::None;
+		ShaderDataType type = ShaderDataType::None;
 		uint32_t arraySize = 1;
 	};
 

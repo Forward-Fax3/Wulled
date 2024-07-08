@@ -2,14 +2,15 @@
 
 layout(location = 0) out vec4 colour;
 
-layout(push_constant) uniform PixelPushConst
+layout(std140, binding = 1) uniform UBO
 {
-	vec4 u_Colour;
-} pixelMatrix;
+	mat4 transform;
+	vec4 colour;
+} data;
 
 // layout(location = 1) uniform vec4 u_Colour;
 
 void main()
 {
-	colour = pixelMatrix.u_Colour;
+	colour = data.colour;
 }

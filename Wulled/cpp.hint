@@ -4,3 +4,4 @@
 #define WLD_API __declspec(dllexport)
 #define WLD_API __declspec(dllimport)
 #define WLD_API
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; } virtual EventType GetEventType() const override { return GetStaticType(); } virtual const char* GetName() const override { return #type; }

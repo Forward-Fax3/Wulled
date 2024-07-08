@@ -48,6 +48,7 @@ project "ImGui"
 	language "C++"
 	staticruntime "on"
 	location "%{prj.name}"
+	vectorextensions "AVX2"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -125,6 +126,7 @@ project "glm"
 	language "c++"
 	staticruntime "on"
 	location "%{prj.name}"
+	vectorextensions "AVX2"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -153,6 +155,7 @@ project "glm"
 		"GLM_FORCE_AVX2",
 		"GLM_FORCE_SWIZZLE",
 		"GLM_ENABLE_EXPERIMENTAL",
+		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
 	}
 
 	flags
@@ -187,6 +190,7 @@ project "DXTK12"
 	language "c++"
 	staticruntime "on"
 	location "%{prj.name}"
+	vectorextensions "AVX2"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -272,6 +276,7 @@ project "STBImage"
 	language "c++"
 	staticruntime "on"
 	location "STB"
+	vectorextensions "AVX2"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")

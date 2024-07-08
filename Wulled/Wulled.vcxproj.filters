@@ -135,6 +135,9 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\core\graphics\Renderer\ShaderDataType.h">
+      <Filter>Engine\src\core\graphics\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\src\core\graphics\Renderer\Texture.h">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClInclude>
@@ -194,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\platform\WLDVk\RenderPass.h">
+      <Filter>Engine\src\platform\WLDVk</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\platform\WLDVk\VkContext.h">
       <Filter>Engine\src\platform\WLDVk</Filter>
@@ -273,7 +279,7 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp">
       <Filter>Engine\src\core\graphics\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp">
+    <ClCompile Include="Engine\src\core\graphics\camera\PerspectiveCamera.cpp">
       <Filter>Engine\src\core\graphics\camera</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\core\layers\Layer.cpp">
@@ -323,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\platform\WLDVk\RenderPass.cpp">
+      <Filter>Engine\src\platform\WLDVk</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\WLDVk\VkContext.cpp">
       <Filter>Engine\src\platform\WLDVk</Filter>

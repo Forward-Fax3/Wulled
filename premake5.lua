@@ -13,11 +13,17 @@ output = "%{cfg.system}-%{cfg.architecture}-%{cfg.buildcfg}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["ImGui"]    = "Wulled/Engine/vendor/proj/git/imgui/"
-IncludeDir["spdlog"]   = "Wulled/Engine/vendor/proj/git/spdlog/include/"
+IncludeDir["spdlog"]   = "Wulled/Engine/vendor/core/git/spdlog/include/"
 IncludeDir["glm"]      = "Wulled/Engine/vendor/proj/git/glm/"
 IncludeDir["DXTK12"]   = "Wulled/Engine/vendor/proj/git/DXTK12/"
-IncludeDir["glatter"]  = "Wulled/Engine/vendor/proj/git/glatter/include/"
 IncludeDir["STBImage"] = "Wulled/Engine/vendor/proj/git/STB/"
+filter "configurations:Debug"
+	IncludeDir["Glad"]     = "Wulled/Engine/vendor/proj/source/Glad/Debug/include"
+filter { "configurations:Release", "configurations:dist"}
+	IncludeDir["Glad"]     = "Wulled/Engine/vendor/proj/source/Glad/main/include"
+filter {}
+IncludeDir["glew"] = "Wulled/Engine/vendor/proj/source/glew/include"
+IncludeDir["SDL"] = "Wulled/Engine/vendor/Librarys/SDL/include"
 
 include "Wulled/Engine/vendor/proj/git"
 include "Wulled/Engine/vendor/proj/source"
@@ -30,7 +36,9 @@ project "SandBox"
 	location "%{prj.name}"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "on"
+	staticruntime "off"
+	vectorextensions "AVX2"
+	toolset "clang"
 
 	targetdir ("bin/" .. output .. "/%{prj.name}")
 	objdir ("bin/" .. output .. "/intermediate/%{prj.name}")
@@ -50,8 +58,12 @@ project "SandBox"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.DXTK12}",
-		"%{IncludeDir.glatter}",
 		"%{IncludeDir.STBImage}",
+--		"%{IncludeDir.Glad}",
+		"%{IncludeDir.glew}",
+		"%{IncludeDir.SDL}",
+		
+		"%VULKAN_SDK%/Include",
 	}
 
 	links
@@ -59,15 +71,29 @@ project "SandBox"
 		"Wulled"
 	}
 
---	defines
---	{
+	defines
+	{
 --		"WLD_DLL",
---	}
+		"GLM_FORCE_SSE2",
+		"GLM_FORCE_SSE3",
+		"GLM_FORCE_SSSE3",
+		"GLM_FORCE_SSE41",
+		"GLM_FORCE_SSE42",
+		"GLM_FORCE_AVX",
+		"GLM_FORCE_AVX2",
+		"GLM_FORCE_SWIZZLE",
+		"GLM_ENABLE_EXPERIMENTAL",
+		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
+	}
+
+	flags
+	{
+		"MultiProcessorCompile",
+	}
 
 	filter "system:windows"
 		cppdialect "c++20"
 		cdialect "c17"
-		staticruntime "On"
 		systemversion "latest"
 	
 	filter "configurations:Debug"
@@ -90,7 +116,7 @@ project "SandBox"
 			"ENGINE_RELEASE",
 			"EN_ENABLE_ASSERTS"
 		}
-		optimize "On"
+		optimize "Speed"
 		symbols "On"
 
 	filter "configurations:dist"
@@ -100,5 +126,9 @@ project "SandBox"
 			"_DIST",
 			"ENGINE_DIST"
 		}
-		optimize "On"
+		flags
+		{
+			"LinkTimeOptimization",
+		}
+		optimize "Speed"
 		symbols "Off"

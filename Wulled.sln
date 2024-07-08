@@ -11,11 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandBox", "SandBox\SandBox.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wulled", "Wulled\Wulled.vcxproj", "{321852DB-1EBA-7CB1-0775-9005F3B50302}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glatter", "Wulled\Engine\vendor\proj\git\glatter\glatter.vcxproj", "{B81278FF-24F2-F69A-2D0A-827199685DFC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew", "Wulled\Engine\vendor\proj\source\glew\glew.vcxproj", "{7463977C-609A-980D-0987-7E10F59C140F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glm", "Wulled\Engine\vendor\proj\git\glm\glm.vcxproj", "{6577880B-D180-887C-5AFC-9E7CC604947C}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spdlog", "Wulled\Engine\vendor\proj\git\spdlog\spdlog.vcxproj", "{8EAD431C-7A4F-6EF2-630A-82464F4BF542}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,24 +52,18 @@ Global
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.dist|x64.Build.0 = dist|x64
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.Release|x64.ActiveCfg = Release|x64
 		{321852DB-1EBA-7CB1-0775-9005F3B50302}.Release|x64.Build.0 = Release|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Debug|x64.ActiveCfg = Debug|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Debug|x64.Build.0 = Debug|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.dist|x64.ActiveCfg = dist|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.dist|x64.Build.0 = dist|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Release|x64.ActiveCfg = Release|x64
-		{B81278FF-24F2-F69A-2D0A-827199685DFC}.Release|x64.Build.0 = Release|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.Debug|x64.ActiveCfg = Debug|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.Debug|x64.Build.0 = Debug|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.dist|x64.ActiveCfg = dist|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.dist|x64.Build.0 = dist|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.Release|x64.ActiveCfg = Release|x64
+		{7463977C-609A-980D-0987-7E10F59C140F}.Release|x64.Build.0 = Release|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Debug|x64.ActiveCfg = Debug|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Debug|x64.Build.0 = Debug|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.dist|x64.ActiveCfg = dist|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.dist|x64.Build.0 = dist|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Release|x64.ActiveCfg = Release|x64
 		{6577880B-D180-887C-5AFC-9E7CC604947C}.Release|x64.Build.0 = Release|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.Debug|x64.ActiveCfg = Debug|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.Debug|x64.Build.0 = Debug|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.dist|x64.ActiveCfg = dist|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.dist|x64.Build.0 = dist|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.Release|x64.ActiveCfg = Release|x64
-		{8EAD431C-7A4F-6EF2-630A-82464F4BF542}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

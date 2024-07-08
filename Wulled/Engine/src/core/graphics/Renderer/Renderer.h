@@ -35,15 +35,22 @@ namespace WLD
 		inline static RendererAPI::API GetNextAPI() { return RendererAPI::GetNextAPI(); }
 		inline static void SetNextAPI(RendererAPI::API api) { RendererAPI::SetNextAPI(api); }
 
-	private:
+	private: // private structs
+		struct DataUBO
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			glm::vec4 colour = glm::vec4(1.0f);
+		};
+
 		struct SceneData
 		{
-			Ref<UniformBuffer> cameraUniformBuffer;
+			Ref<UniformBuffer> cameraUBO, dataUBO;
 			Ref<Shader> shader;
 
 			glm::vec4 backgroundcolour = glm::vec4(1.0f);
 		};
 
+	private: // private data
 		static SceneData* s_SceneData;
 	};
 }

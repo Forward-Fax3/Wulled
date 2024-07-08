@@ -160,7 +160,7 @@ namespace WLD
 	static T* _CreateArray(size_t numberOfT, Args&&... args)
 #endif
 	{
-		T* ptr = new(::std::nothrow) T(::std::forward<Args>(args)...)[numberOfT];
+		T* ptr = new(::std::nothrow) T[numberOfT]{ ::std::forward<Args>(args)... };
 		if (!ptr)
 			WLD_CORE_ASSERT(false, "Failed to allocate memory!");
 

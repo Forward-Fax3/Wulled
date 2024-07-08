@@ -6,10 +6,11 @@
 #include <vulkan/vulkan.hpp>
 #include "spirv_cross/spirv_glsl.hpp"
 
+#include "Engine/src/platform/WLDVk/RenderPass.h"
+
 
 namespace WLD
 {
-	class WLD_API OpenGLShader;
 
 	class VulkanShader : public Shader
 	{
@@ -32,17 +33,24 @@ namespace WLD
 
 		virtual void SetPushConst(const std::string& UBName, const std::vector<PushConstOpaqueObj>& layout, const void* data) override;
 
-	private:
-		void SetUpRenderPass();
+	private: // Helper Structs
+		struct VertexInputAttributeData
+		{
+			VkFormat format = VK_FORMAT_UNDEFINED;
+			uint32_t size = NULL;
+		};
+
+	private: // Helper Functions
 		void Compile(const std::vector<std::pair<VkShaderStageFlagBits, std::vector<uint32_t>>>& shaderSources);
 
-		VkShaderStageFlagBits VkShaderTypeFromWLDShaderType(WLD_ShaderType type);
-		shaderc_shader_kind ShadercShaderTypeFromWLDShaderType(WLD_ShaderType type);
-		VkFormat VkFormatFromSPIRType(const spirv_cross::SPIRType& type);
+		VkShaderStageFlagBits VkShaderTypeFromWLDShaderType(WLD_ShaderType type) const;
+		shaderc_shader_kind ShadercShaderTypeFromWLDShaderType(WLD_ShaderType type) const;
+		VertexInputAttributeData VertexInputAttributeDataFromSPIRType(const spirv_cross::SPIRType& type) const;
 
-	private:
+	private: // Data
 		VkPipelineLayout m_PipelineLayout;
 		VkPipeline m_GraphicsPipeline;
-		VkRenderPass m_RenderPass;
+
+		RenderPass* m_RenderPass;
 	};
 }

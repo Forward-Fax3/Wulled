@@ -2,6 +2,8 @@ project "Wulled"
 	kind "StaticLib"
 	language "C++"
 	staticruntime "off"
+	vectorextensions "AVX2"
+	toolset "clang"
 
 	targetdir ("bin/" .. output .. "/%{prj.name}")
 	objdir ("bin/" .. output .. "/intermediate/%{prj.name}")
@@ -74,6 +76,7 @@ project "Wulled"
 		"GLM_FORCE_AVX2",
 		"GLM_FORCE_SWIZZLE",
 		"GLM_ENABLE_EXPERIMENTAL",
+		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
 	}
 
 	flags

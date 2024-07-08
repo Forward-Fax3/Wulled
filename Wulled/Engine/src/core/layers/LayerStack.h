@@ -14,9 +14,18 @@ namespace WLD
 		overlayPop
 	};
 
+	class WLD_API LayerStack;
+
 	class WLD_API LayerStackQueue
 	{
-	public:
+	private: // helper struct
+		struct layerData
+		{
+			Layer* layer;
+			LayerStackQueueType type;
+		};
+
+	private:
 		LayerStackQueue();
 		~LayerStackQueue();
 
@@ -25,14 +34,16 @@ namespace WLD
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
-		inline std::vector<std::pair<Layer*, LayerStackQueueType>>::iterator begin() { return m_Layers.begin(); }
-		inline std::vector<std::pair<Layer*, LayerStackQueueType>>::iterator end() { return m_Layers.end(); }
+		inline std::vector<layerData>::iterator begin() { return m_Layers.begin(); }
+		inline std::vector<layerData>::iterator end() { return m_Layers.end(); }
 
 		void clear();
 
 	private:
-		std::vector<std::pair<Layer*, LayerStackQueueType>> m_Layers;
+		std::vector<layerData> m_Layers;
 		uint64_t m_LayerInsertIndex;
+
+		friend class LayerStack;
 	};
 
 	class WLD_API LayerStack
@@ -59,7 +70,7 @@ namespace WLD
 
 	private:
 		std::vector<Layer*> m_Layers;
-		Scope<LayerStackQueue> m_LayerStackQueue;
+		LayerStackQueue m_LayerStackQueue;
 		uint64_t m_LayerInsertIndex;
 	};
 }

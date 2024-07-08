@@ -60,6 +60,7 @@ project "glew"
     cdialect "c17"
 	staticruntime "on"
     location "%{prj.name}"
+	vectorextensions "AVX2"
     
     targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")

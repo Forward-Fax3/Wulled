@@ -48,35 +48,8 @@ class ExampleLayer : public WLD::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Render"), m_CamSpeed(1.0f)
+		: Layer("Render"), m_CamSpeed(10.0f)
 	{
-		// multicolour squire data
-//		float multiColourVertices[] =
-//		{
-//			-0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
-//			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 0.0f, 1.0f,
-//			 0.5f,  0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
-//			 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
-//			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f,
-//													   
-//			-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
-//			 0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
-//			 0.0f,  0.5f, -0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//		};
-//
-//		uint32_t multiColourIndices[] =
-//		{
-//			0, 1, 4,
-//			1, 2, 4,
-//			2, 3, 4,
-//			3, 0, 4,
-//
-//			2, 1, 7,
-//			1, 5, 7,
-//			5, 6, 7,
-//			6, 2, 7,
-//		};
-
 		// background data
 //		float backgroundVertices[] =
 //		{
@@ -121,45 +94,12 @@ public:
 //			}
 //		)";
 
-		// Vertex buffer and index buffer creation
-//		WLD::Ref<WLD::VertexBuffer> vertexBuffer;
-//		WLD::Ref<WLD::IndexBuffer> indexBuffer;
-
-		// multicolour squire creation
-//		WLD::InputShader indevidualShaders[] = { {}, {} };
-//		indevidualShaders[0].type = WLD::ShaderType::Vertex;
-//		indevidualShaders[0].isFromFile = true;
-//		indevidualShaders[0].source = "multiColour.vert";
-//		indevidualShaders[0].isCompiled = false;
-//
-//		indevidualShaders[1].type = WLD::ShaderType::Fragment;
-//		indevidualShaders[1].isFromFile = true;
-//		indevidualShaders[1].source = "multiColour.frag";
-//		indevidualShaders[1].isCompiled = false;
-//
-//		WLD::InputShaders shaders = {};
-//		shaders.numberOfShaders = 2;
-//		shaders.shaders = indevidualShaders;
-
 		std::vector<WLD::InputShader> shaders;
 		shaders.reserve(2);
 		shaders.emplace_back(WLD::WLD_ShaderType::Vertex, "multiColour.vert");
 		shaders.emplace_back(WLD::WLD_ShaderType::Fragment, "multiColour.frag");
 
 		m_MultiColourShader.reset(WLD::Shader::Create(shaders));
-//		m_MultiColourVertexArray.reset(WLD::VertexArray::Create());
-//
-//		vertexBuffer.reset(WLD::VertexBuffer::Create(multiColourVertices, sizeof(multiColourVertices)));
-//		indexBuffer.reset(WLD::IndexBuffer::Create(multiColourIndices, sizeof(multiColourIndices) / sizeof(uint32_t)));
-//
-//		vertexBuffer->SetLayout
-//		({
-//			{ WLD::ShaderDataType::Float3, "a_Position" },
-//			{ WLD::ShaderDataType::Float4, "a_Colour" }
-//		});
-//
-//		m_MultiColourVertexArray->AddVertexBuffer(vertexBuffer);
-//		m_MultiColourVertexArray->SetIndexBuffer(indexBuffer);
 
 		// background creation
 //		m_BackgroundShader.reset(WLD::Shader::Create(backgroundVertexSrc, backgroundFragmentSrc));
@@ -180,7 +120,7 @@ public:
 		// camera creation
 		WLD::Window& window = WLD::Application::Get().GetWindow();
 		m_Camera.reset(CreateMemory(WLD::Camera::PerspectiveCamera, m_FOV, toFloat(window.GetHeight()), toFloat(window.GetWidth()), 0.3f, 1000.0f));
-		m_Camera->setUp({ 0.0f, 1.0f, 0.0f });
+		m_Camera->SetUp({ 0.0f, 1.0f, 0.0f });
 
 		// background camera creation
 //		m_BackgroundCamera.reset(CreateMemory(WLD::Camera::PerspectiveCamera, 1.0f, toFloat(window.GetHeight()), toFloat(window.GetWidth()), 0.3f, 1000.0f));
@@ -191,68 +131,27 @@ public:
 	{
 	}
 
-//	void OnUpdate() override
-//	{
-//		static bool hasRrintedMat4 = false;
-//		if (m_BackGround)
-//		{
-//			WLD::Renderer::BeginScene(m_BackgroundCamera);
-//			m_BackgroundShader->Bind();
-//			((WLD::OpenGL::OpenGLShader*)m_BackgroundShader.get())->SetUniformFloat3("u_Colour", m_SetColour);
-//			glm::mat4 scale(glm::scale(glm::mat4(1.0f), glm::vec3(0.0f, 900.0f, 900.0f)));
-//			glm::mat4 transform(glm::translate(scale, glm::vec3(900.0f, 0.0f, 0.0f)));
-//
-//			if (!hasRrintedMat4)
-//			{
-//				for (int i = 0; i < 4; i++)
-//					for (int j = 0; j < 4; j++)
-//					{
-//						LOG_INFO("(m_BackgroundCamera->getProjection() * transform)[{0}][{1}] = {2}", i, j, (m_BackgroundCamera->getProjection() * transform)[i][j]);
-//						LOG_INFO("transform[{0}][{1}]                                         = {2}", i, j, transform[i][j]);
-//						LOG_INFO("m_BackgroundCamera->getProjection()[{0}][{1}]               = {2}", i, j, m_BackgroundCamera->getProjection()[i][j]);
-//						LOG_INFO("scale[{0}][{1}]                                             = {2}", i, j, scale[i][j]);
-//						LOG_INFO("");
-//					}
-//				hasRrintedMat4 = true;
-//			}
-//
-//			WLD::Renderer::Submit(m_BackgroundVA, m_BackgroundShader, transform);
-//			WLD::Renderer::EndScene();
-//		}
-//
-//		WLD::Renderer::BeginScene(m_Camera);
-//		glm::vec2 rotation = getRotation();
-//		m_Camera->setFront(rotation * 0.5f);
-//		m_Camera->setPos(getMovement(m_CamSpeed));
-//		glm::mat4 scale(glm::scale(glm::mat4(1.0f), glm::vec3(10)));
-//
-//		for (float i = -2.0f; i < 3.0f; i += 1.0f)
-//			for (float j = -2.0f; j < 3.0f; j += 1.0f)
-//			{
-//				glm::vec3 translation(i * 1.1f, 0.0f, j * 1.1f);
-//				glm::mat4 transform(glm::translate(scale, translation));
-//				WLD::Renderer::Submit(m_MultiColourVertexArray, m_MultiColourShader, transform);
-//			}
-//		WLD::Renderer::EndScene();
-//	}
-
 	void OnUpdate()
 	{
+		glm::mat4 girls;
+		girls;
+
+		m_Camera->SetPos(getMovement(m_CamSpeed));
+		m_Camera->SetFront(getRotation() * 0.5f);
 		WLD::Renderer::BeginScene(m_Camera);
-		m_Camera->setPos(getMovement(m_CamSpeed));
-		m_Camera->setFront(getRotation() * 0.5f);
 		WLD::Renderer::SetBackgroundColour(glm::vec4(m_SetColour, 1.0f));
 
 		WLD::Renderer::SetShader(m_MultiColourShader);
 
-		for (float i = -2.0f; i < 3.0f; i += 1.0f)
-			for (float j = -2.0f; j < 3.0f; j += 1.0f)
-			{
-				glm::vec4 color = { 1.0f, 1.0f * (j + 2.0f) * 1 / 5, 1.0f * (i + 2.0f) * 1 / 5 , 1.0f};
+		for (double i = -2.0; i < 3.0; i++)
+			for (double j = -2.0; j < 3.0; j++)
+				for (double k = -2.0; k < 3.0; k++)
+				{
+					glm::dvec4 color = { 1.0 * (k + 2.0) * 1 / 5, 1.0 * (j + 2.0) * 1 / 5, 1.0 * (i + 2.0) * 1 / 5 , 1.0};
 
-				glm::vec3 translation(i * 1.1f, 0.0f, j * 1.1f);
-				WLD::Renderer::DrawCube(translation, glm::vec3(10.0f), color);
-			}
+					glm::vec3 translation(i * 1.1f, k * 1.1f, j * 1.1f);
+					WLD::Renderer::DrawCube(translation, glm::vec3(10.0f), color);
+				}
 
 		WLD::Renderer::EndScene();
 	}
@@ -261,24 +160,24 @@ public:
 	{
 		static glm::vec3 pos(0.0f);
 		static glm::vec3 rot(0.0f);
-		static bool isCat = false;
 		bool activateCat = false;
 		bool backgroundEvent = true;
 		bool wireFrameEvent = false;
 		static uint8_t PreviousFOV = m_FOV;
-		WLD::Application& m_App = WLD::Application::Get();
 
 		ImGui::Begin("3D Object");
 		ImGui::Text("Rotation");
 		ImGui::SliderFloat3("x, y, z", glm::value_ptr(rot), -180.0f, 180.0f);
 		ImGui::Separator();
 		ImGui::Text("Position");
-		ImGui::SliderFloat3("x, y, z ", glm::value_ptr(pos), -10.0f, 10.0f);
+		ImGui::SliderFloat3("x, y, z ", glm::value_ptr(pos), -10.0f, 10.0f); // added a space at the end of the string to give if a unique name/ID to prevent it from linking to the rotation slider
 		ImGui::End();
 
 		ImGui::Begin("Camera");
 		ImGui::Text("Speed");
-		ImGui::SliderFloat("speed", &m_CamSpeed, 0.1f, 10.0f, "%.1f");
+		float camSpeedTemp = m_CamSpeed / 10.0f;
+		ImGui::SliderFloat("speed", &camSpeedTemp, 0.1f, 10.0f, "%.1f");
+		m_CamSpeed = camSpeedTemp * 10.0f;
 		ImGui::Separator();
 		ImGui::Text("FOV");
 		int FOV = m_FOV;
@@ -311,11 +210,14 @@ public:
 		if (wireFrameEvent)
 			WLD::RenderCommand::ToggleWireFrame();
 
-		m_Camera->setPosition(pos);
-		m_Camera->setRotation(rot);
+		m_Camera->SetPosition(pos);
+		m_Camera->SetRotation(rot);
 
 		if (activateCat)
 		{
+			static bool isCat = false;
+			WLD::Application& m_App = WLD::Application::Get();
+
 			if (!isCat)
 			{
 				m_CatLayer = CreateMemory(catLayer, m_BackgroundVA, m_Camera);
@@ -334,7 +236,7 @@ public:
 
 		if (m_FOV != PreviousFOV)
 		{
-			m_Camera->setProjection(toFloat(m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
+			m_Camera->SetProjection(toFloat(m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
 			PreviousFOV = m_FOV;
 		}
 	}
@@ -358,15 +260,16 @@ private:
 
 		float deltaTime = WLD::Time::GetDeltaTime();
 
-		for (auto key : m_Keys)
-		{
-			if (key == WLD_KEY_W) x += speed * deltaTime * 10;
-			if (key == WLD_KEY_S) x -= speed * deltaTime * 10;
-			if (key == WLD_KEY_R) y += speed * deltaTime * 10;
-			if (key == WLD_KEY_F) y -= speed * deltaTime * 10;
-			if (key == WLD_KEY_D) z += speed * deltaTime * 10;
-			if (key == WLD_KEY_A) z -= speed * deltaTime * 10;
-		}
+		for (const auto& key : m_Keys)
+			switch (key)
+			{
+			case WLD_KEY_W: x += speed * deltaTime; break;
+			case WLD_KEY_S: x -= speed * deltaTime; break;
+			case WLD_KEY_R: y += speed * deltaTime; break;
+			case WLD_KEY_F: y -= speed * deltaTime; break;
+			case WLD_KEY_D: z += speed * deltaTime; break;
+			case WLD_KEY_A: z -= speed * deltaTime; break;
+			}
 
 		return { x, y, z };
 	}
@@ -392,7 +295,7 @@ private:
 
 	bool OnWindowResize(WLD::WindowResizeEvent& e)
 	{
-		m_Camera->setProjection(45.0f, toFloat(e.GetHeight()), toFloat(e.GetWidth()), 0.3f, 1000.0f);
+		m_Camera->SetProjection(45.0f, toFloat(e.GetHeight()), toFloat(e.GetWidth()), 0.3f, 1000.0f);
 		return true;
 	}
 
@@ -432,11 +335,11 @@ private:
 	{
 		if (e.GetYOffset() > 0 && m_FOV > 1)
 		{
-			m_Camera->setProjection(toFloat(--m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
+			m_Camera->SetProjection(toFloat(--m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
 		}
 		else if (e.GetYOffset() < 0 && m_FOV < 179)
 		{
-			m_Camera->setProjection(toFloat(++m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
+			m_Camera->SetProjection(toFloat(++m_FOV), toFloat(WLD::Application::Get().GetWindow().GetHeight()), toFloat(WLD::Application::Get().GetWindow().GetWidth()), 0.3f, 1000.0f);
 		}
 		return true;
 	}

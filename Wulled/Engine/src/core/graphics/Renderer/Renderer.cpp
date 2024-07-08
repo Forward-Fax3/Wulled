@@ -19,7 +19,8 @@ namespace WLD
 	{
 		s_SceneData = CreateMemory(SceneData);
 		s_SceneData->shader = nullptr;
-		s_SceneData->cameraUniformBuffer = UniformBuffer::Create(sizeof(glm::mat4), 0);
+		s_SceneData->cameraUBO = UniformBuffer::Create(sizeof(glm::mat4), 0);
+		s_SceneData->dataUBO = UniformBuffer::Create(sizeof(DataUBO), 1);
 		RenderCommand::CreateRendererAPI();
 		RenderCommand::Init();
 	}
@@ -32,7 +33,7 @@ namespace WLD
 
 	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera> camera)
 	{
-		s_SceneData->cameraUniformBuffer->SetData(glm::value_ptr(camera->getProjection()), sizeof(glm::mat4));
+		s_SceneData->cameraUBO->SetData(glm::value_ptr(camera->GetProjection()), sizeof(glm::mat4));
 	}
 
 	void Renderer::EndScene()
@@ -103,22 +104,12 @@ namespace WLD
 		vertexArray->GetIndexBuffer()->Bind();
 		s_SceneData->shader->Bind();
 
-		std::vector<PushConstOpaqueObj> vertOpaqueObjects;
-		vertOpaqueObjects.emplace_back(OpaqueType::Mat4);
-		struct {
-			glm::mat4 _transform = glm::mat4(1.0f);
-		} vertStruct;
-		vertStruct._transform = transform;
-
-		std::vector<PushConstOpaqueObj> fragOpaqueObjects;
-		fragOpaqueObjects.push_back({ OpaqueType::Float4 });
-		struct {
-			glm::vec4 _colour = glm::vec4(0.0f);
-		} pixelStruct;
-		pixelStruct._colour = colour;
-
-		s_SceneData->shader->SetPushConst("vertPushConsts", vertOpaqueObjects, &vertStruct);
-		s_SceneData->shader->SetPushConst("pixelMatrix", fragOpaqueObjects, &pixelStruct);
+		DataUBO data;
+		data.transform = transform;
+		data.colour = colour;
+		s_SceneData->dataUBO->SetData(&data);
+//		s_SceneData->dataUBO->SetData(&transform, sizeof(transform), 0);
+//		s_SceneData->dataUBO->SetData(&colour, sizeof(colour), sizeof(transform));
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

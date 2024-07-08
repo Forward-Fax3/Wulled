@@ -2,19 +2,11 @@
 #include "Engine/src/core/Log.h"
 #include "Engine/src/core/WLDMem.h"
 #include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/ShaderDataType.h"
 
 
 namespace WLD
 {
-	enum class WLD_API ShaderDataType : uint8_t
-	{
-		None,
-		Bool,
-		Int, Int2, Int3, Int4,
-		Float, Float2, Float3, Float4,
-		Mat3, Mat4
-	};
-
 	uint32_t ShaderDataTypeSize(ShaderDataType type);
 
 	struct WLD_API BufferElement

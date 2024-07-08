@@ -17,3 +17,4 @@
 [submodule "Wulled/Engine/vendor/proj/git/SDL"]
 	path = Wulled/Engine/vendor/proj/git/SDL
 	url = https://github.com/libsdl-org/SDL.git
+	branch = SDL2

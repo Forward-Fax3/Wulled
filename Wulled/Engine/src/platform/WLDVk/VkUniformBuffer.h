@@ -10,6 +10,6 @@ namespace WLD
 		VkUniformBuffer(uint32_t size, uint32_t binding);
 		virtual ~VkUniformBuffer();
 
-		virtual void SetData(const void* data, uint32_t size, uint32_t offset = 0) override;
+		virtual void SetData(const void* data, uint32_t size = 0, uint32_t offset = 0) override;
 	};
 }

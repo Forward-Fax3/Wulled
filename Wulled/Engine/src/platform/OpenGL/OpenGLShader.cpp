@@ -138,7 +138,10 @@ namespace WLD
 			void* currentDataPtr = (void*)((size_t)data + dataOffset);
 			switch (opaqueType.type)
 			{
-			case OpaqueType::Bool:
+			case ShaderDataType::None:
+				LOG_CORE_ERROR("ShaderDataType::None is not supported: {0}", __FILE__);
+				break;
+			case ShaderDataType::Bool:
 			{
 				int* value = CreateArray(int, opaqueType.arraySize);
 				for (uint32_t i = 0; i < opaqueType.arraySize; i++)
@@ -148,71 +151,71 @@ namespace WLD
 				value = DestroyArray(value);
 				break;
 			}
-			case OpaqueType::Int:
+			case ShaderDataType::Int:
 				glUniform1iv(currentLayout, opaqueType.arraySize, (int*)currentDataPtr);
 				dataOffset += 4ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Int2:
+			case ShaderDataType::Int2:
 				glUniform2iv(currentLayout, opaqueType.arraySize, (int*)currentDataPtr);
 				dataOffset += 8ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Int3:
+			case ShaderDataType::Int3:
 				glUniform3iv(currentLayout, opaqueType.arraySize, (int*)currentDataPtr);
 				dataOffset += 12ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Int4:
+			case ShaderDataType::Int4:
 				glUniform4iv(currentLayout, opaqueType.arraySize, (int*)currentDataPtr);
 				dataOffset += 16ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Float:
+			case ShaderDataType::Float:
 				glUniform1fv(currentLayout, opaqueType.arraySize, (float*)currentDataPtr);
 				dataOffset += 4ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Float2:
+			case ShaderDataType::Float2:
 				glUniform2fv(currentLayout, opaqueType.arraySize, (float*)currentDataPtr);
 				dataOffset += 8ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Float3:
+			case ShaderDataType::Float3:
 				glUniform3fv(currentLayout, opaqueType.arraySize, (float*)currentDataPtr);
 				dataOffset += 12ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Float4:
+			case ShaderDataType::Float4:
 				glUniform4fv(currentLayout, opaqueType.arraySize, (float*)currentDataPtr);
 				dataOffset += 16ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat2:
+			case ShaderDataType::Mat2:
 				glUniformMatrix2fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 16ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat3:
+			case ShaderDataType::Mat3:
 				glUniformMatrix3fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 36ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat4:
+			case ShaderDataType::Mat4:
 				glUniformMatrix4fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 64ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat2x3:
+			case ShaderDataType::Mat2x3:
 				glUniformMatrix2x3fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 24ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat2x4:
+			case ShaderDataType::Mat2x4:
 				glUniformMatrix2x4fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 32ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat3x2:
+			case ShaderDataType::Mat3x2:
 				glUniformMatrix3x2fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 24ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat3x4:
+			case ShaderDataType::Mat3x4:
 				glUniformMatrix3x4fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 48ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat4x2:
+			case ShaderDataType::Mat4x2:
 				glUniformMatrix4x2fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 32ui64 * opaqueType.arraySize;
 				break;
-			case OpaqueType::Mat4x3:
+			case ShaderDataType::Mat4x3:
 				glUniformMatrix4x3fv(currentLayout, opaqueType.arraySize, GL_FALSE, (float*)currentDataPtr);
 				dataOffset += 48ui64 * opaqueType.arraySize;
 				break;
@@ -346,6 +349,7 @@ namespace WLD
 	{
 		switch (type)
 		{
+		case WLD_ShaderType::None:     return GL_INVALID_ENUM;
 		case WLD_ShaderType::Vertex:   return GL_VERTEX_SHADER;
 		case WLD_ShaderType::Fragment: return GL_FRAGMENT_SHADER;
 		}
@@ -358,6 +362,7 @@ namespace WLD
 	{
 		switch (type)
 		{
+		case WLD_ShaderType::None:     return (shaderc_shader_kind)-1;
 		case WLD_ShaderType::Vertex:   return shaderc_glsl_vertex_shader;
 		case WLD_ShaderType::Fragment: return shaderc_glsl_fragment_shader;
 		}

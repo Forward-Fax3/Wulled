@@ -26,19 +26,19 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -76,12 +76,13 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -99,7 +100,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -108,6 +109,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -128,7 +130,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>wldpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -137,6 +139,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -178,6 +181,7 @@
     <ClInclude Include="Engine\src\core\graphics\Renderer\Renderer.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\RendererAPI.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\ShaderDataType.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\Texture.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\UniformBuffer.h" />
     <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h" />
@@ -198,6 +202,7 @@
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\RenderPass.h" />
     <ClInclude Include="Engine\src\platform\WLDVk\VkContext.h" />
     <ClInclude Include="Engine\src\platform\WLDVk\VkErrors.h" />
     <ClInclude Include="Engine\src\platform\WLDVk\VkRendererAPI.h" />
@@ -226,7 +231,7 @@
     <ClCompile Include="Engine\src\core\graphics\Renderer\Texture.cpp" />
     <ClCompile Include="Engine\src\core\graphics\Renderer\UniformBuffer.cpp" />
     <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp" />
-    <ClCompile Include="Engine\src\core\graphics\camera\PersectiveCamera.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Engine\src\core\layers\Layer.cpp" />
     <ClCompile Include="Engine\src\core\layers\LayerStack.cpp" />
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
@@ -245,6 +250,7 @@
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\RenderPass.cpp" />
     <ClCompile Include="Engine\src\platform\WLDVk\VkContext.cpp" />
     <ClCompile Include="Engine\src\platform\WLDVk\VkRendererAPI.cpp" />
     <ClCompile Include="Engine\src\platform\WLDVk\VkShader.cpp" />

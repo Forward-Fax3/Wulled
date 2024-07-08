@@ -7,6 +7,7 @@
 
 namespace WLD
 {
+	// LayerStackQueue
 	LayerStackQueue::LayerStackQueue()
 		: m_LayerInsertIndex(0)
 	{
@@ -14,37 +15,34 @@ namespace WLD
 
 	LayerStackQueue::~LayerStackQueue()
 	{
-		for (auto& layer : m_Layers)
+		for (auto& [layer, type] : m_Layers)
 		{
-			LOG_CORE_TRACE("Deleting layer {0}", layer.first->GetName());
-			layer.first = DestroyMemory(layer.first);
+			LOG_CORE_TRACE("Deleting layer {0}", layer->GetName());
+			layer = DestroyMemory(layer);
 		}
+		clear();
 	}
 
 	void LayerStackQueue::PushLayer(Layer* layer)
 	{
-		std::pair<Layer*, LayerStackQueueType> tempPair = { layer, LayerStackQueueType::layerPush };
-		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, tempPair);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer, LayerStackQueueType::layerPush);
 		m_LayerInsertIndex++;
 	}
 
 	void LayerStackQueue::PushOverlay(Layer* overlay)
 	{
-		std::pair<Layer*, LayerStackQueueType> tempPair = { overlay, LayerStackQueueType::overlayPush };
-		m_Layers.emplace_back(tempPair);
+		m_Layers.emplace_back(overlay, LayerStackQueueType::overlayPush);
 	}
 
 	void LayerStackQueue::PopLayer(Layer* layer)
 	{
-		std::pair<Layer*, LayerStackQueueType> tempPair = { layer, LayerStackQueueType::layerPop };
-		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, tempPair);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer, LayerStackQueueType::layerPop);
 		m_LayerInsertIndex++;
 	}
 
 	void LayerStackQueue::PopOverlay(Layer* overlay)
 	{
-		std::pair<Layer*, LayerStackQueueType> tempPair = { overlay, LayerStackQueueType::overlayPop };
-		m_Layers.emplace_back(tempPair);
+		m_Layers.emplace_back(overlay, LayerStackQueueType::overlayPop);
 	}
 
 	void LayerStackQueue::clear()
@@ -53,11 +51,9 @@ namespace WLD
 		m_LayerInsertIndex = 0;
 	}
 
+	// LayerStack
 	LayerStack::LayerStack()
-		: m_LayerInsertIndex(0)
-	{
-		m_LayerStackQueue = CreateScope(LayerStackQueue);
-	}
+		: m_LayerInsertIndex(0) {}
 
 	LayerStack::~LayerStack()
 	{
@@ -67,50 +63,49 @@ namespace WLD
 			layer->OnDetach();
 			layer = DestroyMemory(layer);
 		}
-		DestroyScope(m_LayerStackQueue);
 	}
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerStackQueue->PushLayer(layer);
+		m_LayerStackQueue.PushLayer(layer);
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
-		m_LayerStackQueue->PushOverlay(overlay);
+		m_LayerStackQueue.PushOverlay(overlay);
 	}
 
 	void LayerStack::PopLayer(Layer* layer)
 	{
-		m_LayerStackQueue->PopLayer(layer);
+		m_LayerStackQueue.PopLayer(layer);
 	}
 
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
-		m_LayerStackQueue->PopOverlay(overlay);
+		m_LayerStackQueue.PopOverlay(overlay);
 	}
 
 	void LayerStack::OnUpdate()
 	{
-		for (auto& layer : *m_LayerStackQueue)
+		for (auto& [layer, type] : m_LayerStackQueue)
 		{
-			switch (layer.second)
+			switch (type)
 			{
 			case LayerStackQueueType::layerPush:
-				_PushLayer(layer.first);
+				_PushLayer(layer);
 				continue;
 			case LayerStackQueueType::layerPop:
-				_PopLayer(layer.first);
+				_PopLayer(layer);
 				continue;
 			case LayerStackQueueType::overlayPush:
-				_PushOverlay(layer.first);
+				_PushOverlay(layer);
 				continue;
 			case LayerStackQueueType::overlayPop:
-				_PopOverlay(layer.first);
+				_PopOverlay(layer);
 				continue;
 			}
 		}
-		m_LayerStackQueue->clear();
+		m_LayerStackQueue.clear();
 	}
 
 	void LayerStack::_PushLayer(Layer* layer)
@@ -135,8 +130,16 @@ namespace WLD
 		layer = DestroyMemory(layer);
 		if (layer)
 		{
-			LOG_CORE_WARNING("Layer {0} was created thought Wulled memory creation but has been deleted", layer->GetName());
-			delete layer;
+			std::string name = layer->GetName();
+			try
+			{
+				delete layer;
+				LOG_CORE_WARNING("Layer {0} was created thought Wulled memory creation but has been deleted", name);
+			}
+			catch (const std::exception& e)
+			{
+				LOG_CORE_ERROR("Layer {0} was created thought Wulled memory creation but has not been deleted", name);
+			}
 		}
 	}
 
@@ -148,8 +151,16 @@ namespace WLD
 		overlay = DestroyMemory(overlay);
 		if (overlay)
 		{
-			LOG_CORE_WARNING("Overlay {0} was created thought Wulled memory creation but has been deleted", overlay->GetName());
-			delete overlay;
+			std::string name = overlay->GetName();
+			try
+			{
+				delete overlay;
+				LOG_CORE_WARNING("Overlay {0} was created thought Wulled memory creation but has been deleted", name);
+			}
+			catch (const std::exception& e)
+			{
+				LOG_CORE_ERROR("Overlay {0} was created thought Wulled memory creation but has not been deleted", name);
+			}
 		}
 	}
 }
