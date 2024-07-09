@@ -28,9 +28,6 @@
 
 /* Add any platform that doesn't build using the configure system. */
 #if defined(__WIN32__)
-#if defined(_WIN64)
-#define HAVE_LIBC 1
-#endif
 #include "SDL_config_windows.h"
 #elif defined(__WINRT__)
 #include "SDL_config_winrt.h"

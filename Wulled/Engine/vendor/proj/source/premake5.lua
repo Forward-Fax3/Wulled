@@ -56,11 +56,13 @@
         
 project "glew"
 	kind "StaticLib"
-	language "C"
+	language "C++"
     cdialect "c17"
+    cppdialect "c++20"
 	staticruntime "on"
     location "%{prj.name}"
 	vectorextensions "AVX2"
+	toolset "clang"
     
     targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")

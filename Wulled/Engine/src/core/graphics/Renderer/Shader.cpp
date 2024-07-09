@@ -7,7 +7,6 @@
 
 #include "Shader.h"
 #include "OpenGLShader.h"
-#include "DX12Shader.h"
 #include "VkShader.h"
 
 
@@ -19,7 +18,6 @@ namespace WLD
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL:    return CreateMemory(OpenGLShader, shaders);
-		case RendererAPI::API::DirectX12: return CreateMemory(DX12Shader, shaders);
 		case RendererAPI::API::Vulkan:    return CreateMemory(VulkanShader, shaders);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;

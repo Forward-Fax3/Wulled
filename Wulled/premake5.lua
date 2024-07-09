@@ -10,26 +10,24 @@ project "Wulled"
 
 	files
 	{
-		"Engine/src/**.cpp",
-		"Engine/src/**.h",
+		"Engine/Src/**.cpp",
+		"Engine/Src/**.h",
 
-		"app.h"
+		"App.h"
 	}
 
 	includedirs
 	{
 		"../%{prj.name}",
 
-		"Engine/src/core/**",
-		"Engine/src/core",
-		"Engine/src/commandLine",
-		"Engine/src/pch",
-		"Engine/src/platform/*",
+		"Engine/Src/Core/**",
+		"Engine/Src/Core",
+		"Engine/Src/Pch",
+		"Engine/Src/Platform/*",
 		
 		"../%{IncludeDir.ImGui}",
 		"../%{IncludeDir.spdlog}",
 		"../%{IncludeDir.glm}",
-		"../%{IncludeDir.DXTK12}",
 		"../%{IncludeDir.STBImage}",
 --		"../%{IncludeDir.Glad}",
 		"../%{IncludeDir.glew}",
@@ -44,17 +42,12 @@ project "Wulled"
 		"ImGui",
 --		"spdlog",
 		"glm",
-		"DXTK12",
 		"STBImage",
 --		"Glad",
 		"glew",
 
 		-- Windows built in links
 		"opengl32.lib",
-		"winmm.lib",
-		"setupapi.lib",
-		"version.lib",
---		"Imm32.lib",
 
 		-- Vulkan link
 		"%VULKAN_SDK%/Lib/vulkan-1.lib",

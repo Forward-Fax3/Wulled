@@ -1,16 +1,16 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/Src/Core/EngineCore.h"
 
 #include "imgui.h"
 
-#include "Engine/src/Core/layers/Layer.h"
+#include "Engine/Src/Core/layers/Layer.h"
 
-#include "Engine/src/Core/Events/Event.h"
-#include "Engine/src/Core/Events/KeyEvent.h"
-#include "Engine/src/Core/Events/MouseEvent.h"
-#include "Engine/src/Core/Events/ApplicationEvent.h"
+#include "Engine/Src/Core/Events/Event.h"
+#include "Engine/Src/Core/Events/KeyEvent.h"
+#include "Engine/Src/Core/Events/MouseEvent.h"
+#include "Engine/Src/Core/Events/ApplicationEvent.h"
 
-#include "Engine/src/Core/graphics/GraphicsContext.h"
+#include "Engine/Src/Core/Graphics/GraphicsContext.h"
 
 
 namespace WLD

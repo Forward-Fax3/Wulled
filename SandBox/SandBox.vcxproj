@@ -80,7 +80,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -101,7 +101,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -127,7 +127,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\DXTK12;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\proj\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>

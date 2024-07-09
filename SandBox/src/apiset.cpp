@@ -16,13 +16,11 @@ void SetAPILayer::OnImGuiDraw()
 	
 	RendererAPI::API currentAPI = Renderer::GetAPI();
 	static bool isOpenGL = currentAPI == RendererAPI::API::OpenGL;
-	static bool isDx12 = currentAPI == RendererAPI::API::DirectX12;
 	static bool isVulkan = currentAPI == RendererAPI::API::Vulkan;
 
 	ImGui::Begin("Set API");
 	ImGui::Text("Set API");
 	ImGui::Checkbox("OpenGL", &isOpenGL);
-//	ImGui::Checkbox("DirectX12", &isDx12);
 	ImGui::Checkbox("Vulkan", &isVulkan);
 	ImGui::Text("More API's to come");
 
@@ -33,14 +31,6 @@ void SetAPILayer::OnImGuiDraw()
 	{
 		currentAPI = RendererAPI::API::OpenGL;
 		Renderer::SetNextAPI(currentAPI);
-		isDx12 = false;
-		isVulkan = false;
-	}
-	else if (currentAPI != RendererAPI::API::DirectX12 && isDx12)
-	{
-		currentAPI = RendererAPI::API::DirectX12;
-		Renderer::SetNextAPI(currentAPI);
-		isOpenGL = false;
 		isVulkan = false;
 	}
 	else if (currentAPI != RendererAPI::API::Vulkan && isVulkan)
@@ -48,7 +38,6 @@ void SetAPILayer::OnImGuiDraw()
 		currentAPI = RendererAPI::API::Vulkan;
 		Renderer::SetNextAPI(currentAPI);
 		isOpenGL = false;
-		isDx12 = false;
 	}
 
 	if (submit)

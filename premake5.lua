@@ -15,7 +15,6 @@ IncludeDir = {}
 IncludeDir["ImGui"]    = "Wulled/Engine/vendor/proj/git/imgui/"
 IncludeDir["spdlog"]   = "Wulled/Engine/vendor/core/git/spdlog/include/"
 IncludeDir["glm"]      = "Wulled/Engine/vendor/proj/git/glm/"
-IncludeDir["DXTK12"]   = "Wulled/Engine/vendor/proj/git/DXTK12/"
 IncludeDir["STBImage"] = "Wulled/Engine/vendor/proj/git/STB/"
 filter "configurations:Debug"
 	IncludeDir["Glad"]     = "Wulled/Engine/vendor/proj/source/Glad/Debug/include"
@@ -30,7 +29,7 @@ include "Wulled/Engine/vendor/proj/source"
 include "Wulled"
 
 pchheader "wldpch.h"
-pchsource "%{prj.name}/Engine/src/pch/wldpch.cpp"
+pchsource "%{prj.name}/Engine/Src/pch/wldpch.cpp"
 
 project "SandBox"
 	location "%{prj.name}"
@@ -45,9 +44,9 @@ project "SandBox"
 
 	files
 	{
-		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/Src/**.cpp",
 
-		"%{prj.name}/src/**.h",
+		"%{prj.name}/Src/**.h",
 	}
 
 	includedirs
@@ -57,7 +56,6 @@ project "SandBox"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.DXTK12}",
 		"%{IncludeDir.STBImage}",
 --		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glew}",

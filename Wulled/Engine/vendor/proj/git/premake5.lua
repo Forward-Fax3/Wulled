@@ -42,13 +42,13 @@
 --		optimize "Speed"
 --    	symbols "off"
 
-
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
 	staticruntime "on"
 	location "%{prj.name}"
 	vectorextensions "AVX2"
+	toolset "clang"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -120,13 +120,13 @@ project "ImGui"
 			"LinkTimeOptimization",
 		}
 
-
 project "glm"
 	kind "StaticLib"
 	language "c++"
 	staticruntime "on"
 	location "%{prj.name}"
 	vectorextensions "AVX2"
+	toolset "clang"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -184,99 +184,13 @@ project "glm"
 			"LinkTimeOptimization",
 		}
 
-
-project "DXTK12"
-	kind "StaticLib"
-	language "c++"
-	staticruntime "on"
-	location "%{prj.name}"
-	vectorextensions "AVX2"
-
-	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
-
-	files
-	{
-		"%{prj.name}/Inc/**.h",
-		"%{prj.name}/Src/**.h",
-		"%{prj.name}/Src/**.cpp",
-		"%{prj.name}/Inc/**.inl",
-		"%{prj.name}/Src/**.inc",
-	}
-
-	removefiles
-	{
-		"%{prj.name}/Src/AlphaTestEffect.cpp",
-		"%{prj.name}/Src/BasicEffect.cpp",
-		"%{prj.name}/Src/BasicProcess.cpp",
-		"%{prj.name}/Src/BasicPostProcess.cpp",
-		"%{prj.name}/Src/DebugEffect.cpp",
-		"%{prj.name}/Src/DualPostProcess.cpp",
-		"%{prj.name}/Src/DualTextureEffect.cpp",
-		"%{prj.name}/Src/EnvironmentMapEffect.cpp",
-		"%{prj.name}/Src/NormalMapeffect.cpp",
-		"%{prj.name}/Src/PBREffect.cpp",
-		"%{prj.name}/Src/ResourceUploadBatch.cpp",
-		"%{prj.name}/Src/SkinnedEffect.cpp",
-		"%{prj.name}/Src/SpriteBatch.cpp",
-		"%{prj.name}/Src/ToneMapPostProcess.cpp",
-		"%{prj.name}/Src/XboxDDSTextureLoader.cpp",
-
-		"%{prj.name}/Inc/XboxDDSTextureLoader.h",
-	}
-
-	includedirs
-	{
-		"%{prj.name}",
-		"%{prj.name}/Inc/",
-		"%{prj.name}/Src/",
-		"%{prj.name}/Src/**",
-	}
-
-	links
-	{
-		"d3d12.lib",
-		"dxgi.lib",
-		"d3dcompiler.lib",
-	}
-
-	flags
-	{
-		"MultiProcessorCompile",
-	}
-
-	systemversion "latest"
-	cdialect "c17"
-	cppdialect "c++20"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-		defines
-		{
-			"DX12_ENABLE_DEBUG_LAYER",
-		}
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "Speed"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "Speed"
-    	symbols "off"
-		flags
-		{
-			"LinkTimeOptimization",
-		}
-
-
 project "STBImage"
 	kind "StaticLib"
 	language "c++"
 	staticruntime "on"
 	location "STB"
 	vectorextensions "AVX2"
+	toolset "clang"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -318,4 +232,3 @@ project "STBImage"
 		{
 			"LinkTimeOptimization",
 		}
-

@@ -77,7 +77,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -93,7 +93,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;winmm.lib;setupapi.lib;version.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-cored.lib;%VULKAN_SDK%\Lib\spirv-cross-glsld.lib;%VULKAN_SDK%\Lib\shaderc_combinedd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-cored.lib;%VULKAN_SDK%\Lib\spirv-cross-glsld.lib;%VULKAN_SDK%\Lib\shaderc_combinedd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -101,7 +101,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -122,7 +122,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;winmm.lib;setupapi.lib;version.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
@@ -131,7 +131,7 @@
       <PrecompiledHeaderFile>wldpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLM_FORCE_SSE2;GLM_FORCE_SSE3;GLM_FORCE_SSSE3;GLM_FORCE_SSE41;GLM_FORCE_SSE42;GLM_FORCE_AVX;GLM_FORCE_AVX2;GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\DX12;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\DXTK12;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;Engine\src\core\Events;Engine\src\core\graphics;Engine\src\core\ImGui;Engine\src\core\layers;Engine\src\core\Threads;Engine\src\core\Time;Engine\src\core\graphics\camera;Engine\src\core\graphics\Renderer;Engine\src\core;Engine\src\commandLine;Engine\src\pch;Engine\src\platform\OpenGL;Engine\src\platform\windows;Engine\src\platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\proj\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -152,7 +152,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;winmm.lib;setupapi.lib;version.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -189,11 +189,6 @@
     <ClInclude Include="Engine\src\core\layers\Layer.h" />
     <ClInclude Include="Engine\src\core\layers\LayerStack.h" />
     <ClInclude Include="Engine\src\pch\wldpch.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12RendererAPI.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12Shader.h" />
-    <ClInclude Include="Engine\src\platform\DX12\DX12VertexArray.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.h" />
@@ -237,11 +232,6 @@
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='dist|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp" />
-    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp" />
-    <ClCompile Include="Engine\src\platform\DX12\DX12RendererAPI.cpp" />
-    <ClCompile Include="Engine\src\platform\DX12\DX12Shader.cpp" />
-    <ClCompile Include="Engine\src\platform\DX12\DX12VertexArray.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.cpp" />
@@ -266,9 +256,6 @@
     </ProjectReference>
     <ProjectReference Include="Engine\vendor\proj\git\glm\glm.vcxproj">
       <Project>{6577880B-D180-887C-5AFC-9E7CC604947C}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Engine\vendor\proj\git\DXTK12\DXTK12.vcxproj">
-      <Project>{4391E5AC-2F33-1083-18EE-23D7042F97D3}</Project>
     </ProjectReference>
     <ProjectReference Include="Engine\vendor\proj\git\STB\STBImage.vcxproj">
       <Project>{312482F6-1DF1-DC01-460A-CBA932361290}</Project>

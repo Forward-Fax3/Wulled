@@ -43,9 +43,6 @@
     <Filter Include="Engine\src\platform">
       <UniqueIdentifier>{26D47D73-9235-5B81-1BA3-A13387039240}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\src\platform\DX12">
-      <UniqueIdentifier>{34A25F0B-20C7-AE8B-4912-941B3596ADA9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\src\platform\OpenGL">
       <UniqueIdentifier>{9A96497D-86A6-F54D-EF5F-5A6CDB8EE4E6}</UniqueIdentifier>
     </Filter>
@@ -158,21 +155,6 @@
     </ClInclude>
     <ClInclude Include="Engine\src\pch\wldpch.h">
       <Filter>Engine\src\pch</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12Buffer.h">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12Context.h">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12RendererAPI.h">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12Shader.h">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\src\platform\DX12\DX12VertexArray.h">
-      <Filter>Engine\src\platform\DX12</Filter>
     </ClInclude>
     <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h">
       <Filter>Engine\src\platform\OpenGL</Filter>
@@ -290,21 +272,6 @@
     </ClCompile>
     <ClCompile Include="Engine\src\pch\wldpch.cpp">
       <Filter>Engine\src\pch</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Buffer.cpp">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Context.cpp">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12RendererAPI.cpp">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12Shader.cpp">
-      <Filter>Engine\src\platform\DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\platform\DX12\DX12VertexArray.cpp">
-      <Filter>Engine\src\platform\DX12</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>Engine\src\platform\OpenGL</Filter>

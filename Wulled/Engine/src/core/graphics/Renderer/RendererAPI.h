@@ -15,8 +15,6 @@ namespace WLD
 		{
 			None,
 			OpenGL,
-//			DirectX11,
-			DirectX12,
 			Vulkan,
 		};
 

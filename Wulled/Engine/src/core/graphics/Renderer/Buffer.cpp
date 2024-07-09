@@ -5,7 +5,6 @@
 #include "Renderer.h"
 #include "Buffer.h"
 #include "OpenGLBuffer.h"
-#include "DX12Buffer.h"
 
 #include "WLDMem.h"
 
@@ -18,8 +17,6 @@ namespace WLD
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLVertexBuffer, vertices, size);
-//		case RendererAPI::API::DirectX11: return new DX11VertexBuffer(vertices, size);
-		case RendererAPI::API::DirectX12: return CreateMemory(DX12VertexBuffer, vertices, size);
 //		case RendererAPI::API::Vulkan: return createMemory(VulkanVertexBuffer, vertices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
@@ -32,8 +29,6 @@ namespace WLD
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLIndexBuffer, indices, size);
-//		case RendererAPI::API::DirectX11: return new DX11IndexBuffer(indices, size);
-		case RendererAPI::API::DirectX12: return CreateMemory(DX12IndexBuffer, indices, size);
 //		case RendererAPI::API::Vulkan: return createMemory(VulkanIndexBuffer, indices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
