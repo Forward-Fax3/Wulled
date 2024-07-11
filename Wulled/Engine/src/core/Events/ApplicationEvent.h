@@ -2,7 +2,7 @@
 
 #include "Engine/src/Core/EngineCore.h"
 
-#include "Engine/src/Core/events/event.h"
+#include "Engine/src/Core/Events/Event.h"
 
 
 namespace WLD

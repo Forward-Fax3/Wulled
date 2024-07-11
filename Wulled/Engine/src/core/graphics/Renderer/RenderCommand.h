@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/src/core/WLDMem.h"
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/graphics/Renderer/RendererAPI.h"
+#include "Engine/src/Core/WLDMem.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Graphics/Renderer/RendererAPI.h"
 
 
 namespace WLD

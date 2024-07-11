@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "PerspectiveCamera.h"
 
 #include "glm/glm.hpp"
@@ -6,7 +6,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#include "application.h"
+#include "Application.h"
 #include "GL/glew.h"
 // #include "glad/glad.h"
 
@@ -72,7 +72,7 @@ namespace WLD::Camera
 	{
 		m_Pos += pos.x * m_Front;
 		m_Pos += pos.y * m_Up;
-		m_Pos += glm::normalize(glm::cross(m_Front, m_Up)) * pos.z;
+		m_Pos += glm::normalize<3, T, Q>(glm::cross(m_Front, m_Up)) * pos.z;
 		m_RecalculateVP = true;
 	}
 

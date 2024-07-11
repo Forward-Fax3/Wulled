@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "WLDMem.h"
 
 #define IN_LAYERSTACK_CPP
@@ -18,7 +18,7 @@ namespace WLD
 		for (auto& [layer, type] : m_Layers)
 		{
 			LOG_CORE_TRACE("Deleting layer {0}", layer->GetName());
-			layer = DestroyMemory(layer);
+			DestroyMemory(layer);
 		}
 		clear();
 	}
@@ -61,7 +61,7 @@ namespace WLD
 		{
 			LOG_CORE_TRACE("Deleting layer {0}", layer->GetName());
 			layer->OnDetach();
-			layer = DestroyMemory(layer);
+			DestroyMemory(layer);
 		}
 	}
 
@@ -127,7 +127,7 @@ namespace WLD
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
 		}
-		layer = DestroyMemory(layer);
+		DestroyMemory(layer);
 		if (layer)
 		{
 			std::string name = layer->GetName();
@@ -148,7 +148,7 @@ namespace WLD
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
 			m_Layers.erase(it);
-		overlay = DestroyMemory(overlay);
+		DestroyMemory(overlay);
 		if (overlay)
 		{
 			std::string name = overlay->GetName();

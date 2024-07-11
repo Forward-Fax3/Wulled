@@ -1,22 +1,20 @@
-#pragma once
-#include "Engine/src/Core/application.h"
-#include "Engine/src/core/graphics/Renderer/RendererAPI.h"
+#include "Engine/src/Core/Application.h"
+#include "Engine/src/Core/Graphics/Renderer/RendererAPI.h"
 
-#include "Engine/src/commandLine/commandLine.h"
 #include "Engine/src/Core/Log.h"
-#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/Core/WLDMem.h"
 
 #include <winbase.h>
-#include <iostream>
+#include <iostream>                                                                                                                                                                                                                         
 
 #include <random>
 
-#undef main
+#undef main // This is needed to avoid SDL2 from overriding the main function
 
 
 extern WLD::Application* WLD::CreateApplication(bool* run, int argc, char** argv);
 
-#if !defined _DIST
+#ifndef _DIST
 void memoryCheck()
 {
 	size_t memory = WLD::GetAllocatedTotalMemory();
@@ -25,7 +23,7 @@ void memoryCheck()
 
 	if (memory || memorySmart || memoryManual || !WLD::Memory::Map.empty())
 	{
-		for (auto& data : WLD::Memory::Map)
+		for (const auto& data : WLD::Memory::Map)
 		{
 			LOG_CORE_CRITICAL("Memory Leak at {0}", data.first);
 			if (data.second.WasCreatedManually)
@@ -43,12 +41,11 @@ void memoryCheck()
 }
 #endif
 
-int main(int argc, char** argv)
+extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** argv)
+//int main(int argc, char** argv)
 {
 	WLD::Log::Init();
 	bool* run = CreateArray(bool, 4); // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
-//	std::thread command(Command, run);
-//	command.detach();
 	run[2] = false;
 	run[3] = false;
 
@@ -59,12 +56,12 @@ int main(int argc, char** argv)
 		run[1] = false;
 		WLD::Application* application = WLD::CreateApplication(run, argc, argv);
 		application->run();
-		application = DestroyMemory(application);
+		DestroyMemory(application);
+		application = nullptr;
 	
 	} while (run[1]);
 
-//	command.~thread();
-	run = DestroyArray(run);
+	DestroyArray(run);
 #ifndef _DIST
 	memoryCheck();
 #endif

@@ -1,16 +1,16 @@
 #pragma once
-#include "Engine/Src/Core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 
 #include "imgui.h"
 
-#include "Engine/Src/Core/layers/Layer.h"
+#include "Engine/src/Core/Layers/Layer.h"
 
-#include "Engine/Src/Core/Events/Event.h"
-#include "Engine/Src/Core/Events/KeyEvent.h"
-#include "Engine/Src/Core/Events/MouseEvent.h"
-#include "Engine/Src/Core/Events/ApplicationEvent.h"
+#include "Engine/src/Core/Events/Event.h"
+#include "Engine/src/Core/Events/KeyEvent.h"
+#include "Engine/src/Core/Events/MouseEvent.h"
+#include "Engine/src/Core/Events/ApplicationEvent.h"
 
-#include "Engine/Src/Core/Graphics/GraphicsContext.h"
+#include "Engine/src/Core/Graphics/GraphicsContext.h"
 
 
 namespace WLD
@@ -30,11 +30,5 @@ namespace WLD
 
 	private:
 		bool OnWindowResize(WindowResizeEvent& e);
-
-		ImGuiIO& init();
-
-	private:
-		ImGuiIO& m_io;
-		GraphicsContext& m_Context;
 	};
 }

@@ -1,12 +1,9 @@
-#define ENTRY_FILE
-#include "app.h"
+#define ENTRY_POINT
+#include "App.h"
 #include "apiset.h"
-#include "Engine/src/core/Log.h"
+#include "Engine/src/Core/Log.h"
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-
-#include <iostream>
-#include <concurrent_vector.h>
 
 #define toFloat(x) static_cast<float>(x)
 
@@ -131,23 +128,20 @@ public:
 	{
 	}
 
-	void OnUpdate()
+	void OnUpdate() override
 	{
-		glm::mat4 girls;
-		girls;
-
 		m_Camera->SetPos(getMovement(m_CamSpeed));
 		m_Camera->SetFront(getRotation() * 0.5f);
 		WLD::Renderer::BeginScene(m_Camera);
 		WLD::Renderer::SetBackgroundColour(glm::vec4(m_SetColour, 1.0f));
 
 		WLD::Renderer::SetShader(m_MultiColourShader);
-
-		for (double i = -2.0; i < 3.0; i++)
-			for (double j = -2.0; j < 3.0; j++)
-				for (double k = -2.0; k < 3.0; k++)
+		
+		for (int64_t i = -2; i < 3; i++)
+			for (int64_t j = -2; j < 3; j++)
+				for (int64_t k = -2; k < 3; k++)
 				{
-					glm::dvec4 color = { 1.0 * (k + 2.0) * 1 / 5, 1.0 * (j + 2.0) * 1 / 5, 1.0 * (i + 2.0) * 1 / 5 , 1.0};
+					glm::vec4 color = { 1.0f * ((float)k + 2.0f) * 0.2f, 1.0f * ((float)j + 2.0f) * 0.2f, 1.0f * ((float)i + 2.0f) * 0.2f , 1.0f};
 
 					glm::vec3 translation(i * 1.1f, k * 1.1f, j * 1.1f);
 					WLD::Renderer::DrawCube(translation, glm::vec3(10.0f), color);

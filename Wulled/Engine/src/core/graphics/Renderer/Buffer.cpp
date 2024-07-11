@@ -1,5 +1,5 @@
-#include "wldpch.h"
-#include "log.h"
+#include "WLDPCH.h"
+#include "Log.h"
 #include "EngineCore.h"
 
 #include "Renderer.h"

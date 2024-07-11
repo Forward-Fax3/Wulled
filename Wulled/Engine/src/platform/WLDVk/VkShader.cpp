@@ -1,5 +1,5 @@
-#include "wldpch.h"
-#include "application.h"
+#include "WLDPCH.h"
+#include "Application.h"
 #include "VkShader.h"
 #include "VkErrors.h"
 #include "VkContext.h"
@@ -39,7 +39,7 @@ namespace WLD
 		VulkanContext& vkContext = dynamic_cast<VulkanContext&>(Application::Get().GetWindow().GetGraphicsContext());
 		vkDestroyPipeline(vkContext.GetDevice(), m_GraphicsPipeline, nullptr);
 		vkDestroyPipelineLayout(vkContext.GetDevice(), m_PipelineLayout, nullptr);
-		m_RenderPass = DestroyMemory(m_RenderPass);
+		DestroyMemory(m_RenderPass);
 	}
 
 	void VulkanShader::Bind() const
@@ -143,7 +143,6 @@ namespace WLD
 		{
 			const auto& type = GLSLCompiler->get_type(stageInput.type_id);
 			const auto& name = stageInput.name;
-			const auto& baseType = type.basetype;
 			const auto& location = GLSLCompiler->get_decoration(stageInput.id, spv::DecorationLocation);
 			const auto& binding = GLSLCompiler->get_decoration(stageInput.id, spv::DecorationBinding);
 			const auto [format, size] = VertexInputAttributeDataFromSPIRType(type);
@@ -236,10 +235,9 @@ namespace WLD
 
 		std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
 		descriptorSetLayouts.reserve(resources->uniform_buffers.size());
-		const uint32_t dC[] = { 1, 2 };
-		VkShaderStageFlagBits stages[2];
+		VkShaderStageFlagBits stages[2]{}; // for now until i figure out a dynamic way to handle this
 		stages[0] = VK_SHADER_STAGE_VERTEX_BIT;
-		stages[1] = (VkShaderStageFlagBits)17;
+		stages[1] = (VkShaderStageFlagBits)(VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
 		size_t i = 0;
 
 		for (const auto& UBO : resources->uniform_buffers)
@@ -296,8 +294,8 @@ namespace WLD
 		for (auto& shader : shaderStages)
 			vkDestroyShaderModule(vkContext.GetDevice(), shader.module, nullptr);
 
-		GLSLCompiler = DestroyMemory(GLSLCompiler);
-		resources = DestroyMemory(resources);
+		DestroyMemory(GLSLCompiler);
+		DestroyMemory(resources);
 	}
 
 	VkShaderStageFlagBits VulkanShader::VkShaderTypeFromWLDShaderType(WLD_ShaderType type) const
@@ -314,6 +312,7 @@ namespace WLD
 	{
 		switch (type)
 		{
+		case WLD_ShaderType::None: LOG_CORE_ERROR("No Shader Type Provided!"); return (shaderc_shader_kind)-1;
 		case WLD_ShaderType::Vertex: return shaderc_shader_kind::shaderc_glsl_vertex_shader;
 		case WLD_ShaderType::Fragment: return shaderc_shader_kind::shaderc_glsl_fragment_shader;
 		}
@@ -324,8 +323,149 @@ namespace WLD
 	VulkanShader::VertexInputAttributeData VulkanShader::VertexInputAttributeDataFromSPIRType(const spirv_cross::SPIRType& type) const
 	{
 		VertexInputAttributeData data;
-		switch (type.basetype)
+		switch (type.basetype) // TODO: add more types
 		{
+		case spirv_cross::SPIRType::Unknown:
+		case spirv_cross::SPIRType::Void:
+		{
+			data.format = VK_FORMAT_UNDEFINED;
+			data.size = 0;
+			break;
+		}
+		case spirv_cross::SPIRType::Boolean:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R8_UINT; break;
+			case 2: data.format = VK_FORMAT_R8G8_UINT; break;
+			case 3: data.format = VK_FORMAT_R8G8B8_UINT; break;
+			case 4: data.format = VK_FORMAT_R8G8B8A8_UINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(bool) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::SByte:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R8_SINT; break;
+			case 2: data.format = VK_FORMAT_R8G8_SINT; break;
+			case 3: data.format = VK_FORMAT_R8G8B8_SINT; break;
+			case 4: data.format = VK_FORMAT_R8G8B8A8_SINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(int8_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::UByte:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R32_UINT; break;
+			case 2: data.format = VK_FORMAT_R32G32_UINT; break;
+			case 3: data.format = VK_FORMAT_R32G32B32_UINT; break;
+			case 4: data.format = VK_FORMAT_R32G32B32A32_UINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(uint8_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::Short:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R16_SINT;
+			case 2: data.format = VK_FORMAT_R16G16_SINT;
+			case 3: data.format = VK_FORMAT_R16G16B16_SINT;
+			case 4: data.format = VK_FORMAT_R16G16B16A16_SINT;
+			}
+			data.size = sizeof(int16_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::UShort:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R16_UINT;
+			case 2: data.format = VK_FORMAT_R16G16_UINT;
+			case 3: data.format = VK_FORMAT_R16G16B16_UINT;
+			case 4: data.format = VK_FORMAT_R16G16B16A16_UINT;
+			}
+			data.size = sizeof(uint16_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::Int:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R32_SINT;
+			case 2: data.format = VK_FORMAT_R32G32_SINT;
+			case 3: data.format = VK_FORMAT_R32G32B32_SINT;
+			case 4: data.format = VK_FORMAT_R32G32B32A32_SINT;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(int32_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::UInt:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R32_UINT; break;
+			case 2: data.format = VK_FORMAT_R32G32_UINT; break;
+			case 3: data.format = VK_FORMAT_R32G32B32_UINT; break;
+			case 4: data.format = VK_FORMAT_R32G32B32A32_UINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(uint32_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::Int64:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R64_SINT; break;
+			case 2: data.format = VK_FORMAT_R64G64_SINT; break;
+			case 3: data.format = VK_FORMAT_R64G64B64_SINT; break;
+			case 4: data.format = VK_FORMAT_R64G64B64A64_SINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(int64_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::UInt64:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R64_UINT; break;
+			case 2: data.format = VK_FORMAT_R64G64_UINT; break;
+			case 3: data.format = VK_FORMAT_R64G64B64_UINT; break;
+			case 4: data.format = VK_FORMAT_R64G64B64A64_UINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(uint64_t) * type.vecsize * type.columns;
+			break;
+		}
+		case spirv_cross::SPIRType::AtomicCounter:
+		{
+			data.format = VK_FORMAT_UNDEFINED;
+			data.size = 0;
+			break;
+		}
+		case spirv_cross::SPIRType::Half:
+		{
+			switch (type.vecsize)
+			{
+			case 1: data.format = VK_FORMAT_R16_SFLOAT; break;
+			case 2: data.format = VK_FORMAT_R16G16_SFLOAT; break;
+			case 3: data.format = VK_FORMAT_R16G16B16_SFLOAT; break;
+			case 4: data.format = VK_FORMAT_R16G16B16A16_SFLOAT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
+			}
+			data.size = sizeof(float) * type.vecsize * type.columns;
+			break;
+		}
 		case spirv_cross::SPIRType::Float:
 		{
 			switch (type.vecsize)
@@ -352,32 +492,22 @@ namespace WLD
 			data.size = sizeof(double) * type.vecsize * type.columns;
 			break;
 		}
-		case spirv_cross::SPIRType::Int:
+		case spirv_cross::SPIRType::Struct:
+		case spirv_cross::SPIRType::SampledImage:
+		case spirv_cross::SPIRType::Sampler:
+		case spirv_cross::SPIRType::AccelerationStructure:
+		case spirv_cross::SPIRType::RayQuery:
+		case spirv_cross::SPIRType::ControlPointArray:
+		case spirv_cross::SPIRType::Interpolant:
+		case spirv_cross::SPIRType::Char:
+		default:
 		{
-			switch (type.vecsize)
-			{
-			case 1: data.format = VK_FORMAT_R32_SINT;
-			case 2: data.format = VK_FORMAT_R32G32_SINT;
-			case 3: data.format = VK_FORMAT_R32G32B32_SINT;
-			case 4: data.format = VK_FORMAT_R32G32B32A32_SINT;
-			}
-			data.size = sizeof(int32_t) * type.vecsize * type.columns;
-			break;
-		}
-		case spirv_cross::SPIRType::UInt:
-		{
-			switch (type.vecsize)
-			{
-			case 1: data.format = VK_FORMAT_R32_UINT; break;
-			case 2: data.format = VK_FORMAT_R32G32_UINT; break;
-			case 3: data.format = VK_FORMAT_R32G32B32_UINT; break;
-			case 4: data.format = VK_FORMAT_R32G32B32A32_UINT; break;
-			default: data.format = VK_FORMAT_UNDEFINED;
-			}
-			data.size = sizeof(uint32_t) * type.vecsize * type.columns;
+			data.format = VK_FORMAT_UNDEFINED;
+			data.size = 0;
 			break;
 		}
 		}
+
 		return data;
 	}
 }

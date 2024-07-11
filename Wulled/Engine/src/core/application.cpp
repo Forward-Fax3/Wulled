@@ -1,9 +1,9 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 
 #include "LayerStack.h"
 #include "Window.h"
 #include "ApplicationEvent.h"
-#include "application.h"
+#include "Application.h"
 #include "Renderer.h"
 #include "RenderCommand.h"
 #include "WLDMem.h"
@@ -40,7 +40,7 @@ namespace WLD
 		m_ImGuiLayer = nullptr;
 		DestroyScope(m_LayerStack);
 		Renderer::Shutdown();
-		m_Window = DestroyMemory(m_Window);
+		DestroyMemory(m_Window);
 		m_Props = WindowProps();
 		DestroyScope(m_Threads);
 		m_run = nullptr;

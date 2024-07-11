@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/graphics/Renderer/RenderCommand.h"
-#include "Engine/src/core/graphics/camera/PerspectiveCamera.h"
-#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Graphics/Renderer/RenderCommand.h"
+#include "Engine/src/Core/Graphics/Camera/PerspectiveCamera.h"
+#include "Engine/src/Core/Graphics/Renderer/Shader.h"
 #include "UniformBuffer.h"
 
 

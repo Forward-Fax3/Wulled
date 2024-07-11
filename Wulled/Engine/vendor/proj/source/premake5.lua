@@ -59,9 +59,8 @@ project "glew"
 	language "C++"
     cdialect "c17"
     cppdialect "c++20"
-	staticruntime "on"
+	staticruntime "off"
     location "%{prj.name}"
-	vectorextensions "AVX2"
 	toolset "clang"
     
     targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
@@ -89,15 +88,15 @@ project "glew"
 		"MultiProcessorCompile",
 	}
 
-    filter "configurations:debug"
+    filter { filterCofigurations.Debug }
 		runtime "Debug"
 		symbols "on"
 
-    filter "configurations:Release"
+    filter { filterCofigurations.Release }
 		runtime "Release"
 		optimize "Speed"
 
-    filter "configurations:dist"
+    filter { filterCofigurations.Dist }
 		runtime "Release"
 		optimize "Speed"
     	symbols "off"
@@ -105,3 +104,11 @@ project "glew"
 	    {
 	    	"LinkTimeOptimization",
 	    }
+    
+	filter { filterCofigurations.AVX512 }
+	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
+		buildoptions { "/arch:AVX512" }
+	filter { filterCofigurations.AVX2 }
+		vectorextensions "AVX2"
+	filter { filterCofigurations.SSE2 }
+		vectorextensions "SSE2"

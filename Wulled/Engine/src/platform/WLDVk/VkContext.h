@@ -1,11 +1,11 @@
 #pragma once
 #define WLD_VKCONTEXT_H
 
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 
-#include "Engine/src/core/Window.h"
-#include "Engine/src/core/graphics/GraphicsContext.h"
-#include "Engine/src/platform/WLDVk/VkSwapChain.h"
+#include "Engine/src/Core/Window.h"
+#include "Engine/src/Core/Graphics/GraphicsContext.h"
+#include "Engine/src/Platform/WLDVk/VkSwapChain.h"
 
 #include <vulkan/vulkan.h>
 

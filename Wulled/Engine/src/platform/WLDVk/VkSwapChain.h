@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/Window.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Window.h"
 
 #include <vulkan/vulkan.h>
 
@@ -58,5 +58,5 @@ namespace WLD
 }
 
 #ifndef WLD_VKCONTEXT_H
-#include "Engine/src/platform/WLDVk/VkContext.h"
+#include "Engine/src/Platform/WLDVk/VkContext.h"
 #endif

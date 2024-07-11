@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 #include "SDL.h"
 
 
@@ -15,6 +15,7 @@ namespace WLD
 	public:
 		inline GraphicsContext(WindowProps& Data)
 			: m_WindowProps(Data) {}
+		virtual ~GraphicsContext() = default;
 
 		virtual void CreateDevice() = 0;
 		virtual void Shutdown() = 0;

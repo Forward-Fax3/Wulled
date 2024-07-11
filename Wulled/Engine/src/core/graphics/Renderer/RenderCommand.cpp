@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "RenderCommand.h"
 #include "WLDMem.h"
 
@@ -22,6 +22,6 @@ namespace WLD
 
 	void RenderCommand::DeleteRendererAPI()
 	{
-		s_RendererAPI = DestroyMemory(s_RendererAPI);
+		DestroyMemory(s_RendererAPI);
 	}
 }

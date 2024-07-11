@@ -1,6 +1,6 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "RenderPass.h"
-#include "application.h"
+#include "Application.h"
 #include "VkContext.h"
 #include "VkErrors.h"
 

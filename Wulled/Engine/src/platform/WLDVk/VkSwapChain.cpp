@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "VkSwapChain.h"
 #include "VkContext.h"
 #include "VkErrors.h"
@@ -19,10 +19,10 @@ namespace WLD
 	{
 		for (size_t i = 0; i < NumberOfImages; i++)
 			vkDestroyImageView(m_Device, ImageViews[i], nullptr);
-		ImageViews = DestroyArray(ImageViews);
+		DestroyArray(ImageViews);
 
 		vkDestroySwapchainKHR(m_Device, SwapChain, nullptr);
-		Images = DestroyArray(Images);
+		DestroyArray(Images);
 	}
 
 	void WLD_VkSwapChain::CreateSwapChain()
@@ -34,8 +34,8 @@ namespace WLD
 		CheckSwapChainSupport(swapChainSupport);
 		SetSwapChainAndPresentMode(swapChainSupport, surfaceFormat, presentMode);
 
-		swapChainSupport.formats = DestroyArray(swapChainSupport.formats);
-		swapChainSupport.presentModes = DestroyArray(swapChainSupport.presentModes);
+		DestroyArray(swapChainSupport.formats);
+		DestroyArray(swapChainSupport.presentModes);
 
 		ImageExtent = { m_WindowProps.Width, m_WindowProps.Height };
 
@@ -74,7 +74,7 @@ namespace WLD
 		}
 
 		WLD_VkCheckError(vkCreateSwapchainKHR(m_Device, &createInfo, nullptr, &SwapChain));
-		queues = DestroyArray(queues);
+		DestroyArray(queues);
 
 		vkGetSwapchainImagesKHR(m_Device, SwapChain, &NumberOfImages, nullptr);
 		Images = CreateArray(VkImage, NumberOfImages);

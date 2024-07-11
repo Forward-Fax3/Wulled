@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/WLDMem.h"
 
 
 namespace WLD

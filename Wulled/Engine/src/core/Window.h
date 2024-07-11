@@ -1,10 +1,10 @@
 #pragma once
 #include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/Core/WLDMem.h"
 #include "Engine/src/Core/Events/Event.h"
-#include "Engine/src/core/Events/windowEvent.h"
-#include "Engine/src/core/graphics/GraphicsContext.h"
-#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/Core/Events/windowEvent.h"
+#include "Engine/src/Core/Graphics/GraphicsContext.h"
+#include "Engine/src/Core/WLDMem.h"
 
 #include <SDL.h>
 
@@ -16,7 +16,7 @@ namespace WLD
 	void WLD_SDLCheckError(SDL_Window* sdlResult);
 	void WLD_SDLCheckError(SDL_GLContext sdlResult);
 #else
-	#define WLD_SDLCheckError(x) x
+	#define WLD_SDLCheckError(x) (void)x
 #endif
 
 	struct WLD_API WindowProps

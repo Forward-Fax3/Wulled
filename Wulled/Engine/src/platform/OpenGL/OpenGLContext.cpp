@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #undef EN_ENABLE_ASSERTS
 #define EN_ENABLE_ASSERTS
 
@@ -10,7 +10,7 @@
 #include "GL/glew.h"
 
 #include "backends/imgui_impl_opengl3.h"
-#include "backends/imgui_impl_SDL2.h"
+#include "backends/imgui_impl_sdl2.h"
 
 
 namespace WLD

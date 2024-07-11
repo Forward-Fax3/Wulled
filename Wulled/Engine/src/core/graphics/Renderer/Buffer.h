@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/src/core/Log.h"
-#include "Engine/src/core/WLDMem.h"
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/graphics/Renderer/ShaderDataType.h"
+#include "Engine/src/Core/Log.h"
+#include "Engine/src/Core/WLDMem.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Graphics/Renderer/ShaderDataType.h"
 
 
 namespace WLD

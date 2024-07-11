@@ -1,10 +1,10 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "GraphicsContext.h"
 #include "Renderer.h"
 #include "WLDMem.h"
 
 #include "OpenGLContext.h"
-#include "VKContext.h"
+#include "VkContext.h"
 
 
 namespace WLD

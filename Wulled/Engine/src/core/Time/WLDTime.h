@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/layers/Layer.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Layers/Layer.h"
 
 
 namespace WLD

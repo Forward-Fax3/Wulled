@@ -1,7 +1,7 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "OpenGLUniformBuffer.h"
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 
 namespace WLD

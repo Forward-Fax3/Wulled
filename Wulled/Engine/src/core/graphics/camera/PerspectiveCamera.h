@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 #include <glm/glm.hpp>
 
 

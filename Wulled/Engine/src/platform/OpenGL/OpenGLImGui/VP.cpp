@@ -1,10 +1,10 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "WLDMem.h"
 #include "OpenGLImGui/VP.h"
 #include "GL/glew.h"
 // #include "glad/glad.h"
 #include "GraphicsContext.h"
-#include "window.h"
+#include "Window.h"
 #include <wingdi.h>
 
 

@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "EngineCore.h"
 #include "WLDMem.h"
 
@@ -35,7 +35,7 @@ namespace WLD
 		std::vector<uint32_t> vulkanSPIRV(module.cbegin(), module.cend());
 
 		FileStream::WriteFile(filePath + ".spv", vulkanSPIRV);
-		compiler = DestroyMemory(compiler);
+		DestroyMemory(compiler);
 		return vulkanSPIRV;
 	}
 }

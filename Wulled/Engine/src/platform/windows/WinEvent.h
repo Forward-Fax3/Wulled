@@ -1,9 +1,9 @@
 #pragma once
 #include <map>
 
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/Window.h"
-#include "Engine/src/core/Events/windowEvent.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Window.h"
+#include "Engine/src/Core/Events/windowEvent.h"
 
 #include "SDL_events.h"
 

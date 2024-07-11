@@ -1,5 +1,5 @@
-#include "wldpch.h"
-#include "VKContext.h"
+#include "WLDPCH.h"
+#include "VkContext.h"
 #include "VkErrors.h"
 #include "WLDMem.h"
 
@@ -41,7 +41,7 @@ namespace WLD
 
 	void VulkanContext::Shutdown()
 	{
-		m_SwapChain = DestroyMemory(m_SwapChain);
+		DestroyMemory(m_SwapChain);
 		vkDestroyDevice(m_Device, nullptr);
 		vkDestroySurfaceKHR(m_Instance, m_Surface, nullptr);
 		DebugMessengerShutdown();
@@ -55,9 +55,9 @@ namespace WLD
 			DestroyArray(m_ValidationLayers[i]);
 
 		if (m_TotalNumberOfInstanceExtensions)
-			m_InstanceExtensions = DestroyArray(m_InstanceExtensions);
+			DestroyArray(m_InstanceExtensions);
 		if (m_NumberOfValidationLayers)
-			m_ValidationLayers = DestroyArray(m_ValidationLayers);
+			DestroyArray(m_ValidationLayers);
 	}
 
 	void VulkanContext::SwapBuffers()
@@ -228,7 +228,7 @@ namespace WLD
 			m_PhysicalDevice = physicalDevices[i];
 			break;
 		}
-		physicalDevices = DestroyArray(physicalDevices);
+		DestroyArray(physicalDevices);
 
 		WLD_CORE_ASSERT(m_PhysicalDevice, "Failed to find a suitable GPU!");
 	} // TODO: make a more complex device selection to get the best device
@@ -263,7 +263,7 @@ namespace WLD
 		vkGetDeviceQueue(m_Device, queues[0], 0, &m_QueueFamilies.Graphics);
 		vkGetDeviceQueue(m_Device, queues[1], 0, &m_QueueFamilies.Present);
 
-		queues = DestroyArray(queues);
+		DestroyArray(queues);
 	}
 
 	void VulkanContext::DebugMessengerShutdown() const
@@ -297,7 +297,7 @@ namespace WLD
 			if (graphicsQueueFamily != UINT32_MAX && presentQueueFamily != UINT32_MAX)
 				break;
 		}
-		queueFamilies = DestroyArray(queueFamilies);
+		DestroyArray(queueFamilies);
 
 		const uint32_t numberOfQueues = 2;
 		queues = CreateArray(uint32_t, numberOfQueues);

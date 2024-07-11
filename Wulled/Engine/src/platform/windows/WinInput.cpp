@@ -1,8 +1,8 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 
 #include "EngineCore.h"
 #include "WinInput.h"
-#include "application.h"
+#include "Application.h"
 #include "KeyCodes.h"
 #include "MouseButtonCodes.h"
 #include <Window.h>

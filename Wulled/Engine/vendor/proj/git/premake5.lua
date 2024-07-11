@@ -45,9 +45,8 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
-	staticruntime "on"
+	staticruntime "off"
 	location "%{prj.name}"
-	vectorextensions "AVX2"
 	toolset "clang"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
@@ -103,15 +102,15 @@ project "ImGui"
 	filter "system:windows"
 		systemversion "latest"
 
-	filter "configurations:Debug"
+	filter { filterCofigurations.Debug }
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Release"
+	filter { filterCofigurations.Release }
 		runtime "Release"
 		optimize "Speed"
 
-	filter "configurations:Dist"
+	filter { filterCofigurations.Dist }
 		runtime "Release"
 		optimize "Speed"
 		symbols "off"
@@ -119,77 +118,20 @@ project "ImGui"
 		{
 			"LinkTimeOptimization",
 		}
-
-project "glm"
-	kind "StaticLib"
-	language "c++"
-	staticruntime "on"
-	location "%{prj.name}"
-	vectorextensions "AVX2"
-	toolset "clang"
-
-	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
-
-	files
-	{
-		"%{prj.name}/glm/**.hpp",
-		"%{prj.name}/glm/**.h",
-		"%{prj.name}/glm/detail/glm.cpp",
-		"%{prj.name}/glm/**.inl",
-	}
-
-	includedirs
-	{
-		"%{prj.name}/",
-	}
-
-	defines
-	{
-		"GLM_FORCE_SSE2",
-		"GLM_FORCE_SSE3",
-		"GLM_FORCE_SSSE3",
-		"GLM_FORCE_SSE41",
-		"GLM_FORCE_SSE42",
-		"GLM_FORCE_AVX",
-		"GLM_FORCE_AVX2",
-		"GLM_FORCE_SWIZZLE",
-		"GLM_ENABLE_EXPERIMENTAL",
-		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
-	}
-
-	flags
-	{
-		"MultiProcessorCompile",
-	}
-
-	systemversion "latest"
-	cdialect "c17"
-	cppdialect "c++20"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "Speed"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "Speed"
-    	symbols "off"
-		flags
-		{
-			"LinkTimeOptimization",
-		}
+	
+	filter { filterCofigurations.AVX512 }
+	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
+		buildoptions { "/arch:AVX512" }
+	filter { filterCofigurations.AVX2 }
+		vectorextensions "AVX2"
+	filter { filterCofigurations.SSE2 }
+		vectorextensions "SSE2"
 
 project "STBImage"
 	kind "StaticLib"
 	language "c++"
-	staticruntime "on"
+	staticruntime "off"
 	location "STB"
-	vectorextensions "AVX2"
 	toolset "clang"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
@@ -216,15 +158,15 @@ project "STBImage"
 	cdialect "c17"
 	cppdialect "c++20"
 
-	filter "configurations:Debug"
+	filter { filterCofigurations.Debug }
 		runtime "Debug"
 		symbols "on"
 
-	filter "configurations:Release"
+	filter { filterCofigurations.Release }
 		runtime "Release"
 		optimize "Speed"
 
-	filter "configurations:Dist"
+	filter { filterCofigurations.Dist }
 		runtime "Release"
 		optimize "Speed"
     	symbols "off"
@@ -232,3 +174,11 @@ project "STBImage"
 		{
 			"LinkTimeOptimization",
 		}
+	
+	filter { filterCofigurations.AVX512 }
+	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
+		buildoptions { "/arch:AVX512" }
+	filter { filterCofigurations.AVX2 }
+		vectorextensions "AVX2"
+	filter { filterCofigurations.SSE4 }
+		vectorextensions "SSE2"

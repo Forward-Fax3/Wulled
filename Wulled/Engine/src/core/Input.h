@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 
 
 namespace WLD
@@ -7,6 +7,8 @@ namespace WLD
 	class WLD_API Input
 	{
 	public:
+		virtual ~Input() = default;
+
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 
 		inline static bool IsMousButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }

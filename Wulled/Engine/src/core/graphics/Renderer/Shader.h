@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/graphics/Renderer/ShaderDataType.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Graphics/Renderer/ShaderDataType.h"
 
 #include "shaderc/shaderc.hpp"
 

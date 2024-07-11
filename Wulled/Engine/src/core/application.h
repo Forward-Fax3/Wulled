@@ -1,19 +1,19 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 #include "Engine/src/Core/Layers/LayerStack.h"
 
-#include "Engine/src/Core/window.h"
+#include "Engine/src/Core/Window.h"
 
 #include "Engine/src/Core/Events/Event.h"
 #include "Engine/src/Core/Events/ApplicationEvent.h"
 
 #include "Engine/src/Core/ImGui/ImGuiLayer.h"
-#include "Engine/src/core/Time/WLDTime.h"
-#include "Engine/src/core/Threads/WLDThread.h"
+#include "Engine/src/Core/Time/WLDTime.h"
+#include "Engine/src/Core/Threads/WLDThread.h"
 
-#include "Engine/src/core/graphics/Renderer/Shader.h"
-#include "Engine/src/core/graphics/Renderer/Buffer.h"
-#include "Engine/src/core/graphics/Renderer/VertexArray.h"
+#include "Engine/src/Core/Graphics/Renderer/Shader.h"
+#include "Engine/src/Core/Graphics/Renderer/Buffer.h"
+#include "Engine/src/Core/Graphics/Renderer/VertexArray.h"
 
 
 namespace WLD

@@ -1,17 +1,17 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "WLDMem.h"
 #include "WinWindow.h"
 #include "Renderer.h"
 #include "RendererAPI.h"
 
-#include "log.h"
+#include "Log.h"
 #include "EngineCore.h"
 
 #include "Event.h"
 #include "ApplicationEvent.h"
 #include "KeyEvent.h"
 #include "MouseEvent.h"
-#include "application.h"
+#include "Application.h"
 #include "WinEvent.h"
 
 #include "KeyCodes.h"
@@ -103,7 +103,7 @@ namespace WLD
 	{
 		ClearEventQueue();
 		m_Context->Shutdown();
-		m_Context = DestroyMemory(m_Context);
+		DestroyMemory(m_Context);
 		SDL_DestroyWindow(m_Data.props.SDLWindow);
 		m_Data.props.SDLWindow = nullptr;
 		SDL_Quit();
@@ -115,7 +115,7 @@ namespace WLD
 			SDLError = SDL_GetError();
 		}
 
-		m_CallEventSet = DestroyMemory(m_CallEventSet);
+		DestroyMemory(m_CallEventSet);
 	}
 
 	void WinWindow::OnUpdate()
@@ -162,7 +162,7 @@ namespace WLD
 		{
 			while (!event->isFinished)
 				std::this_thread::sleep_for(std::chrono::nanoseconds(50));
-			event = DestroyMemory(event);
+			DestroyMemory(event);
 		}
 		m_IssuedEvents.clear();
 	}
@@ -183,7 +183,7 @@ namespace WLD
 			m_IssuedEvents.push_back(e);
 			e = CreateMemory(EventData, CreateMemory(SDL_Event));
 		}
-		e = DestroyMemory(e);
+		DestroyMemory(e);
 	}
 
 	void EventData::callEvent() const

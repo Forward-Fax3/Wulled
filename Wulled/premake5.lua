@@ -2,16 +2,18 @@ project "Wulled"
 	kind "StaticLib"
 	language "C++"
 	staticruntime "off"
-	vectorextensions "AVX2"
 	toolset "clang"
 
-	targetdir ("bin/" .. output .. "/%{prj.name}")
-	objdir ("bin/" .. output .. "/intermediate/%{prj.name}")
+	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
 
 	files
 	{
-		"Engine/Src/**.cpp",
-		"Engine/Src/**.h",
+		"Engine/src/**.cpp",
+		"Engine/src/**.h",
+
+		"../%{IncludeDir.glm}**.hpp",
+		"../%{IncludeDir.glm}**.inl",
 
 		"App.h"
 	}
@@ -20,10 +22,10 @@ project "Wulled"
 	{
 		"../%{prj.name}",
 
-		"Engine/Src/Core/**",
-		"Engine/Src/Core",
-		"Engine/Src/Pch",
-		"Engine/Src/Platform/*",
+		"Engine/src/Core/**",
+		"Engine/src/Core",
+		"Engine/src/PCH",
+		"Engine/src/Platform/*",
 		
 		"../%{IncludeDir.ImGui}",
 		"../%{IncludeDir.spdlog}",
@@ -41,7 +43,6 @@ project "Wulled"
 		-- propject links
 		"ImGui",
 --		"spdlog",
-		"glm",
 		"STBImage",
 --		"Glad",
 		"glew",
@@ -60,13 +61,6 @@ project "Wulled"
 
 	defines
 	{
-		"GLM_FORCE_SSE2",
-		"GLM_FORCE_SSE3",
-		"GLM_FORCE_SSSE3",
-		"GLM_FORCE_SSE41",
-		"GLM_FORCE_SSE42",
-		"GLM_FORCE_AVX",
-		"GLM_FORCE_AVX2",
 		"GLM_FORCE_SWIZZLE",
 		"GLM_ENABLE_EXPERIMENTAL",
 		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
@@ -96,7 +90,7 @@ project "Wulled"
 --			("{copy} $(OutputPath)/Wulled.dll ../bin/" .. output .. "/sandbox")
 --		}
 	
-	filter "configurations:Debug"
+	filter { filterCofigurations.Debug }
 		runtime "Debug"
 		defines 
 		{
@@ -114,7 +108,7 @@ project "Wulled"
 		optimize "Off"
 		symbols "On"
 	
-	filter "configurations:Release"
+	filter { filterCofigurations.Release }
 		runtime "Release"
 		defines 
 		{
@@ -131,7 +125,7 @@ project "Wulled"
 		optimize "Speed"
 		symbols "On"
 
-	filter "configurations:dist"
+	filter { filterCofigurations.Dist }
 		runtime "Release"
 		defines
 		{
@@ -151,3 +145,14 @@ project "Wulled"
 		}
 		optimize "Speed"
 		symbols "Off"
+	
+	filter { filterCofigurations.AVX512 }
+	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
+		buildoptions { "/arch:AVX512" }
+		defines { "GLM_FORCE_AVX2" } -- GLM doesnt seem to support AVX512 anymore so we use AVX2 instead though the compiler should still compile it with AVX512
+	filter { filterCofigurations.AVX2 }
+		vectorextensions "AVX2"
+		defines { "GLM_FORCE_AVX2" }
+	filter { filterCofigurations.SSE2 }
+		vectorextensions "SSE2"
+		defines { "GLM_FORCE_SSE2" }

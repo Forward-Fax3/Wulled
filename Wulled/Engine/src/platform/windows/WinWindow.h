@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/core/Window.h"
-#include "Engine/src/core/graphics/GraphicsContext.h"
+#include "Engine/src/Core/Window.h"
+#include "Engine/src/Core/Graphics/GraphicsContext.h"
 
 #include "GL/glew.h"
 #include "SDL.h"
@@ -22,7 +22,7 @@ namespace WLD
 
 		inline ~EventData()
 		{
-			event = DestroyMemory(event);
+			DestroyMemory(event);
 		}
 
 		void callEvent() const;

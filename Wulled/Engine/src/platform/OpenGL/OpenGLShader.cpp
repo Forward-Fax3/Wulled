@@ -1,8 +1,8 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "WLDMem.h"
 // #define EN_ENABLE_ASSERTS
 #include "OpenGLShader.h"
-#include "application.h"
+#include "Application.h"
 #include "WLDFileStream.h"
 
 #include "glm/gtc/type_ptr.hpp"
@@ -31,7 +31,6 @@ namespace WLD
 		{
 			std::string filePath = "assets/shaders/" + baseFilePath;
 			std::vector<uint32_t> OGL_SPIR_V;
-			ShaderSourceType sourceType = ShaderSourceType::None;
 
 			if (!FileStream::ReadFile(filePath + ".OGL.spv", OGL_SPIR_V))
 			{
@@ -148,7 +147,7 @@ namespace WLD
 					value[i] = ((bool*)currentDataPtr)[i];
 				glUniform1iv(currentLayout, opaqueType.arraySize, value);
 				dataOffset += 1ui64 * opaqueType.arraySize;
-				value = DestroyArray(value);
+				DestroyArray(value);
 				break;
 			}
 			case ShaderDataType::Int:
@@ -228,7 +227,7 @@ namespace WLD
 	{
 		std::vector<GLuint> glShaderIDs;
 		glShaderIDs.reserve(shaderSources.size());
-		int32_t pushConstsLocations = 0;
+//		int32_t pushConstsLocations = 0;
 
 		for (const auto& [type, source] : shaderSources) 
 		{
@@ -313,8 +312,8 @@ namespace WLD
 		crossCompiler->set_common_options(GLSLOptions);
 
 		std::string OpenGL_GLSL(crossCompiler->compile());
-		resources = DestroyMemory(resources);
-		crossCompiler = DestroyMemory(crossCompiler);
+		DestroyMemory(resources);
+		DestroyMemory(crossCompiler);
 #ifdef _DEBUG
 		FileStream::WriteFile(filePath + ".OGL", OpenGL_GLSL);
 #endif
@@ -329,7 +328,7 @@ namespace WLD
 		std::vector<uint32_t> GLSL_SPIR_V(module.cbegin(), module.cend());
 		FileStream::WriteFile(filePath + ".OGL.spv", GLSL_SPIR_V);
 
-		compiler = DestroyMemory(compiler);
+		DestroyMemory(compiler);
 		return GLSL_SPIR_V;
 	}
 
@@ -341,8 +340,8 @@ namespace WLD
 		for (const auto& resource : resources->gl_plain_uniforms)
 			m_PushConstantsLocations.insert(std::pair(resource.name, compiler->get_decoration(resource.id, spv::DecorationLocation))); // get the start location of the struct uniform buffer and pairs it with the name of the uniform
 
-		resources = DestroyMemory(resources);
-		compiler = DestroyMemory(compiler);
+		DestroyMemory(resources);
+		DestroyMemory(compiler);
 	}
 
 	GLenum OpenGLShader::GetOGLShaderTypeFromWLDShaderType(WLD_ShaderType type) const

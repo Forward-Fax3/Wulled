@@ -1,7 +1,7 @@
-#include <wldpch.h>
+#include <WLDPCH.h>
 #include "WLDThread.h"
 
-#include "application.h"
+#include "Application.h"
 
 #include <sstream>
 #include <chrono>
@@ -40,8 +40,8 @@ namespace WLD
 			while (!m_ThreadsFinished[i])
 				std::this_thread::sleep_for(std::chrono::nanoseconds(50));
 
-		m_Threads = DestroyArray(m_Threads);
-		m_ThreadsFinished = DestroyArray(m_ThreadsFinished);
+		DestroyArray(m_Threads);
+		DestroyArray(m_ThreadsFinished);
 
 		while (!m_Functions.empty())
 			m_Functions.pop();

@@ -1,7 +1,7 @@
 // TODO: Fix loads of stuff and add my own allocator and deallocator
 
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 #include <memory>
 #include <unordered_map>
 #include <atomic>
@@ -15,10 +15,9 @@
 #endif
 
 
-
 namespace WLD
 {
-#if !defined _DIST
+#ifndef _DIST
 	struct MemoryData
 	{
 		size_t Map = 0;
@@ -37,9 +36,9 @@ namespace WLD
 		inline static ::std::unordered_map<void*, MemoryData> Map = {};
 	};
 
-	static size_t GetAllocatedMemory() { return Memory::Allocated; }
-	static size_t GetAllocatedSmartMemory() { return Memory::AllocatedSmart; }
-	static size_t GetAllocatedTotalMemory() { return Memory::Allocated + Memory::AllocatedSmart; }
+	inline static size_t GetAllocatedMemory() { return Memory::Allocated; }
+	inline static size_t GetAllocatedSmartMemory() { return Memory::AllocatedSmart; }
+	inline static size_t GetAllocatedTotalMemory() { return Memory::Allocated + Memory::AllocatedSmart; }
 #endif
 
 	template<typename T>
@@ -101,13 +100,13 @@ namespace WLD
 	}
 
 	template<typename T>
-	static T* _DestroyMemory(T* ptr, bool FromRef = false)
+	static void _DestroyMemory(T*& ptr, bool FromRef = false)
 	{
 #if !defined _DIST
 		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
 		{
 			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
-			return ptr;
+			return;
 		}
 
 		MemoryData data = Memory::Map[(void*)ptr];
@@ -116,7 +115,6 @@ namespace WLD
 		Memory::Map.erase((void*)ptr);
 #endif
 		delete ptr;
-		return nullptr;
 	}
 
 #if _DEBUG
@@ -208,13 +206,13 @@ namespace WLD
 	}
 
 	template<typename T>
-	static T* _DestroyArray(T* ptr, bool FromRef = false)
+	static void _DestroyArray(T*& ptr, bool FromRef = false)
 	{
 #if !defined _DIST
 		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
 		{
 			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
-			return ptr;
+			return;
 		}
 
 		MemoryData data = Memory::Map[(void*)ptr];
@@ -223,7 +221,6 @@ namespace WLD
 		Memory::Map.erase((void*)ptr);
 #endif
 		delete[] ptr;
-		return nullptr;
 	}
 
 	template<typename T>
@@ -323,7 +320,8 @@ namespace WLD
 			::WLD::MemoryData data = ::WLD::Memory::Map[(void*)x.get()];\
 			if (data.WasCreatedManually)\
 			{\
-				::WLD::_DestroyMemory(x.get());\
+				auto temp = x.get();\
+				::WLD::_DestroyMemory(temp);\
 				x.reset();\
 			}\
 			else\
@@ -514,14 +512,14 @@ namespace WLD
 			(*m_RefCount)--;
 			if (*m_RefCount == 0)
 			{
-#if !defined _DIST
+#ifndef _DIST
 				if (Memory::Map.find((void*)m_Ptr) != Memory::Map.end())
 				{
 					MemoryData& data = Memory::Map[(void*)m_Ptr];
 					Memory::AllocatedSmart -= data.Map * data.numberOfAllocations;
 				}
 #endif
-				m_Ptr = _DestroyMemory(m_Ptr, true);
+				_DestroyMemory(m_Ptr, true);
 				delete m_RefCount;
 			}
 			else

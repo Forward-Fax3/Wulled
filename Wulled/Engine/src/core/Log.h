@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/vendor/core/git/spdlog/include/spdlog/spdlog.h"
-#include "Engine/vendor/core/git/spdlog/include/spdlog/fmt/ostr.h"
+#include "Engine/vendor/core/git/spdLog/include/spdlog/spdlog.h"
+#include "Engine/vendor/core/git/spdLog/include/spdlog/fmt/ostr.h"
 
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 
 
 
@@ -11,6 +11,9 @@ namespace WLD
 	class WLD_API Log
 	{
 	public:
+		Log() = delete;
+		~Log() = delete;
+
 		static void Init();
 
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
@@ -34,7 +37,7 @@ namespace WLD
 #define LOG_CORE_FATAL(...)		{::WLD::Log::GetCoreLogger()->critical(__VA_ARGS__); __debugbreak();}
 					
 // CLIENT
-#define LOG_NEWLINE				::WLD::Log::NewLine						
+#define LOG_NEWLINE				::WLD::Log::NewLine			
 #define LOG_TRACE(...)			::WLD::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define LOG_INFO(...)			::WLD::Log::GetClientLogger()->info(__VA_ARGS__)
 #define LOG_WARNING(...)		::WLD::Log::GetClientLogger()->warn(__VA_ARGS__)

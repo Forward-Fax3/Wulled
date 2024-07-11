@@ -2,8 +2,8 @@
 #include <string>
 #include <queue>
 
-#include "Engine/src/core/EngineCore.h"
-#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/Core/Graphics/Renderer/Shader.h"
 
 #include "glm/glm.hpp"
 #include "GL/glew.h"
@@ -16,7 +16,7 @@ namespace WLD
 	{
 	public:
 		OpenGLShader(const std::vector<InputShader>& shaders);
-		~OpenGLShader();
+		virtual ~OpenGLShader() override;
 
 		void Bind() const override;
 		void Unbind() const override;

@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/Core/EngineCore.h"
 
-#include "Engine/src/core/graphics/GraphicsContext.h"
+#include "Engine/src/Core/Graphics/GraphicsContext.h"
 
 #include "GL/glew.h"
 #include "SDL.h"
@@ -28,7 +28,6 @@ namespace WLD
 
 	private:
 		SDL_GLContext m_Context;
-		bool m_IsInitialized = false;
 		
 		static inline HGLRC s_hglrc;
 	};

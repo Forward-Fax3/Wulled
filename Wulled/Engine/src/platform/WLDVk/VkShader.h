@@ -1,12 +1,12 @@
 #pragma once
-#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/Core/Graphics/Renderer/Shader.h"
 
 #include <shaderc/shaderc.hpp>
 
 #include <vulkan/vulkan.hpp>
 #include "spirv_cross/spirv_glsl.hpp"
 
-#include "Engine/src/platform/WLDVk/RenderPass.h"
+#include "Engine/src/Platform/WLDVk/RenderPass.h"
 
 
 namespace WLD

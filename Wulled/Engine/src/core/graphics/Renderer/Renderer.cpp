@@ -1,4 +1,4 @@
-#include "wldpch.h"
+#include "WLDPCH.h"
 #include "WLDMem.h"
 #include "Renderer.h"
 #include "OpenGLShader.h"
@@ -28,7 +28,7 @@ namespace WLD
 	void Renderer::Shutdown()
 	{
 		RenderCommand::DeleteRendererAPI();
-		s_SceneData = DestroyMemory(s_SceneData);
+		DestroyMemory(s_SceneData);
 	}
 
 	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera> camera)
