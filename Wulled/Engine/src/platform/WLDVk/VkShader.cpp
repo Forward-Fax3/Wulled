@@ -1,5 +1,5 @@
-#include "WLDPCH.h"
-#include "Application.h"
+#include "wldpch.h"
+#include "application.h"
 #include "VkShader.h"
 #include "VkErrors.h"
 #include "VkContext.h"
@@ -16,7 +16,6 @@ namespace WLD
 {
 	VulkanShader::VulkanShader(const std::vector<InputShader>& shaders)
 	{
-		m_RenderPass = CreateMemory(RenderPass);
 		std::vector<std::pair<VkShaderStageFlagBits, std::vector<uint32_t>>> shaderSources;
 		shaderSources.reserve(shaders.size());
 		for (const auto& shader : shaders)
@@ -36,14 +35,15 @@ namespace WLD
 
 	VulkanShader::~VulkanShader()
 	{
-		VulkanContext& vkContext = dynamic_cast<VulkanContext&>(Application::Get().GetWindow().GetGraphicsContext());
+		const VulkanContext& vkContext = dynamic_cast<const VulkanContext&>(Application::Get().GetWindow().GetGraphicsContext());
 		vkDestroyPipeline(vkContext.GetDevice(), m_GraphicsPipeline, nullptr);
 		vkDestroyPipelineLayout(vkContext.GetDevice(), m_PipelineLayout, nullptr);
-		DestroyMemory(m_RenderPass);
 	}
 
 	void VulkanShader::Bind() const
 	{
+		const VulkanContext& vkContext = dynamic_cast<const VulkanContext&>(Application::Get().GetWindow().GetGraphicsContext());
+		vkCmdBindPipeline(vkContext.GetCommandBuffer(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_GraphicsPipeline);
 	}
 
 	void VulkanShader::Unbind() const
@@ -93,7 +93,7 @@ namespace WLD
 	void VulkanShader::Compile(const std::vector<std::pair<VkShaderStageFlagBits, std::vector<uint32_t>>>& shaderSources)
 	{
 		Window& window = Application::Get().GetWindow();
-		VulkanContext& vkContext = dynamic_cast<VulkanContext&>(window.GetGraphicsContext());
+		const VulkanContext& vkContext = dynamic_cast<const VulkanContext&>(window.GetGraphicsContext());
 		std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
 		shaderStages.reserve(shaderSources.size());
 		spirv_cross::CompilerGLSL* GLSLCompiler = nullptr;
@@ -108,7 +108,19 @@ namespace WLD
 			VkShaderModule shaderModule;
 			WLD_VkCheckError(vkCreateShaderModule(vkContext.GetDevice(), &createInfo, nullptr, &shaderModule));
 			// TODO: allow for multiple and other entry points
-			shaderStages.emplace_back(VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO, nullptr, 0, type, shaderModule, "main", nullptr); // using emplace_back contruction to avoid copying the VkPipelineShaderStageCreateInfo
+#if (__cplusplus == 202002L)
+			shaderStages.emplace_back(VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO, nullptr, 0, type, shaderModule, "main", nullptr); // using emplace_back construction to avoid copying the VkPipelineShaderStageCreateInfo
+#else
+			VkPipelineShaderStageCreateInfo info = {};
+			info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+			info.pNext = nullptr;
+			info.flags = 0;
+			info.stage = type;
+			info.module = shaderModule;
+			info.pName = "main";
+			info.pSpecializationInfo = nullptr;
+			shaderStages.emplace_back(info);
+#endif
 
 			if (type != VK_SHADER_STAGE_VERTEX_BIT)
 				continue;
@@ -123,7 +135,7 @@ namespace WLD
 			return;
 		}
 
-		const uint32_t numberOfDynamicStates = 2;
+		constexpr uint32_t numberOfDynamicStates = 2;
 		VkDynamicState dynamicStates[numberOfDynamicStates] =
 		{
 			VK_DYNAMIC_STATE_VIEWPORT,
@@ -146,7 +158,8 @@ namespace WLD
 			const auto& location = GLSLCompiler->get_decoration(stageInput.id, spv::DecorationLocation);
 			const auto& binding = GLSLCompiler->get_decoration(stageInput.id, spv::DecorationBinding);
 			const auto [format, size] = VertexInputAttributeDataFromSPIRType(type);
-			LOG_CORE_INFO("name: {0}, Location: {1}, binding {4}, Format: {2}, Size: {3}", name, location, (uint32_t)format, size, binding);
+			LOG_CORE_INFO("name: {0}, Location: {1}, binding {4}, Format: {2}, Size: {3}", name, location, static_cast<uint32_t>(format), size, binding);
+#if (__cplusplus == 202002L)
 			attributeDescriptions.emplace_back
 			(
 				location,
@@ -154,6 +167,14 @@ namespace WLD
 				format,
 				vertexInputAttributeDataOffset
 			);
+#else
+			VkVertexInputAttributeDescription attributeDescription{};
+			attributeDescription.location = location;
+			attributeDescription.binding = binding;
+			attributeDescription.format = format;
+			attributeDescription.offset = vertexInputAttributeDataOffset;
+			attributeDescriptions.emplace_back(attributeDescription);
+#endif
 			vertexInputAttributeDataOffset += size;
 		}
 
@@ -166,7 +187,7 @@ namespace WLD
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 		vertexInputInfo.vertexBindingDescriptionCount = 1;
 		vertexInputInfo.pVertexBindingDescriptions = &bindingDescription;
-		vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)attributeDescriptions.size();
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
 		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
 
 		VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -233,8 +254,7 @@ namespace WLD
 		colorBlending.attachmentCount = 1;
 		colorBlending.pAttachments = &colorBlendAttachment;
 
-		std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
-		descriptorSetLayouts.reserve(resources->uniform_buffers.size());
+		std::map<uint32_t, std::vector<VkDescriptorSetLayoutBinding>> orderedDescriptorSetBindingsLayouts;
 		VkShaderStageFlagBits stages[2]{}; // for now until i figure out a dynamic way to handle this
 		stages[0] = VK_SHADER_STAGE_VERTEX_BIT;
 		stages[1] = (VkShaderStageFlagBits)(VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -243,38 +263,48 @@ namespace WLD
 		for (const auto& UBO : resources->uniform_buffers)
 		{
 			const auto& name = UBO.name;
+			const auto& set = GLSLCompiler->get_decoration(UBO.id, spv::DecorationDescriptorSet);
 			const auto& binding = GLSLCompiler->get_decoration(UBO.id, spv::DecorationBinding);
 
 			VkDescriptorSetLayoutBinding layoutBinding{};
 			layoutBinding.binding = binding;
 			layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
-			layoutBinding.descriptorCount = 1; 
+			layoutBinding.descriptorCount = 1;
 			layoutBinding.stageFlags = stages[i];
 			layoutBinding.pImmutableSamplers = nullptr;
 
+			i++;
+
+			orderedDescriptorSetBindingsLayouts[set].push_back(layoutBinding);
+			LOG_CORE_TRACE("UBO: {0}, set: {1}, Binding: {2}", name, set, binding);
+		}
+
+		std::vector<VkDescriptorSetLayout> descriptorSetBindingLayouts;
+		descriptorSetBindingLayouts.reserve(orderedDescriptorSetBindingsLayouts.size());
+
+		for (const auto& [set, setBindings] : orderedDescriptorSetBindingsLayouts)
+		{
 			VkDescriptorSetLayoutCreateInfo layoutInfo{};
 			layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-			layoutInfo.bindingCount = 1;
-			layoutInfo.pBindings = &layoutBinding;
+			layoutInfo.bindingCount = static_cast<uint32_t>(setBindings.size());
+			layoutInfo.pBindings = setBindings.data();
 
 			VkDescriptorSetLayout descriptorSetLayout = nullptr;
 			WLD_VkCheckError(vkCreateDescriptorSetLayout(vkContext.GetDevice(), &layoutInfo, nullptr, &descriptorSetLayout));
-			descriptorSetLayouts.emplace_back(descriptorSetLayout);
-			i++;
-			LOG_CORE_TRACE("UBO: {0}, Binding: {1}", name, binding);
+			descriptorSetBindingLayouts.emplace_back(descriptorSetLayout);
 		}
 
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = (uint32_t)descriptorSetLayouts.size();
-		pipelineLayoutInfo.pSetLayouts = descriptorSetLayouts.data();
+		pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorSetBindingLayouts.size());
+		pipelineLayoutInfo.pSetLayouts = descriptorSetBindingLayouts.data();
 		pipelineLayoutInfo.pushConstantRangeCount = 0;
 
 		WLD_VkCheckError(vkCreatePipelineLayout(vkContext.GetDevice(), &pipelineLayoutInfo, nullptr, &m_PipelineLayout));
 
 		VkGraphicsPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-		pipelineInfo.stageCount = (uint32_t)shaderStages.size();
+		pipelineInfo.stageCount = static_cast<uint32_t>(shaderStages.size());
 		pipelineInfo.pStages = shaderStages.data();
 		pipelineInfo.pVertexInputState = &vertexInputInfo;
 		pipelineInfo.pInputAssemblyState = &inputAssembly;
@@ -285,7 +315,7 @@ namespace WLD
 		pipelineInfo.pColorBlendState = &colorBlending;
 		pipelineInfo.pDynamicState = &dynamicStateCreateInfo;
 		pipelineInfo.layout = m_PipelineLayout;
-		pipelineInfo.renderPass = m_RenderPass->GetRenderPass();
+		pipelineInfo.renderPass = vkContext.GetRenderPass();
 		pipelineInfo.subpass = 0;
 		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
@@ -322,7 +352,7 @@ namespace WLD
 
 	VulkanShader::VertexInputAttributeData VulkanShader::VertexInputAttributeDataFromSPIRType(const spirv_cross::SPIRType& type) const
 	{
-		VertexInputAttributeData data;
+		VertexInputAttributeData data{};
 		switch (type.basetype) // TODO: add more types
 		{
 		case spirv_cross::SPIRType::Unknown:
@@ -375,10 +405,11 @@ namespace WLD
 		{
 			switch (type.vecsize)
 			{
-			case 1: data.format = VK_FORMAT_R16_SINT;
-			case 2: data.format = VK_FORMAT_R16G16_SINT;
-			case 3: data.format = VK_FORMAT_R16G16B16_SINT;
-			case 4: data.format = VK_FORMAT_R16G16B16A16_SINT;
+			case 1: data.format = VK_FORMAT_R16_SINT; break;
+			case 2: data.format = VK_FORMAT_R16G16_SINT; break;
+			case 3: data.format = VK_FORMAT_R16G16B16_SINT; break;
+			case 4: data.format = VK_FORMAT_R16G16B16A16_SINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
 			}
 			data.size = sizeof(int16_t) * type.vecsize * type.columns;
 			break;
@@ -387,10 +418,11 @@ namespace WLD
 		{
 			switch (type.vecsize)
 			{
-			case 1: data.format = VK_FORMAT_R16_UINT;
-			case 2: data.format = VK_FORMAT_R16G16_UINT;
-			case 3: data.format = VK_FORMAT_R16G16B16_UINT;
-			case 4: data.format = VK_FORMAT_R16G16B16A16_UINT;
+			case 1: data.format = VK_FORMAT_R16_UINT; break;
+			case 2: data.format = VK_FORMAT_R16G16_UINT; break;
+			case 3: data.format = VK_FORMAT_R16G16B16_UINT; break;
+			case 4: data.format = VK_FORMAT_R16G16B16A16_UINT; break;
+			default: data.format = VK_FORMAT_UNDEFINED;
 			}
 			data.size = sizeof(uint16_t) * type.vecsize * type.columns;
 			break;
@@ -399,10 +431,10 @@ namespace WLD
 		{
 			switch (type.vecsize)
 			{
-			case 1: data.format = VK_FORMAT_R32_SINT;
-			case 2: data.format = VK_FORMAT_R32G32_SINT;
-			case 3: data.format = VK_FORMAT_R32G32B32_SINT;
-			case 4: data.format = VK_FORMAT_R32G32B32A32_SINT;
+			case 1: data.format = VK_FORMAT_R32_SINT; break;
+			case 2: data.format = VK_FORMAT_R32G32_SINT; break;
+			case 3: data.format = VK_FORMAT_R32G32B32_SINT; break;
+			case 4: data.format = VK_FORMAT_R32G32B32A32_SINT; break;
 			default: data.format = VK_FORMAT_UNDEFINED;
 			}
 			data.size = sizeof(int32_t) * type.vecsize * type.columns;
@@ -463,7 +495,8 @@ namespace WLD
 			case 4: data.format = VK_FORMAT_R16G16B16A16_SFLOAT; break;
 			default: data.format = VK_FORMAT_UNDEFINED;
 			}
-			data.size = sizeof(float) * type.vecsize * type.columns;
+			constexpr uint32_t halfSize = sizeof(float) / 2;
+			data.size = halfSize * type.vecsize * type.columns;
 			break;
 		}
 		case spirv_cross::SPIRType::Float:

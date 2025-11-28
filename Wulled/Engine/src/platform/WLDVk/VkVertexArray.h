@@ -1,16 +1,19 @@
 #pragma once
-#include "Engine/src/core/graphics/Renderer/VertexArray.h"
+#include "VertexArray.h"
+
+#include "vulkan/vulkan.h"
 
 
 namespace WLD
 {
-	class WLD_API OpenGLVertexArray : public VertexArray
+	class VulkanVertexArray : public VertexArray
 	{
 	public:
-		OpenGLVertexArray();
-		virtual ~OpenGLVertexArray() override;
+		VulkanVertexArray();
+		virtual ~VulkanVertexArray() override;
 
 		virtual void Bind() const override;
+		void Bind(VkCommandBuffer commandBuffer) const;
 		virtual void Unbind() const override;
 
 		virtual void AddVertexBuffer(const Ref<VertexBuffer> vertexBuffer) override;
@@ -20,7 +23,6 @@ namespace WLD
 		virtual const Ref<IndexBuffer> GetIndexBuffer() const override { return m_IndexBuffer; };
 
 	private:
-		uint32_t m_RendererID;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;
 	};

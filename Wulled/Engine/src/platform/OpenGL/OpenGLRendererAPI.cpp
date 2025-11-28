@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "OpenGLRendererAPI.h"
 #include "Renderer.h"
 
@@ -28,13 +28,20 @@ namespace WLD
 		glClearColor(colour.r, colour.g, colour.b, colour.a);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const WLD::Ref<VertexArray>& vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const WLD::Ref<VertexArray> vertexArray)
 	{
 		if (m_WireFrame)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		else
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		uint32_t count = vertexArray->GetIndexBuffer()->GetCount();
-		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+
+		vertexArray->GetIndexBuffer()->Bind();
+		vertexArray->Bind();
+		for (Ref<VertexBuffer> vertexBuffer : vertexArray->GetVertexBuffers())
+		{
+			vertexBuffer->Bind();
+			glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		}
 	}
 }

@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "PerspectiveCamera.h"
 
 #include "glm/glm.hpp"
@@ -6,7 +6,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#include "Application.h"
+#include "application.h"
 #include "GL/glew.h"
 // #include "glad/glad.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Input.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/Input.h"
 
 namespace WLD
 {

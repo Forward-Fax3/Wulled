@@ -1,8 +1,8 @@
-#include "Engine/src/Core/Application.h"
-#include "Engine/src/Core/Graphics/Renderer/RendererAPI.h"
+#include "Engine/src/core/application.h"
+#include "Engine/src/core/graphics/Renderer/RendererAPI.h"
 
-#include "Engine/src/Core/Log.h"
-#include "Engine/src/Core/WLDMem.h"
+#include "Engine/src/core/Log.h"
+#include "Engine/src/core/WLDMem.h"
 
 #include <winbase.h>
 #include <iostream>                                                                                                                                                                                                                         
@@ -45,7 +45,7 @@ extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** arg
 //int main(int argc, char** argv)
 {
 	WLD::Log::Init();
-	bool* run = CreateArray(bool, 4); // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
+	bool* run = CreateArray(bool, 4); // 0 - Run, 1 - restart, 2 - APISet, 3 - APIReset
 	run[2] = false;
 	run[3] = false;
 
@@ -55,7 +55,7 @@ extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** arg
 		run[0] = true;
 		run[1] = false;
 		WLD::Application* application = WLD::CreateApplication(run, argc, argv);
-		application->run();
+		application->Run();
 		DestroyMemory(application);
 		application = nullptr;
 	
@@ -74,15 +74,15 @@ extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** arg
 
 // struct AppRun
 // {
-// 	bool run[2];
+// 	bool Run[2];
 // 	bool appClosed;
 // 	WLD::Application* application;
 // };
 // 
 // void appTheadRun(AppRun* appRun)
 // {
-// 	appRun->application = WLD::CreateApplication(appRun->run);
-// 	appRun->application->run();
+// 	appRun->application = WLD::CreateApplication(appRun->Run);
+// 	appRun->application->Run();
 // 	delete appRun->application;
 // 	appRun->appClosed = true;
 // }
@@ -95,8 +95,8 @@ extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** arg
 // 
 // 	do
 // 	{
-// 		appRun.run[0] = true;
-// 		appRun.run[1] = false;
+// 		appRun.Run[0] = true;
+// 		appRun.Run[1] = false;
 // 		appRun.appClosed = false;
 // 
 // 		applicationThread = std::thread(appTheadRun, &appRun);
@@ -104,9 +104,9 @@ extern "C" __declspec(dllexport) void __stdcall WulledEntry(int argc, char** arg
 // 
 // 		applicationThread.detach();
 // 
-// 		Command(appRun.run);
+// 		Command(appRun.Run);
 // 
 // 		while (!appRun.appClosed);
 // 		applicationThread.~thread();
-// 	} while (appRun.run[1]);
+// 	} while (appRun.Run[1]);
 // }

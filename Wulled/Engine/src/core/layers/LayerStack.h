@@ -1,13 +1,14 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/EngineCore.h"
 
-#include "Engine/src/Core/Layers/Layer.h"
+#include "Engine/src/core/layers/Layer.h"
 
 
 namespace WLD
 {
 	enum class LayerStackQueueType : uint8_t
 	{
+		None,
 		layerPush,
 		layerPop,
 		overlayPush,
@@ -19,10 +20,15 @@ namespace WLD
 	class WLD_API LayerStackQueue
 	{
 	private: // helper struct
-		struct layerData
+		struct LayerData
 		{
-			Layer* layer;
-			LayerStackQueueType type;
+			inline LayerData(Layer* layer, LayerStackQueueType type)
+				: layer(layer), type(type) {}
+
+			~LayerData() = default;
+
+			Layer* layer = nullptr;
+			LayerStackQueueType type = LayerStackQueueType::None;
 		};
 
 	private:
@@ -34,13 +40,13 @@ namespace WLD
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
-		inline std::vector<layerData>::iterator begin() { return m_Layers.begin(); }
-		inline std::vector<layerData>::iterator end() { return m_Layers.end(); }
+		inline std::vector<LayerData>::iterator begin() { return m_Layers.begin(); }
+		inline std::vector<LayerData>::iterator end() { return m_Layers.end(); }
 
 		void clear();
 
 	private:
-		std::vector<layerData> m_Layers;
+		std::vector<LayerData> m_Layers;
 		uint64_t m_LayerInsertIndex;
 
 		friend class LayerStack;
@@ -63,10 +69,10 @@ namespace WLD
 		inline std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 
 	private:
-		void _PushLayer(Layer* layer);
-		void _PushOverlay(Layer* overlay);
-		void _PopLayer(Layer* layer);
-		void _PopOverlay(Layer* overlay);
+		void PrivateFunction_PushLayer(Layer* layer);
+		void PrivateFunction_PushOverlay(Layer* overlay);
+		void PrivateFunction_PopLayer(Layer* layer);
+		void PrivateFunction_PopOverlay(Layer* overlay);
 
 	private:
 		std::vector<Layer*> m_Layers;

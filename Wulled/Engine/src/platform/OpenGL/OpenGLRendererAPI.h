@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Graphics/Renderer/RendererAPI.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/RendererAPI.h"
 
 namespace WLD
 {
@@ -10,6 +10,9 @@ namespace WLD
 		virtual void Init() override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const WLD::Ref<VertexArray>& vertexArray) override;
+		virtual void BeginScene() override {};
+		virtual void EndScene() override {};
+
+		virtual void DrawIndexed(const WLD::Ref<VertexArray> vertexArray) override;
 	};
 }

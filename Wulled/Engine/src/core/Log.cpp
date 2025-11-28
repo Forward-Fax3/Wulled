@@ -1,8 +1,15 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "WLDMem.h"
 
 #include "Log.h"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wall"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wextra"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#pragma clang diagnostic pop
+#pragma clang diagnostic pop
 
 #include <iostream>
 

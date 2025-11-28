@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "RenderCommand.h"
 #include "WLDMem.h"
 
@@ -16,7 +16,7 @@ namespace WLD
 		{
 			case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return;
 			case RendererAPI::API::OpenGL: s_RendererAPI = CreateMemory(OpenGLRendererAPI); return;
-			case RendererAPI::API::Vulkan: s_RendererAPI = CreateMemory(VkRendererAPI); return;
+			case RendererAPI::API::Vulkan: s_RendererAPI = CreateMemory(VulkanRendererAPI); return;
 		}
 	}
 

@@ -1,30 +1,28 @@
 #pragma once
-#include "Engine/src/Core/Log.h"
-#include "Engine/src/Core/Application.h"
-#include "Engine/src/Core/WLDMem.h"
+#include "Engine/src/core/Log.h"
+#include "Engine/src/core/application.h"
+#include "Engine/src/core/WLDMem.h"
 
-#include "Engine/src/Core/Layers/Layer.h"
+#include "Engine/src/core/layers/Layer.h"
 
-#include "Engine/src/Core/ImGui/ImGuiLayer.h"
+#include "Engine/src/core/ImGui/ImGuiLayer.h"
 
-#include "Engine/src/Core/Input.h"
-#include "Engine/src/Core/KeyCodes.h"
-#include "Engine/src/Core/MouseButtonCodes.h"
+#include "Engine/src/core/Input.h"
+#include "Engine/src/core/KeyCodes.h"
+#include "Engine/src/core/MouseButtonCodes.h"
 
 // Renderer
-#include "Engine/src/Core/Graphics/Renderer/Renderer.h"
-#include "Engine/src/Core/Graphics/Renderer/RenderCommand.h"
+#include "Engine/src/core/graphics/Renderer/Renderer.h"
+#include "Engine/src/core/graphics/Renderer/RenderCommand.h"
 
-#include "Engine/src/Core/Graphics/Renderer/Buffer.h"
-#include "Engine/src/Core/Graphics/Renderer/Shader.h"
-#include "Engine/src/Core/Graphics/Renderer/Texture.h"
-#include "Engine/src/Core/Graphics/Renderer/VertexArray.h"
+#include "Engine/src/core/graphics/Renderer/Buffer.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/texture.h"
+#include "Engine/src/core/graphics/Renderer/VertexArray.h"
 
-#include "Engine/src/Platform/OpenGL/OpenGLShader.h"
-
-#include "Engine/src/Core/Graphics/Camera/PerspectiveCamera.h"
+#include "Engine/src/core/graphics/camera/PerspectiveCamera.h"
 
 // Entry Point
 #ifdef ENTRY_POINT
-#include "Engine/src/Core/EntryPoint.h"
+#include "Engine/src/core/EntryPoint.h"
 #endif

@@ -1,16 +1,16 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/EngineCore.h"
 
 #include "imgui.h"
 
-#include "Engine/src/Core/Layers/Layer.h"
+#include "Engine/src/core/layers/Layer.h"
 
-#include "Engine/src/Core/Events/Event.h"
-#include "Engine/src/Core/Events/KeyEvent.h"
-#include "Engine/src/Core/Events/MouseEvent.h"
-#include "Engine/src/Core/Events/ApplicationEvent.h"
+#include "Engine/src/core/Events/Event.h"
+#include "Engine/src/core/Events/KeyEvent.h"
+#include "Engine/src/core/Events/MouseEvent.h"
+#include "Engine/src/core/Events/ApplicationEvent.h"
 
-#include "Engine/src/Core/Graphics/GraphicsContext.h"
+#include "Engine/src/core/graphics/GraphicsContext.h"
 
 
 namespace WLD
@@ -26,7 +26,7 @@ namespace WLD
 		virtual void OnImGuiDraw() override;
 
 		void Begin();
-		void end();
+		void End();
 
 	private:
 		bool OnWindowResize(WindowResizeEvent& e);

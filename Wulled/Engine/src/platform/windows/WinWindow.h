@@ -1,6 +1,6 @@
 #pragma once
-#include "Engine/src/Core/Window.h"
-#include "Engine/src/Core/Graphics/GraphicsContext.h"
+#include "Engine/src/core/Window.h"
+#include "Engine/src/core/graphics/GraphicsContext.h"
 
 #include "GL/glew.h"
 #include "SDL.h"
@@ -48,10 +48,10 @@ namespace WLD
 		char* GetTitle() const { return m_Data.props.TitleC; }
 		wchar_t* GetTitleW() const { return m_Data.props.Title; }
 
-		inline virtual SDL_Window* GetNativeWindow()                    const override { return m_SDLWindow; }
-		inline virtual GraphicsContext& GetGraphicsContext()	        const override { return (GraphicsContext&)*m_Context; }
+		virtual inline const SDL_Window* GetNativeWindow() const override { return m_SDLWindow; }
+		virtual inline const GraphicsContext& GetGraphicsContext() const override { return *m_Context; }
 
-		virtual void onWindowResize(uint32_t width, uint32_t height) override;
+		virtual void OnWindowResize(uint32_t width, uint32_t height) override;
 
 	private:
 		void Init();
@@ -60,7 +60,7 @@ namespace WLD
 		void ClearEventQueue();
 		void CheckEvents();
 
-		void WindowResize();
+		void WindowResize() const;
 
 	private:
 		SDL_Window* m_SDLWindow;

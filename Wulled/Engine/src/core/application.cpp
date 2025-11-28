@@ -1,9 +1,9 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 
 #include "LayerStack.h"
 #include "Window.h"
 #include "ApplicationEvent.h"
-#include "Application.h"
+#include "application.h"
 #include "Renderer.h"
 #include "RenderCommand.h"
 #include "WLDMem.h"
@@ -14,7 +14,7 @@ namespace WLD
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(bool* run)
-		: m_run(run)
+		: m_Run(run)
 	{
 		WLD_CORE_ASSERT(!s_Instance, "Application already Exists!");
 		s_Instance = this;
@@ -43,7 +43,7 @@ namespace WLD
 		DestroyMemory(m_Window);
 		m_Props = WindowProps();
 		DestroyScope(m_Threads);
-		m_run = nullptr;
+		m_Run = nullptr;
 		s_Instance = nullptr;
 	}
 
@@ -90,9 +90,9 @@ namespace WLD
 		}
 	}
 
-	void Application::run()
+	void Application::Run()
 	{
-		while (m_run[0])
+		while (m_Run[0])
 		{
 			for (Layer* layer : *m_LayerStack)
 				layer->OnUpdate();
@@ -100,7 +100,7 @@ namespace WLD
 //			m_ImGuiLayer->Begin();
 //			for (Layer* layer : *m_LayerStack)
 //				layer->OnImGuiDraw();
-//			m_ImGuiLayer->end();
+//			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 			m_LayerStack->OnUpdate();
@@ -109,13 +109,13 @@ namespace WLD
 	
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		m_run[0] = false;
+		m_Run[0] = false;
 		return true;
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
-		m_Window->onWindowResize(e.GetWidth(), e.GetHeight());
+		m_Window->OnWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
 	}
 }

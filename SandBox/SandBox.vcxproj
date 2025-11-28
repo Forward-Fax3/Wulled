@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug-AVX512|x64">
-      <Configuration>Debug-AVX512</Configuration>
+    <ProjectConfiguration Include="Debug AVX512|x64">
+      <Configuration>Debug AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug-AVX2|x64">
-      <Configuration>Debug-AVX2</Configuration>
+    <ProjectConfiguration Include="Debug AVX2|x64">
+      <Configuration>Debug AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug-SSE2|x64">
-      <Configuration>Debug-SSE2</Configuration>
+    <ProjectConfiguration Include="Debug SSE2|x64">
+      <Configuration>Debug SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-AVX512|x64">
-      <Configuration>Release-AVX512</Configuration>
+    <ProjectConfiguration Include="Release AVX512|x64">
+      <Configuration>Release AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-AVX2|x64">
-      <Configuration>Release-AVX2</Configuration>
+    <ProjectConfiguration Include="Release AVX2|x64">
+      <Configuration>Release AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-SSE2|x64">
-      <Configuration>Release-SSE2</Configuration>
+    <ProjectConfiguration Include="Release SSE2|x64">
+      <Configuration>Release SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-AVX512|x64">
-      <Configuration>Dist-AVX512</Configuration>
+    <ProjectConfiguration Include="Dist AVX512|x64">
+      <Configuration>Dist AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-AVX2|x64">
-      <Configuration>Dist-AVX2</Configuration>
+    <ProjectConfiguration Include="Dist AVX2|x64">
+      <Configuration>Dist AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-SSE2|x64">
-      <Configuration>Dist-SSE2</Configuration>
+    <ProjectConfiguration Include="Dist SSE2|x64">
+      <Configuration>Dist SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -46,57 +46,57 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -106,168 +106,174 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Debug-AVX512\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-AVX512\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Debug\AVX512\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Debug\AVX512\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Debug-AVX2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-AVX2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Debug\AVX2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Debug\AVX2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Debug-SSE2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-SSE2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Debug\SSE2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Debug\SSE2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Release-AVX512\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-AVX512\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Release\AVX512\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Release\AVX512\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Release-AVX2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-AVX2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Release\AVX2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Release\AVX2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Release-SSE2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-SSE2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Release\SSE2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Release\SSE2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Dist-AVX512\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-AVX512\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Dist\AVX512\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Dist\AVX512\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Dist-AVX2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-AVX2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Dist\AVX2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Dist\AVX2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\windows-x86_64-Dist-SSE2\SandBox\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-SSE2\intermediate\SandBox\</IntDir>
+    <OutDir>$(ProjectDir)..\Bin\windows\Dist\SSE2\SandBox\</OutDir>
+    <IntDir>$(ProjectDir)..\Bin\intermediate\windows\Dist\SSE2\SandBox\</IntDir>
     <TargetName>SandBox</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\bin\windows-x86_64-Debug-AVX512\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Debug\AVX512\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\bin\windows-x86_64-Debug-AVX2\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Debug\AVX2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\bin\windows-x86_64-Debug-SSE2\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Debug\SSE2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -276,8 +282,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -286,15 +292,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Release-AVX512\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Release\AVX512\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -304,7 +311,8 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -313,15 +321,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Release-AVX2\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Release\AVX2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -330,7 +339,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -339,15 +349,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Release-SSE2\SandBox\SandBox.lib</ImportLibrary>
+      <ImportLibrary>..\Bin\windows\Release\SSE2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -356,8 +367,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -366,15 +377,17 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Dist-AVX512\SandBox\SandBox.lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ImportLibrary>..\Bin\windows\Dist\AVX512\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -384,7 +397,8 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -393,15 +407,17 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Dist-AVX2\SandBox\SandBox.lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ImportLibrary>..\Bin\windows\Dist\AVX2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;_DIST;ENGINE_DIST;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\proj\git\STB;..\Wulled\Engine\vendor\proj\source\glew\include;..\Wulled\Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Wulled;..\Wulled\Engine\vendor\proj\git\imgui;..\Wulled\Engine\vendor\core\git\spdlog\include;..\Wulled\Engine\vendor\core\git\glm;..\Wulled\Engine\vendor\Librarys\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -410,7 +426,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -419,7 +436,8 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\windows-x86_64-Dist-SSE2\SandBox\SandBox.lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ImportLibrary>..\Bin\windows\Dist\SSE2\SandBox\SandBox.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-#include "Engine/src/Core/Graphics/Renderer/Texture.h"
+#include "Engine/src/core/graphics/Renderer/texture.h"
 
 
 namespace WLD

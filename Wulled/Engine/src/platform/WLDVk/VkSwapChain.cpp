@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "VkSwapChain.h"
 #include "VkContext.h"
 #include "VkErrors.h"
@@ -8,8 +8,8 @@
 
 namespace WLD
 {
-	WLD_VkSwapChain::WLD_VkSwapChain(WindowProps& props, VulkanContext* vkContext, VkSurfaceKHR& surface, VkPhysicalDevice& physicalDevice, VkDevice& device)
-		: m_WindowProps(props), m_VkContext(*vkContext), m_Surface(surface), m_PhysicalDevice(physicalDevice), m_Device(device)
+	WLD_VkSwapChain::WLD_VkSwapChain(const WindowProps& props, const VulkanContext& vkContext, const VkSurfaceKHR& surface, const VkPhysicalDevice& physicalDevice, const VkDevice& device)
+		: m_WindowProps(props), m_VkContext(vkContext), m_Surface(surface), m_PhysicalDevice(physicalDevice), m_Device(device)
 	{
 		CreateSwapChain();
 		CreateImageViews();
@@ -17,12 +17,12 @@ namespace WLD
 
 	WLD_VkSwapChain::~WLD_VkSwapChain()
 	{
-		for (size_t i = 0; i < NumberOfImages; i++)
-			vkDestroyImageView(m_Device, ImageViews[i], nullptr);
-		DestroyArray(ImageViews);
+		for (size_t i = 0; i < m_NumberOfImages; i++)
+			vkDestroyImageView(m_Device, m_ImageViews[i], nullptr);
+		DestroyArray(m_ImageViews);
 
-		vkDestroySwapchainKHR(m_Device, SwapChain, nullptr);
-		DestroyArray(Images);
+		vkDestroySwapchainKHR(m_Device, m_SwapChain, nullptr);
+		DestroyArray(m_Images);
 	}
 
 	void WLD_VkSwapChain::CreateSwapChain()
@@ -37,19 +37,19 @@ namespace WLD
 		DestroyArray(swapChainSupport.formats);
 		DestroyArray(swapChainSupport.presentModes);
 
-		ImageExtent = { m_WindowProps.Width, m_WindowProps.Height };
+		m_ImageExtent = { m_WindowProps.Width, m_WindowProps.Height };
 
-		NumberOfImages = swapChainSupport.capabilities.minImageCount + 1;
-		if (NumberOfImages > swapChainSupport.capabilities.maxImageCount)
-			NumberOfImages = swapChainSupport.capabilities.maxImageCount;
+		m_NumberOfImages = swapChainSupport.capabilities.minImageCount + 1;
+		if (m_NumberOfImages > swapChainSupport.capabilities.maxImageCount)
+			m_NumberOfImages = swapChainSupport.capabilities.maxImageCount;
 
 		VkSwapchainCreateInfoKHR createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 		createInfo.surface = m_Surface;
-		createInfo.minImageCount = NumberOfImages;
+		createInfo.minImageCount = m_NumberOfImages;
 		createInfo.imageFormat = surfaceFormat.format;
 		createInfo.imageColorSpace = surfaceFormat.colorSpace;
-		createInfo.imageExtent = ImageExtent;
+		createInfo.imageExtent = m_ImageExtent;
 		createInfo.imageArrayLayers = 1;
 		createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 		createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
@@ -73,26 +73,26 @@ namespace WLD
 			createInfo.pQueueFamilyIndices = nullptr;
 		}
 
-		WLD_VkCheckError(vkCreateSwapchainKHR(m_Device, &createInfo, nullptr, &SwapChain));
+		WLD_VkCheckError(vkCreateSwapchainKHR(m_Device, &createInfo, nullptr, &m_SwapChain));
 		DestroyArray(queues);
 
-		vkGetSwapchainImagesKHR(m_Device, SwapChain, &NumberOfImages, nullptr);
-		Images = CreateArray(VkImage, NumberOfImages);
-		vkGetSwapchainImagesKHR(m_Device, SwapChain, &NumberOfImages, Images);
+		vkGetSwapchainImagesKHR(m_Device, m_SwapChain, &m_NumberOfImages, nullptr);
+		m_Images = CreateArray(VkImage, m_NumberOfImages);
+		vkGetSwapchainImagesKHR(m_Device, m_SwapChain, &m_NumberOfImages, m_Images);
 
-		ImageFormat = surfaceFormat.format;
+		m_ImageFormat = surfaceFormat.format;
 	}
 
 	void WLD_VkSwapChain::CreateImageViews()
 	{
-		ImageViews = CreateArray(VkImageView, NumberOfImages);
-		for (size_t i = 0; i < NumberOfImages; i++)
+		m_ImageViews = CreateArray(VkImageView, m_NumberOfImages);
+		for (size_t i = 0; i < m_NumberOfImages; i++)
 		{
 			VkImageViewCreateInfo createInfo = {};
 			createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-			createInfo.image = Images[i];
+			createInfo.image = m_Images[i];
 			createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-			createInfo.format = ImageFormat;
+			createInfo.format = m_ImageFormat;
 			createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 			createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 			createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -103,28 +103,28 @@ namespace WLD
 			createInfo.subresourceRange.baseArrayLayer = 0;
 			createInfo.subresourceRange.layerCount = 1;
 
-			WLD_VkCheckError(vkCreateImageView(m_Device, &createInfo, nullptr, &ImageViews[i]));
+			WLD_VkCheckError(vkCreateImageView(m_Device, &createInfo, nullptr, &m_ImageViews[i]));
 		}
 	}
 
 	void WLD_VkSwapChain::CheckSwapChainSupport(SwapChainSupportDetails& swapChainSupport) const
 	{
-		vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.capabilities);
+		WLD_VkCheckError(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.capabilities));
 
-		vkGetPhysicalDeviceSurfaceFormatsKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.NumberOfFormats, nullptr);
-		WLD_CORE_ASSERT(swapChainSupport.NumberOfFormats, "Failed to get surface formats");
-		swapChainSupport.formats = CreateArray(VkSurfaceFormatKHR, swapChainSupport.NumberOfFormats);
-		vkGetPhysicalDeviceSurfaceFormatsKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.NumberOfFormats, swapChainSupport.formats);
+		WLD_VkCheckError(vkGetPhysicalDeviceSurfaceFormatsKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.numberOfFormats, nullptr));
+		WLD_CORE_ASSERT(swapChainSupport.numberOfFormats, "Failed to get surface formats");
+		swapChainSupport.formats = CreateArray(VkSurfaceFormatKHR, swapChainSupport.numberOfFormats);
+		WLD_VkCheckError(vkGetPhysicalDeviceSurfaceFormatsKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.numberOfFormats, swapChainSupport.formats));
 
-		vkGetPhysicalDeviceSurfacePresentModesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.NumberOfPresentModes, nullptr);
-		WLD_CORE_ASSERT(swapChainSupport.NumberOfPresentModes, "Failed to get surface present modes");
-		swapChainSupport.presentModes = CreateArray(VkPresentModeKHR, swapChainSupport.NumberOfPresentModes);
-		vkGetPhysicalDeviceSurfacePresentModesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.NumberOfPresentModes, swapChainSupport.presentModes);
+		WLD_VkCheckError(vkGetPhysicalDeviceSurfacePresentModesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.numberOfPresentModes, nullptr));
+		WLD_CORE_ASSERT(swapChainSupport.numberOfPresentModes, "Failed to get surface present modes");
+		swapChainSupport.presentModes = CreateArray(VkPresentModeKHR, swapChainSupport.numberOfPresentModes);
+		WLD_VkCheckError(vkGetPhysicalDeviceSurfacePresentModesKHR(m_PhysicalDevice, m_Surface, &swapChainSupport.numberOfPresentModes, swapChainSupport.presentModes));
 	}
 
 	void WLD_VkSwapChain::SetSwapChainAndPresentMode(const SwapChainSupportDetails& swapChainSupport, VkSurfaceFormatKHR& surfaceFormat, VkPresentModeKHR& presentMode) const
 	{
-		for (uint32_t i = 0; i < swapChainSupport.NumberOfFormats; i++)
+		for (uint32_t i = 0; i < swapChainSupport.numberOfFormats; i++)
 			if (swapChainSupport.formats[i].format == VK_FORMAT_B8G8R8A8_SRGB && swapChainSupport.formats[i].colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
 			{
 				surfaceFormat = swapChainSupport.formats[i];
@@ -134,7 +134,7 @@ namespace WLD
 		if (surfaceFormat.format == VK_FORMAT_UNDEFINED)
 			surfaceFormat = swapChainSupport.formats[0];
 
-		for (uint32_t i = 0; i < swapChainSupport.NumberOfPresentModes; i++)
+		for (uint32_t i = 0; i < swapChainSupport.numberOfPresentModes; i++)
 			if (swapChainSupport.presentModes[i] == VK_PRESENT_MODE_MAILBOX_KHR)
 			{
 				presentMode = swapChainSupport.presentModes[i];

@@ -1,11 +1,11 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "ImGuiLayer.h"
 #include "OpenGLImGui/VP.h"
 
 #include "imgui.h"
 #include "backends/imgui_impl_sdl2.h"
 
-#include "Application.h"
+#include "application.h"
 #include "RendererAPI.h"
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
@@ -66,7 +66,7 @@ namespace WLD
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		Window& window = app.GetWindow();
-		bool* run = app.GetRun(); // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
+		bool* run = app.GetRun(); // 0 - Run, 1 - restart, 2 - APISet, 3 - APIReset
 		io.DisplaySize = ImVec2(static_cast<float>(window.GetWidth()), static_cast<float>(window.GetHeight()));
 		bool APIReset = false;
 		
@@ -79,7 +79,7 @@ namespace WLD
 			APIReset = ImGui::Button("Reset API");
 
 			if (VSync != window.IsVSync())
-				window.SetVSync(VSync);
+				window.SetVSync(VSync);  
 		}
 		bool exit = ImGui::Button("exit");
 		bool restart = ImGui::Button("restart");
@@ -119,7 +119,7 @@ namespace WLD
 		ImGui::NewFrame();
 	}
 
-	void ImGuiLayer::end()
+	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
 

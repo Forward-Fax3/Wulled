@@ -2,8 +2,8 @@
 #include <string>
 #include <queue>
 
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Graphics/Renderer/Shader.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
 
 #include "glm/glm.hpp"
 #include "GL/glew.h"
@@ -57,8 +57,13 @@ namespace WLD
 
 		struct ShaderInfo
 		{
+			inline ShaderInfo(WLD_ShaderType type, std::vector<uint32_t> src)
+				: Type(type), source(src) {}
+
+			~ShaderInfo() = default;
+
 			WLD_ShaderType Type = WLD_ShaderType::None;
-			std::vector<uint32_t> source;
+			std::vector<uint32_t> source = {};
 		};
 
 	private:

@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "WLDMem.h"
 #include "Renderer.h"
 #include "OpenGLShader.h"
@@ -34,11 +34,13 @@ namespace WLD
 	void Renderer::BeginScene(Ref<Camera::PerspectiveCamera> camera)
 	{
 		s_SceneData->cameraUBO->SetData(glm::value_ptr(camera->GetProjection()), sizeof(glm::mat4));
+		RenderCommand::BeginScene();
 	}
 
 	void Renderer::EndScene()
 	{
 		s_SceneData->shader.reset();
+		RenderCommand::EndScene();
 	}
 
 	void Renderer::SetShader(const Ref<Shader>& shader)
@@ -100,16 +102,14 @@ namespace WLD
 
 	void Renderer::Submit(const WLD::Ref<VertexArray>& vertexArray, const glm::mat4& transform, const glm::vec4& colour)
 	{
-		vertexArray->Bind();
-		vertexArray->GetIndexBuffer()->Bind();
 		s_SceneData->shader->Bind();
 
 		DataUBO data;
 		data.transform = transform;
 		data.colour = colour;
 		s_SceneData->dataUBO->SetData(&data);
-//		s_SceneData->dataUBO->SetData(&transform, sizeof(transform), 0);
-//		s_SceneData->dataUBO->SetData(&colour, sizeof(colour), sizeof(transform));
+//		s_SceneData->dataUBO->SetData(&transform, sizeof(DataUBO::transform), offsetof(DataUBO, transform));
+//		s_SceneData->dataUBO->SetData(&colour, sizeof(DataUBO::colour), offsetof(DataUBO, colour));
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/Events/Event.h"
+#include "Engine/src/core/Events/Event.h"
 
 
 namespace WLD
@@ -8,13 +8,13 @@ namespace WLD
 	{
 	public:
 		Layer(std::string name);
-		virtual ~Layer();
+		virtual ~Layer() = default;
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
 		virtual void OnImGuiDraw() {}
-		virtual void OnEvent(Event& e) {}
+		virtual void OnEvent(Event& e) { (void)e; }
 
 		inline const std::string GetName() const { return m_DebugName; }
 

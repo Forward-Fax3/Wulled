@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "WLDMem.h"
 #include "WinWindow.h"
 #include "Renderer.h"
@@ -11,7 +11,7 @@
 #include "ApplicationEvent.h"
 #include "KeyEvent.h"
 #include "MouseEvent.h"
-#include "Application.h"
+#include "application.h"
 #include "WinEvent.h"
 
 #include "KeyCodes.h"
@@ -73,6 +73,7 @@ namespace WLD
 		//
 		// TODO: Add close if invalid Context
 		//
+		
 
 		WLD_SDLCheckError(SDL_Init(SDL_INIT_VIDEO));
 
@@ -123,7 +124,7 @@ namespace WLD
 		if (m_SDLWindowNeedsResize)
 		{
 			WindowResize();
-			m_SDLWindowNeedsResize = 0;
+			m_SDLWindowNeedsResize = false;
 		}
 
 		ClearEventQueue();
@@ -144,14 +145,14 @@ namespace WLD
 		return m_Data.VSync;
 	}
 
-	void WinWindow::onWindowResize(uint32_t width, uint32_t height)
+	void WinWindow::OnWindowResize(uint32_t width, uint32_t height)
 	{
 		m_Data.props.Width = width;
 		m_Data.props.Height = height;
 		m_SDLWindowNeedsResize = true;
 	}
 
-	void WinWindow::WindowResize()
+	void WinWindow::WindowResize() const
 	{
 		m_Context->OnWindowResize();
 	}
@@ -169,17 +170,17 @@ namespace WLD
 
 	void WinWindow::CheckEvents()
 	{
-		std::function<void(void*)> eventCall = [](void* data) -> void
+		auto eventCall = [](void* data)
 			{
-				EventData* e = (EventData*)data;
-				e->callEvent();
-				e->isFinished = true;
+				auto& e = *static_cast<EventData*>(data);
+				e.callEvent();
+				e.isFinished = true;
 				return;
 			};
 		EventData* e = CreateMemory(EventData, CreateMemory(SDL_Event));
 		while (SDL_PollEvent(e->event))
 		{
-			Application::Get().PushAsyncFunction(eventCall, (void*)e);
+			Application::Get().PushAsyncFunction(eventCall, static_cast<void*>(e));
 			m_IssuedEvents.push_back(e);
 			e = CreateMemory(EventData, CreateMemory(SDL_Event));
 		}
@@ -188,7 +189,7 @@ namespace WLD
 
 	void EventData::callEvent() const
 	{
-		WinWindow& window = (WinWindow&)Application::Get().GetWindow();
+		WinWindow& window = dynamic_cast<WinWindow&>(Application::Get().GetWindow());
 		window.m_CallEventSet->CallEvent(event);
 	}
 }

@@ -1,7 +1,7 @@
-#include <WLDPCH.h>
+#include "wldpch.h"
 #include "WLDThread.h"
 
-#include "Application.h"
+#include "application.h"
 
 #include <sstream>
 #include <chrono>
@@ -21,12 +21,22 @@ namespace WLD
 		}
 		s_Instance = this;
 
+#if (__cplusplus >= 202002L)
+		m_Threads = CreateArray(std::jthread, s_ThreadCount);
+#else
 		m_Threads = CreateArray(std::thread, s_ThreadCount);
+#endif
+
 		m_ThreadsFinished = CreateArray(bool, s_ThreadCount);
 		for (size_t i = 0; i < s_ThreadCount; i++)
 		{
 			m_ThreadsFinished[i] = false;
+#if (__cplusplus >= 202002L)
+			std::jthread thread(WLDThreads::StaticThreadRunner, (void*)(m_ThreadsFinished + i));
+#else
 			std::thread thread(WLDThreads::StaticThreadRunner, (void*)(m_ThreadsFinished + i));
+#endif
+
 			m_Threads[i].swap(thread);
 			m_Threads[i].detach();
 		}

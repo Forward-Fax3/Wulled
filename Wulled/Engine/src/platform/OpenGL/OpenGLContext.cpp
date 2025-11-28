@@ -1,8 +1,8 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #undef EN_ENABLE_ASSERTS
 #define EN_ENABLE_ASSERTS
 
-#include "Application.h"
+#include "application.h"
 #include "OpenGLContext.h"
 #include "Renderer.h"
 
@@ -41,7 +41,7 @@ namespace WLD
 		auto version = glGetString(GL_VERSION);
 		LOG_CORE_INFO("OpenGL Version: {0}", (char*)version);
 
-		auto isOpenGL46 = GLEW_VERSION_4_5;
+		auto isOpenGL46 = GLEW_VERSION_4_6;
 		if (isOpenGL46)
 			LOG_CORE_INFO("OpenGL 4.6 is supported!");
 		else
@@ -65,7 +65,7 @@ namespace WLD
 		glViewport(0, 0, m_WindowProps.Width, m_WindowProps.Height);
 	}
 
-	void OpenGLContext::MakeCurrent()
+	void OpenGLContext::MakeCurrent() const
 	{
 		WLD_SDLCheckError(SDL_GL_MakeCurrent(m_WindowProps.SDLWindow, m_Context));
 	}
@@ -75,24 +75,24 @@ namespace WLD
 		WLD_SDLCheckError(SDL_GL_SetSwapInterval(vsync));
 	}
 
-	void OpenGLContext::ImGuiInit()
+	void OpenGLContext::ImGuiInit() const
 	{
 		// Setup Platform/Renderer bindings
 		ImGui_ImplSDL2_InitForOpenGL(m_WindowProps.SDLWindow, m_Context);
 		ImGui_ImplOpenGL3_Init();
 	}
 
-	void OpenGLContext::ImGuiBegin()
+	void OpenGLContext::ImGuiBegin() const
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 	}
 
-	void OpenGLContext::ImGuiEnd()
+	void OpenGLContext::ImGuiEnd() const
 	{
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void OpenGLContext::ImGuiShutdown()
+	void OpenGLContext::ImGuiShutdown() const
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 	}

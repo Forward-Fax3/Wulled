@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/EngineCore.h"
 #include <fstream>
 #include <string>
 #include <vector>
@@ -18,7 +18,7 @@ namespace WLD
 				in.seekg(0, std::ios::end);
 				result.resize(in.tellg());
 				in.seekg(0, std::ios::beg);
-				in.read(&result[0], result.size());
+				in.read(const_cast<char*>(result.c_str()), static_cast<std::streamsize>(result.size()));
 				in.close();
 				return true;
 			}
@@ -46,7 +46,7 @@ namespace WLD
 			std::ofstream out(filePath.data(), std::ios::out | std::ios::binary);
 			if (out)
 			{
-				out.write(data.data(), data.size());
+				out.write(data.data(), static_cast<std::streamsize>(data.size()));
 				out.close();
 				return true;
 			}
@@ -59,7 +59,7 @@ namespace WLD
 			std::ofstream out(filePath.data(), std::ios::out | std::ios::binary);
 			if (out)
 			{
-				out.write((const char*)data.data(), data.size() * sizeof(T));
+				out.write((char*)data.data(), data.size() * sizeof(T));
 				out.close();
 				return true;
 			}

@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/EngineCore.h"
 #include <vulkan/vulkan.h>
 
 

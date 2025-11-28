@@ -1,5 +1,8 @@
 #pragma once
-#include "Engine/src/Core/Events/Event.h"
+#include <string>
+#include <sstream>
+
+#include "Engine/src/core/Events/Event.h"
 
 
 namespace WLD

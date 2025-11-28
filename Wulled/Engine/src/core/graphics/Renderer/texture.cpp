@@ -1,5 +1,5 @@
-#include "WLDPCH.h"
-#include "Texture.h"
+#include "wldpch.h"
+#include "texture.h"
 #include "Renderer.h"
 #include "OpenGLTexture.h"
 

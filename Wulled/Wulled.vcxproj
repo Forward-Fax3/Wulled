@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug-AVX512|x64">
-      <Configuration>Debug-AVX512</Configuration>
+    <ProjectConfiguration Include="Debug AVX512|x64">
+      <Configuration>Debug AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug-AVX2|x64">
-      <Configuration>Debug-AVX2</Configuration>
+    <ProjectConfiguration Include="Debug AVX2|x64">
+      <Configuration>Debug AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug-SSE2|x64">
-      <Configuration>Debug-SSE2</Configuration>
+    <ProjectConfiguration Include="Debug SSE2|x64">
+      <Configuration>Debug SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-AVX512|x64">
-      <Configuration>Release-AVX512</Configuration>
+    <ProjectConfiguration Include="Release AVX512|x64">
+      <Configuration>Release AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-AVX2|x64">
-      <Configuration>Release-AVX2</Configuration>
+    <ProjectConfiguration Include="Release AVX2|x64">
+      <Configuration>Release AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-SSE2|x64">
-      <Configuration>Release-SSE2</Configuration>
+    <ProjectConfiguration Include="Release SSE2|x64">
+      <Configuration>Release SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-AVX512|x64">
-      <Configuration>Dist-AVX512</Configuration>
+    <ProjectConfiguration Include="Dist AVX512|x64">
+      <Configuration>Dist AVX512</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-AVX2|x64">
-      <Configuration>Dist-AVX2</Configuration>
+    <ProjectConfiguration Include="Dist AVX2|x64">
+      <Configuration>Dist AVX2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Dist-SSE2|x64">
-      <Configuration>Dist-SSE2</Configuration>
+    <ProjectConfiguration Include="Dist SSE2|x64">
+      <Configuration>Dist SSE2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -46,57 +46,57 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -106,101 +106,102 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
-    <OutDir>..\bin\windows-x86_64-Debug-AVX512\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-AVX512\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Debug\AVX512\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Debug\AVX512\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
-    <OutDir>..\bin\windows-x86_64-Debug-AVX2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-AVX2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Debug\AVX2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Debug\AVX2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
-    <OutDir>..\bin\windows-x86_64-Debug-SSE2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Debug-SSE2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Debug\SSE2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Debug\SSE2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
-    <OutDir>..\bin\windows-x86_64-Release-AVX512\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-AVX512\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Release\AVX512\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Release\AVX512\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
-    <OutDir>..\bin\windows-x86_64-Release-AVX2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-AVX2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Release\AVX2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Release\AVX2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
-    <OutDir>..\bin\windows-x86_64-Release-SSE2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Release-SSE2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Release\SSE2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Release\SSE2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
-    <OutDir>..\bin\windows-x86_64-Dist-AVX512\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-AVX512\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Dist\AVX512\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Dist\AVX512\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
-    <OutDir>..\bin\windows-x86_64-Dist-AVX2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-AVX2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Dist\AVX2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Dist\AVX2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
-    <OutDir>..\bin\windows-x86_64-Dist-SSE2\Wulled\</OutDir>
-    <IntDir>..\bin\windows-x86_64-Dist-SSE2\intermediate\Wulled\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
+    <OutDir>$(ProjectDir)..\bin\windows\Dist\SSE2\Wulled\</OutDir>
+    <IntDir>$(ProjectDir)..\bin\windows\Dist\SSE2\intermediate\Wulled\</IntDir>
     <TargetName>Wulled</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -212,19 +213,21 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-cored.lib;%VULKAN_SDK%\Lib\spirv-cross-glsld.lib;%VULKAN_SDK%\Lib\shaderc_combinedd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -236,18 +239,20 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-cored.lib;%VULKAN_SDK%\Lib\spirv-cross-glsld.lib;%VULKAN_SDK%\Lib\shaderc_combinedd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DEBUG;ENGINE_DEBUG;DX12_ENABLE_DEBUG_LAYER;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -259,12 +264,13 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-cored.lib;%VULKAN_SDK%\Lib\spirv-cross-glsld.lib;%VULKAN_SDK%\Lib\shaderc_combinedd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -273,8 +279,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -288,12 +294,13 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -303,7 +310,8 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -317,12 +325,13 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_RELEASE;ENGINE_RELEASE;EN_ENABLE_ASSERTS;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -331,7 +340,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -345,12 +355,13 @@
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX512|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX512|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -359,8 +370,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt /arch:AVX512 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -369,17 +380,19 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-AVX2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist AVX2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_AVX2;GLM_FORCE_FMA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -389,7 +402,8 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -398,17 +412,19 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist-SSE2|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist SSE2|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\Graphics;Engine\src\Core\ImGui;Engine\src\Core\Layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\Graphics\Camera;Engine\src\Core\Graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\Windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>GLM_FORCE_SWIZZLE;GLM_ENABLE_EXPERIMENTAL;GLM_FORCE_DEFAULT_ALIGNED_GENTYPES;WLD_CORE;GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_CUSTOM;GLEW_STATIC;_DIST;ENGINE_DIST;GLM_FORCE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Engine\src\Core\Events;Engine\src\Core\graphics;Engine\src\Core\ImGui;Engine\src\Core\layers;Engine\src\Core\Threads;Engine\src\Core\Time;Engine\src\Core\graphics\camera;Engine\src\Core\graphics\Renderer;Engine\src\Core;Engine\src\PCH;Engine\src\Platform\OpenGL;Engine\src\Platform\windows;Engine\src\Platform\WLDVk;Engine\vendor\proj\git\imgui;Engine\vendor\core\git\spdlog\include;Engine\vendor\core\git\glm;Engine\vendor\proj\git\STB;Engine\vendor\proj\source\glew\include;Engine\vendor\Librarys\SDL\include;%VULKAN_SDK%\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -417,7 +433,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-extra-semi-stmt %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -426,6 +443,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%VULKAN_SDK%\Lib\vulkan-1.lib;Engine\vendor\Librarys\SDL\lib\SDL2.lib;Engine\vendor\Librarys\SDL\lib\SDL2main.lib;Engine\vendor\Librarys\SDL\lib\SDL2test.lib;%VULKAN_SDK%\Lib\spirv-cross-core.lib;%VULKAN_SDK%\Lib\spirv-cross-glsl.lib;%VULKAN_SDK%\Lib\shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -433,56 +451,59 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="Engine\src\Core\Application.h" />
-    <ClInclude Include="Engine\src\Core\EngineCore.h" />
-    <ClInclude Include="Engine\src\Core\EntryPoint.h" />
-    <ClInclude Include="Engine\src\Core\Events\ApplicationEvent.h" />
-    <ClInclude Include="Engine\src\Core\Events\Event.h" />
-    <ClInclude Include="Engine\src\Core\Events\KeyEvent.h" />
-    <ClInclude Include="Engine\src\Core\Events\MouseEvent.h" />
-    <ClInclude Include="Engine\src\Core\Events\windowEvent.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Camera\PerspectiveCamera.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\GraphicsContext.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\Buffer.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\RenderCommand.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\Renderer.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\RendererAPI.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\Shader.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\ShaderDataType.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\Texture.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\UniformBuffer.h" />
-    <ClInclude Include="Engine\src\Core\Graphics\Renderer\VertexArray.h" />
-    <ClInclude Include="Engine\src\Core\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="Engine\src\Core\Input.h" />
-    <ClInclude Include="Engine\src\Core\KeyCodes.h" />
-    <ClInclude Include="Engine\src\Core\Layers\Layer.h" />
-    <ClInclude Include="Engine\src\Core\Layers\LayerStack.h" />
-    <ClInclude Include="Engine\src\Core\Log.h" />
-    <ClInclude Include="Engine\src\Core\MouseButtonCodes.h" />
-    <ClInclude Include="Engine\src\Core\Threads\WLDThread.h" />
-    <ClInclude Include="Engine\src\Core\Time\WLDTime.h" />
-    <ClInclude Include="Engine\src\Core\WLDFileStream.h" />
-    <ClInclude Include="Engine\src\Core\WLDMem.h" />
-    <ClInclude Include="Engine\src\Core\Window.h" />
-    <ClInclude Include="Engine\src\PCH\WLDPCH.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLImGui\VP.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLUniformBuffer.h" />
-    <ClInclude Include="Engine\src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\RenderPass.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkContext.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkErrors.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkRendererAPI.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkShader.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkSwapChain.h" />
-    <ClInclude Include="Engine\src\Platform\WLDVk\VkUniformBuffer.h" />
-    <ClInclude Include="Engine\src\Platform\Windows\WinEvent.h" />
-    <ClInclude Include="Engine\src\Platform\Windows\WinInput.h" />
-    <ClInclude Include="Engine\src\Platform\Windows\WinWindow.h" />
+    <ClInclude Include="Engine\src\core\EngineCore.h" />
+    <ClInclude Include="Engine\src\core\EntryPoint.h" />
+    <ClInclude Include="Engine\src\core\Events\ApplicationEvent.h" />
+    <ClInclude Include="Engine\src\core\Events\Event.h" />
+    <ClInclude Include="Engine\src\core\Events\KeyEvent.h" />
+    <ClInclude Include="Engine\src\core\Events\MouseEvent.h" />
+    <ClInclude Include="Engine\src\core\Events\windowEvent.h" />
+    <ClInclude Include="Engine\src\core\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="Engine\src\core\Input.h" />
+    <ClInclude Include="Engine\src\core\KeyCodes.h" />
+    <ClInclude Include="Engine\src\core\Log.h" />
+    <ClInclude Include="Engine\src\core\MouseButtonCodes.h" />
+    <ClInclude Include="Engine\src\core\Threads\WLDThread.h" />
+    <ClInclude Include="Engine\src\core\Time\WLDTime.h" />
+    <ClInclude Include="Engine\src\core\WLDFileStream.h" />
+    <ClInclude Include="Engine\src\core\WLDMem.h" />
+    <ClInclude Include="Engine\src\core\Window.h" />
+    <ClInclude Include="Engine\src\core\application.h" />
+    <ClInclude Include="Engine\src\core\graphics\GraphicsContext.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Buffer.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\RenderCommand.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Renderer.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\RendererAPI.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\Shader.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\ShaderDataType.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\UniformBuffer.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\VertexArray.h" />
+    <ClInclude Include="Engine\src\core\graphics\Renderer\texture.h" />
+    <ClInclude Include="Engine\src\core\graphics\camera\PerspectiveCamera.h" />
+    <ClInclude Include="Engine\src\core\layers\Layer.h" />
+    <ClInclude Include="Engine\src\core\layers\LayerStack.h" />
+    <ClInclude Include="Engine\src\pch\wldpch.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.h" />
+    <ClInclude Include="Engine\src\platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\RenderPass.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkBuffer.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkContext.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkErrors.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkMemoryAllocator.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkRendererAPI.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkShader.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkSwapChain.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkUniformBuffer.h" />
+    <ClInclude Include="Engine\src\platform\WLDVk\VkVertexArray.h" />
+    <ClInclude Include="Engine\src\platform\windows\WinEvent.h" />
+    <ClInclude Include="Engine\src\platform\windows\WinInput.h" />
+    <ClInclude Include="Engine\src\platform\windows\WinWindow.h" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\common.hpp" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\detail\_features.hpp" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\detail\_fixes.hpp" />
@@ -865,6 +886,8 @@
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\std_based_type.inl" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\string_cast.hpp" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\string_cast.inl" />
+    <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\structured_bindings.hpp" />
+    <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\structured_bindings.inl" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\texture.hpp" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\texture.inl" />
     <ClInclude Include="Engine\vendor\core\git\glm\glm\gtx\transform.hpp" />
@@ -901,42 +924,48 @@
     <ClInclude Include="Engine\vendor\core\git\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\src\Core\Application.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Camera\PerspectiveCamera.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\GraphicsContext.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\Buffer.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\Renderer.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\Shader.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\Texture.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\UniformBuffer.cpp" />
-    <ClCompile Include="Engine\src\Core\Graphics\Renderer\VertexArray.cpp" />
-    <ClCompile Include="Engine\src\Core\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="Engine\src\Core\Layers\Layer.cpp" />
-    <ClCompile Include="Engine\src\Core\Layers\LayerStack.cpp" />
-    <ClCompile Include="Engine\src\Core\Log.cpp" />
-    <ClCompile Include="Engine\src\Core\Threads\WLDThread.cpp" />
-    <ClCompile Include="Engine\src\Core\Time\WLDTime.cpp" />
-    <ClCompile Include="Engine\src\Core\Window.cpp" />
-    <ClCompile Include="Engine\src\PCH\WLDPCH.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLImGui\VP.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
-    <ClCompile Include="Engine\src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\RenderPass.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\VkContext.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\VkRendererAPI.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\VkShader.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\VkSwapChain.cpp" />
-    <ClCompile Include="Engine\src\Platform\WLDVk\VkUniformBuffer.cpp" />
-    <ClCompile Include="Engine\src\Platform\Windows\WinEvent.cpp" />
-    <ClCompile Include="Engine\src\Platform\Windows\WinInput.cpp" />
-    <ClCompile Include="Engine\src\Platform\Windows\WinWindow.cpp" />
+    <ClCompile Include="Engine\src\core\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="Engine\src\core\Log.cpp" />
+    <ClCompile Include="Engine\src\core\Threads\WLDThread.cpp" />
+    <ClCompile Include="Engine\src\core\Time\WLDTime.cpp" />
+    <ClCompile Include="Engine\src\core\Window.cpp" />
+    <ClCompile Include="Engine\src\core\application.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\GraphicsContext.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Buffer.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Renderer.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\Shader.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\UniformBuffer.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\VertexArray.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\Renderer\texture.cpp" />
+    <ClCompile Include="Engine\src\core\graphics\camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="Engine\src\core\layers\Layer.cpp" />
+    <ClCompile Include="Engine\src\core\layers\LayerStack.cpp" />
+    <ClCompile Include="Engine\src\pch\wldpch.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLImGui\VP.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLUniformBuffer.cpp" />
+    <ClCompile Include="Engine\src\platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\RenderPass.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkBuffer.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkContext.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkMemoryAllocator.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkRendererAPI.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkShader.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkSwapChain.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkUniformBuffer.cpp" />
+    <ClCompile Include="Engine\src\platform\WLDVk\VkVertexArray.cpp" />
+    <ClCompile Include="Engine\src\platform\windows\WinEvent.cpp" />
+    <ClCompile Include="Engine\src\platform\windows\WinInput.cpp" />
+    <ClCompile Include="Engine\src\platform\windows\WinWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="%VULKAN_SDK%\Include" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Engine\vendor\proj\git\ImGui\ImGui.vcxproj">

@@ -1,8 +1,8 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "WLDMem.h"
 // #define EN_ENABLE_ASSERTS
 #include "OpenGLShader.h"
-#include "Application.h"
+#include "application.h"
 #include "WLDFileStream.h"
 
 #include "glm/gtc/type_ptr.hpp"
@@ -297,7 +297,7 @@ namespace WLD
 		{
 			crossCompiler->set_decoration(resource.id, spv::DecorationLocation, pushConstsLocations); // sets the location of the push constant for when it becomes a plain uniform
 			auto& type = crossCompiler->get_type(resource.base_type_id);
-			for (unsigned i = 0; i < type.member_types.size(); i++)
+			for (size_t i = 0; i < type.member_types.size(); i++)
 			{
 				const auto& array = crossCompiler->get_type(type.member_types[i]).array;
 				uint32_t arraySize = 1; // a default value of 1
@@ -313,6 +313,7 @@ namespace WLD
 
 		std::string OpenGL_GLSL(crossCompiler->compile());
 		DestroyMemory(resources);
+
 		DestroyMemory(crossCompiler);
 #ifdef _DEBUG
 		FileStream::WriteFile(filePath + ".OGL", OpenGL_GLSL);
@@ -353,7 +354,7 @@ namespace WLD
 		case WLD_ShaderType::Fragment: return GL_FRAGMENT_SHADER;
 		}
 
-		LOG_CORE_FATAL("unkown shader type");
+		LOG_CORE_FATAL("unknown shader type");
 		return GL_INVALID_ENUM;
 	}
 

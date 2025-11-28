@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/src/Core/Graphics/Renderer/UniformBuffer.h"
+#include "Engine/src/core/graphics/Renderer/UniformBuffer.h"
 
 
 namespace WLD

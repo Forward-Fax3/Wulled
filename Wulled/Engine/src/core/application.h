@@ -1,19 +1,19 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Layers/LayerStack.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/layers/LayerStack.h"
 
-#include "Engine/src/Core/Window.h"
+#include "Engine/src/core/Window.h"
 
-#include "Engine/src/Core/Events/Event.h"
-#include "Engine/src/Core/Events/ApplicationEvent.h"
+#include "Engine/src/core/Events/Event.h"
+#include "Engine/src/core/Events/ApplicationEvent.h"
 
-#include "Engine/src/Core/ImGui/ImGuiLayer.h"
-#include "Engine/src/Core/Time/WLDTime.h"
-#include "Engine/src/Core/Threads/WLDThread.h"
+#include "Engine/src/core/ImGui/ImGuiLayer.h"
+#include "Engine/src/core/Time/WLDTime.h"
+#include "Engine/src/core/Threads/WLDThread.h"
 
-#include "Engine/src/Core/Graphics/Renderer/Shader.h"
-#include "Engine/src/Core/Graphics/Renderer/Buffer.h"
-#include "Engine/src/Core/Graphics/Renderer/VertexArray.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/Buffer.h"
+#include "Engine/src/core/graphics/Renderer/VertexArray.h"
 
 
 namespace WLD
@@ -24,9 +24,9 @@ namespace WLD
 		Application(bool* run);
 		virtual ~Application();
 
-		void run();
+		void Run();
 
-		inline bool* GetRunPtrs() { return m_run; }
+		inline bool* GetRunPtrs() { return m_Run; }
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
@@ -36,8 +36,8 @@ namespace WLD
 		void PushAsyncFunction(std::function<void(void*)> function, void* data);
 
 		inline static Application& Get() { return *s_Instance; }
-		inline Window& GetWindow() { return *m_Window; }
-		inline bool* GetRun() { return m_run; } // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
+		inline Window& GetWindow() const { return *m_Window; }
+		inline bool* GetRun() const { return m_Run; } // 0 - Run, 1 - restart, 2 - APISet, 3 - APIReset
 
 	// Functions
 	private:
@@ -56,7 +56,7 @@ namespace WLD
 		ImGuiLayer* m_ImGuiLayer = nullptr;
 		Time* m_Time = nullptr;
 
-		bool* m_run; // 0 - run, 1 - restart, 2 - APISet, 3 - APIReset
+		bool* m_Run; // 0 - Run, 1 - restart, 2 - APISet, 3 - APIReset
 
 		static Application* s_Instance;
 	};

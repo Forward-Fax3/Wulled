@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "WLDMem.h"
 
 #define IN_LAYERSTACK_CPP
@@ -91,35 +91,38 @@ namespace WLD
 		{
 			switch (type)
 			{
+			case LayerStackQueueType::None:
+				LOG_CORE_ERROR("Error: layer update type None. layer: {}", layer->GetName());
+				continue;
 			case LayerStackQueueType::layerPush:
-				_PushLayer(layer);
+				PrivateFunction_PushLayer(layer);
 				continue;
 			case LayerStackQueueType::layerPop:
-				_PopLayer(layer);
+				PrivateFunction_PopLayer(layer);
 				continue;
 			case LayerStackQueueType::overlayPush:
-				_PushOverlay(layer);
+				PrivateFunction_PushOverlay(layer);
 				continue;
 			case LayerStackQueueType::overlayPop:
-				_PopOverlay(layer);
+				PrivateFunction_PopOverlay(layer);
 				continue;
 			}
 		}
 		m_LayerStackQueue.clear();
 	}
 
-	void LayerStack::_PushLayer(Layer* layer)
+	void LayerStack::PrivateFunction_PushLayer(Layer* layer)
 	{
 		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
 		m_LayerInsertIndex++;
 	}
 
-	void LayerStack::_PushOverlay(Layer* overlay)
+	void LayerStack::PrivateFunction_PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
 	}
 
-	void LayerStack::_PopLayer(Layer* layer)
+	void LayerStack::PrivateFunction_PopLayer(Layer* layer)
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 		if (it != m_Layers.end())
@@ -136,14 +139,15 @@ namespace WLD
 				delete layer;
 				LOG_CORE_WARNING("Layer {0} was created thought Wulled memory creation but has been deleted", name);
 			}
-			catch (const std::exception& e)
+			catch (const std::exception& _)
 			{
+				(void)_;
 				LOG_CORE_ERROR("Layer {0} was created thought Wulled memory creation but has not been deleted", name);
 			}
 		}
 	}
 
-	void LayerStack::_PopOverlay(Layer* overlay)
+	void LayerStack::PrivateFunction_PopOverlay(Layer* overlay)
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
@@ -157,8 +161,9 @@ namespace WLD
 				delete overlay;
 				LOG_CORE_WARNING("Overlay {0} was created thought Wulled memory creation but has been deleted", name);
 			}
-			catch (const std::exception& e)
+			catch (const std::exception& _)
 			{
+				(void)_;
 				LOG_CORE_ERROR("Overlay {0} was created thought Wulled memory creation but has not been deleted", name);
 			}
 		}

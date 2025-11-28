@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "OpenGLUniformBuffer.h"
 
 #include <GL/glew.h>
@@ -20,10 +20,10 @@ namespace WLD
 		glDeleteBuffers(1, &m_RendererID);
 	}
 
-	void OpenGLUniformBuffer::SetData(const void* data, uint32_t size, uint32_t offset)
+	void OpenGLUniformBuffer::SetData(const void* data, uint32_t size /* = 0 */, uint32_t offset /* = 0 */)
 	{
 		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
-		uint32_t tempSize = size ? size : m_Size;
+		uint32_t tempSize = size ? size : static_cast<uint32_t>(m_Size);
 		glBufferSubData(GL_UNIFORM_BUFFER, offset, tempSize, data);
 	}
 }

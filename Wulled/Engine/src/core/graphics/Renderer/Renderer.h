@@ -1,8 +1,8 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Graphics/Renderer/RenderCommand.h"
-#include "Engine/src/Core/Graphics/Camera/PerspectiveCamera.h"
-#include "Engine/src/Core/Graphics/Renderer/Shader.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/RenderCommand.h"
+#include "Engine/src/core/graphics/camera/PerspectiveCamera.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
 #include "UniformBuffer.h"
 
 
@@ -25,10 +25,10 @@ namespace WLD
 		static void Submit(const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f), const glm::vec4& colour = glm::vec4(1.0f));
 //		static void Submit(const glm::mat4& transform);
 
-		static void SetBackgroundColour(const glm::vec4& colour) { s_SceneData->backgroundcolour = colour; }
+		static void SetBackgroundColour(const glm::vec4& colour) { s_SceneData->backgroundColour = colour; }
 //		static void SetBackgroundImage(const std::string& filepath);
 
-		static const glm::vec4& GetBackgroundColour() { return s_SceneData->backgroundcolour; }
+		static const glm::vec4& GetBackgroundColour() { return s_SceneData->backgroundColour; }
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		inline static void SetAPI(RendererAPI::API api) { RendererAPI::SetAPI(api); }
@@ -47,7 +47,7 @@ namespace WLD
 			Ref<UniformBuffer> cameraUBO, dataUBO;
 			Ref<Shader> shader;
 
-			glm::vec4 backgroundcolour = glm::vec4(1.0f);
+			glm::vec4 backgroundColour = glm::vec4(1.0f);
 		};
 
 	private: // private data

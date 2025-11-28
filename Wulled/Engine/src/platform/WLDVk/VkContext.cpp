@@ -1,10 +1,9 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "VkContext.h"
 #include "VkErrors.h"
 #include "WLDMem.h"
 
-#include <vulkan/vulkan.hpp>
-#include <vulkan/vulkan_win32.h>
+#include <vulkan/vulkan.h>
 
 #include <SDL.h>
 #include <SDL_vulkan.h>
@@ -13,6 +12,7 @@
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_vulkan.h"
 
+#include "VkMemoryAllocator.h"
 
 namespace WLD
 {
@@ -24,7 +24,7 @@ namespace WLD
 		WLD_CORE_ASSERT(!s_Instance, "VulkanContext already exists!");
 		s_Instance = this;
 
-		m_WindowProps.Flags = (SDL_WindowFlags)(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+		m_WindowProps.Flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	}
 
 	void VulkanContext::CreateDevice()
@@ -32,15 +32,22 @@ namespace WLD
 		WLD_SDLCheckError(SDL_Vulkan_LoadLibrary(nullptr));
 
 		CreateInstance();
-		DubugMessengingSetup();
+		DebugMessagingSetup();
 		CreateSurface();
 		PickPhysicalDevice();
 		CreateLogicalDevice();
-		m_SwapChain = CreateMemory(WLD_VkSwapChain, m_WindowProps, this, m_Surface, m_PhysicalDevice, m_Device);
+		m_SwapChain = CreateMemory(WLD_VkSwapChain, m_WindowProps, *this, m_Surface, m_PhysicalDevice, m_Device);
+		m_RenderPass = CreateMemory(RenderPass, *this);
+		CreateFrameBuffers();
+
+		const VulkanMemoryAllocator* vma = new VulkanMemoryAllocator(m_Device, m_PhysicalDevice); (void)*vma; // "use" vms to avoid variable not used errors
 	}
 
 	void VulkanContext::Shutdown()
 	{
+		delete VulkanMemoryAllocator::s_VkAllocator;
+
+		DestroyMemory(m_RenderPass);
 		DestroyMemory(m_SwapChain);
 		vkDestroyDevice(m_Device, nullptr);
 		vkDestroySurfaceKHR(m_Instance, m_Surface, nullptr);
@@ -62,13 +69,17 @@ namespace WLD
 
 	void VulkanContext::SwapBuffers()
 	{
+		m_CurrentFrameBuffer++;
+
+		if (m_CurrentFrameBuffer == 3)
+			m_CurrentFrameBuffer = 0;
 	}
 
 	void VulkanContext::OnWindowResize()
 	{
 	}
 
-	void VulkanContext::MakeCurrent()
+	void VulkanContext::MakeCurrent() const
 	{
 	}
 
@@ -76,7 +87,7 @@ namespace WLD
 	{
 	}
 
-	void VulkanContext::ImGuiInit()
+	void VulkanContext::ImGuiInit() const
 	{
 		ImGui_ImplSDL2_InitForVulkan(m_WindowProps.SDLWindow);
 		ImGui_ImplVulkan_InitInfo init_info = {};
@@ -97,17 +108,17 @@ namespace WLD
 //		ImGui_ImplVulkan_Init(&init_info, wd->RenderPass);
 	}
 
-	void VulkanContext::ImGuiBegin()
+	void VulkanContext::ImGuiBegin() const
 	{
 //		ImGui_ImplVulkan_NewFrame();
 	}
 
-	void VulkanContext::ImGuiEnd()
+	void VulkanContext::ImGuiEnd() const
 	{
-//		ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData(), vk::CommandBuffer());
+//		ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData(), ::vk::CommandBuffer());
 	}
 
-	void VulkanContext::ImGuiShutdown()
+	void VulkanContext::ImGuiShutdown() const
 	{
 //		ImGui_ImplVulkan_Shutdown();
 	}
@@ -167,8 +178,8 @@ namespace WLD
 			m_ValidationLayers[i] = validationLayer;
 		}
 
-		// TODO: Check if that requsted layers are available
-		// TODO: Check if that requsted extensions are available
+		// TODO: Check if that requested layers are available
+		// TODO: Check if that requested extensions are available
 
 		VkInstanceCreateInfo InstanceInfo = {};
 		InstanceInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -185,10 +196,10 @@ namespace WLD
 		WLD_VkCheckError(vkCreateInstance(&InstanceInfo, nullptr, &m_Instance));
 	}
 
-	void VulkanContext::DubugMessengingSetup()
+	void VulkanContext::DebugMessagingSetup()
 	{
 #if !defined(_DIST)
-		PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(m_Instance, "vkCreateDebugUtilsMessengerEXT");
+		const PFN_vkCreateDebugUtilsMessengerEXT func = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(m_Instance, "vkCreateDebugUtilsMessengerEXT"));
 		WLD_CORE_ASSERT(func, "Failed to get vkCreateDebugUtilsMessengerEXT");
 		WLD_VkCheckError(func(m_Instance, &m_DebugMessengerCreateInfo, nullptr, &m_DebugMessenger));
 #endif
@@ -210,7 +221,7 @@ namespace WLD
 		{
 			VkPhysicalDeviceProperties deviceProperties;
 			vkGetPhysicalDeviceProperties(physicalDevices[i], &deviceProperties);
-			if (deviceProperties.deviceType != VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+			if (deviceProperties.deviceType != VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && numberOfPhysicalDevices > 1)
 				continue;
 
 			if (deviceProperties.apiVersion < VK_API_VERSION_1_3)
@@ -235,10 +246,10 @@ namespace WLD
 
 	void VulkanContext::CreateLogicalDevice()
 	{
-		float queuePriority = 1.0f;
+		constexpr float queuePriority = 1.0f;
 		VkDeviceQueueCreateInfo queueInfos[] = { {}, {} };
 		uint32_t* queues = nullptr;
-		uint32_t numberOfQueues = GetQueueFamilies(queues);
+		const uint32_t numberOfQueues = GetQueueFamilies(queues);
 
 		for (size_t i = 0; i < numberOfQueues; i++)
 		{
@@ -266,10 +277,29 @@ namespace WLD
 		DestroyArray(queues);
 	}
 
+	void VulkanContext::CreateFrameBuffers()
+	{
+		m_FrameBuffers = CreateArray(VkFramebuffer, m_SwapChain->m_NumberOfImages);
+
+		for (uint32_t i = 0; i < m_SwapChain->m_NumberOfImages; i++)
+		{
+			VkFramebufferCreateInfo framebufferInfo{};
+			framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+			framebufferInfo.renderPass = m_RenderPass->GetRenderPass();
+			framebufferInfo.attachmentCount = 1;
+			framebufferInfo.pAttachments = &m_SwapChain->m_ImageViews[i];
+			framebufferInfo.width = m_WindowProps.Width;
+			framebufferInfo.height = m_WindowProps.Height;
+			framebufferInfo.layers = 1;
+
+			WLD_VkCheckError(vkCreateFramebuffer(m_Device, &framebufferInfo, nullptr, &m_FrameBuffers[i]));
+		}
+	}
+
 	void VulkanContext::DebugMessengerShutdown() const
 	{
 #ifndef _DIST
-		PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(m_Instance, "vkDestroyDebugUtilsMessengerEXT");
+		const PFN_vkDestroyDebugUtilsMessengerEXT func = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(m_Instance, "vkDestroyDebugUtilsMessengerEXT"));
 		WLD_CORE_ASSERT(func, "Failed to get vkDestroyDebugUtilsMessengerEXT");
 		func(m_Instance, m_DebugMessenger, nullptr);
 #endif
@@ -299,7 +329,7 @@ namespace WLD
 		}
 		DestroyArray(queueFamilies);
 
-		const uint32_t numberOfQueues = 2;
+		constexpr uint32_t numberOfQueues = 2;
 		queues = CreateArray(uint32_t, numberOfQueues);
 		queues[0] = graphicsQueueFamily;
 		queues[1] = presentQueueFamily;
@@ -322,7 +352,7 @@ namespace WLD
 		else if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT)
 			LOG_CORE_TRACE("Vulkan Call Back: {0}", pCallbackData->pMessage);
 		else
-			LOG_CORE_ERROR("Vulkan Call Back: {0}", pCallbackData->pMessage);
+			LOG_CORE_ERROR("Unknown Vulkan Call Back: {0}", pCallbackData->pMessage);
 
 		return VK_FALSE;
 	};

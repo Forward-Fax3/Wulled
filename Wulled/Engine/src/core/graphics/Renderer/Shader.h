@@ -1,8 +1,10 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Graphics/Renderer/ShaderDataType.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/ShaderDataType.h"
 
+#ifdef WLD_CORE
 #include "shaderc/shaderc.hpp"
+#endif
 
 #include "glm/glm.hpp"
 
@@ -35,6 +37,9 @@ namespace WLD
 
 	struct InputShader // At the moment, only supports GLSL shaders and only from a file
 	{
+		inline InputShader(WLD_ShaderType shaderType, const std::string& src)
+			: type(shaderType), source(src) {}
+
 		WLD_ShaderType type = WLD_ShaderType::None;
 		std::string source;
 //		bool isFromFile = false;
@@ -70,6 +75,8 @@ namespace WLD
 		static Shader* Create(const std::vector<InputShader>& shaders);
 
 	protected:
+#ifdef WLD_CORE
 		std::vector<uint32_t> CompileToVkSPIRV(const std::string& source, const std::string& filePath, shaderc_shader_kind shaderType) const;
+#endif
 	};
 }

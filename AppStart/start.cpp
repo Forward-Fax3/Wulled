@@ -1,54 +1,56 @@
 #include <Windows.h>
+#include <string>
 #include <iostream>
+#include <fstream>
 
 
-#define BASE_FILEPATH L"C:\\Dev\\Projects\\personal\\c++\\Wulled\\bin\\windows-x86_64-" 
+#define AVX512 L"AVX512\\"
+#define AVX2 L"AVX2\\"
+#define SSE2 L"SSE2\\"
 
-#if defined _DEBUG
-#define CONFIG "Debug-"
-#elif defined _RELEASE
-#define CONFIG "Release-"
-#elif defined _DIST
-#define CONFIG "Dist-"
-#else
-#error "No configuration specified"
-#endif
+#define SANDBOX L"SandBox\\Sandbox.dll"
 
-#define AVX512 "AVX512\\"
-#define AVX2 "AVX2\\"
-#define SEE4_2 "SEE4.2\\"
+#define SDL_DLL L"SDL2.dll"
+#define SDL_START_PATH L"..\\..\\..\\SDL\\DLLs\\"
 
-#define SANDBOX "SandBox\\SandBox.dll"
+static const wchar_t* SDL_DESTINATION_PATH = /*L"..\\bin\\windows\\Release\\AppStart\\"*/ SDL_DLL;
 
-typedef void (*Start)(int, char**);
+using Start = void (*)(int, char**);
 
+
+inline void copyFile(std::wstring srcPath, std::wstring dstPath)
+{
+	std::ifstream src(srcPath.c_str(), std::ios::binary);
+	std::ofstream dst(dstPath.c_str(), std::ios::binary);
+
+	dst << src.rdbuf();
+}
 
 int main(int argc, char** argv)
 {
-	HINSTANCE dll = nullptr;
+	std::wstring path(L"..\\");
+
 	if (IsProcessorFeaturePresent(PF_AVX512F_INSTRUCTIONS_AVAILABLE))
 	{
-//		const wchar_t* path = BASE_FILEPATH CONFIG AVX512 SANDBOX;
-		const wchar_t* path = L"C:\\Dev\\Projects\\personal\\c++\\Wulled\\bin\\windows-x86_64-Release-AVX512\\SandBox\\SandBox.dll";;
-		dll = LoadLibraryW(path);
+		path += AVX512 SANDBOX;
+		copyFile(SDL_START_PATH AVX512 SDL_DLL, SDL_DESTINATION_PATH);
 	}
 	else if (IsProcessorFeaturePresent(PF_AVX2_INSTRUCTIONS_AVAILABLE))
 	{
-//		const wchar_t* path = BASE_FILEPATH CONFIG AVX2 SANDBOX;
-		const wchar_t* path = L"C:\\Dev\\Projects\\personal\\c++\\Wulled\\bin\\windows-x86_64-Release-AVX2\\SandBox\\SandBox.dll";
-		dll = LoadLibraryW(path);
+		path += AVX2 SANDBOX;
+		copyFile(SDL_START_PATH AVX2 SDL_DLL, SDL_DESTINATION_PATH);
 	}
 	else // SEE2
 	{
-//		const wchar_t* path = BASE_FILEPATH CONFIG SEE4_2 SANDBOX;
-		const wchar_t* path = L"C:\\Dev\\Projects\\personal\\c++\\Wulled\\bin\\windows-x86_64-Release-SSE4.2\\SandBox\\SandBox.dll";
-		dll = LoadLibraryW(path);
+		path += SSE2 SANDBOX;
+		copyFile(SDL_START_PATH SSE2 SDL_DLL, SDL_DESTINATION_PATH);
 	}
 
+	HMODULE dll = LoadLibraryW(path.c_str());
 	if (dll == nullptr)
 	{
 		wchar_t* error = new wchar_t[1024];
-		FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), error, 1024, NULL);
+		FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), error, 1024, nullptr);
 		std::wcout << L"error: " << error << L"Load Library" << std::endl;
 		delete[] error;
 
@@ -56,10 +58,18 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	Start WulledEntry = (Start)GetProcAddress(dll, "WulledEntry");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-function-type"
+	Start WulledEntry = reinterpret_cast<Start>(GetProcAddress(dll, "WulledEntry"));
+#pragma clang diagnostic pop
 	if (WulledEntry == nullptr)
 	{
-		// TODO: Log error
+		wchar_t* error = new wchar_t[1024];
+		FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), error, 1024, nullptr);
+		std::wcout << L"error: " << error << L"Load Wulled entry" << std::endl;
+		delete[] error;
+
+		system("pause>nul");
 		return 2;
 	}
 

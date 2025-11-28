@@ -1,10 +1,10 @@
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/WLDMem.h"
-#include "Engine/src/Core/Events/Event.h"
-#include "Engine/src/Core/Events/windowEvent.h"
-#include "Engine/src/Core/Graphics/GraphicsContext.h"
-#include "Engine/src/Core/WLDMem.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/core/Events/Event.h"
+#include "Engine/src/core/Events/windowEvent.h"
+#include "Engine/src/core/graphics/GraphicsContext.h"
+#include "Engine/src/core/WLDMem.h"
 
 #include <SDL.h>
 
@@ -36,9 +36,9 @@ namespace WLD
 		WindowProps& operator=(WindowProps&& props) noexcept;
 
 		// Copying is not allowed
-		// this is due to WindowProps dealling with it own memory creation and deletion
+		// this is due to WindowProps dealing with it own memory creation and deletion
 		// and copying would cause memory access violations once the memory is deleted
-		// only operations move is allowed and using pointers/referances to the object
+		// only operations move is allowed and using pointers/references to the object
 		// is allowed
  		WindowProps(const WindowProps&) = delete;
 		WindowProps& operator=(const WindowProps&) = delete;
@@ -66,10 +66,10 @@ namespace WLD
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		virtual SDL_Window* GetNativeWindow() const = 0;
-		virtual GraphicsContext& GetGraphicsContext() const = 0;
+		virtual inline const SDL_Window* GetNativeWindow() const = 0;
+		virtual inline const GraphicsContext& GetGraphicsContext() const = 0;
 
-		virtual void onWindowResize(uint32_t width, uint32_t height) = 0;
+		virtual void OnWindowResize(uint32_t width, uint32_t height) = 0;
 
 		static Window* Create(WindowProps& props);
  	};

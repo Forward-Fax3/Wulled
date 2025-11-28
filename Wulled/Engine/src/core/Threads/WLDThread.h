@@ -24,7 +24,11 @@ namespace WLD
 
 	// Data
 	private:
+#if (__cplusplus >= 202002L)
+		std::jthread* m_Threads = nullptr;
+#else
 		std::thread* m_Threads = nullptr;
+#endif
 		bool* m_ThreadsFinished = nullptr;
 		bool m_Finished = false;
 

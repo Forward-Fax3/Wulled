@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "EngineCore.h"
 #include "WLDMem.h"
 
@@ -26,16 +26,18 @@ namespace WLD
 
 	std::vector<uint32_t> Shader::CompileToVkSPIRV(const std::string& source, const std::string& filePath, shaderc_shader_kind shaderType) const
 	{
-		shaderc::Compiler* compiler = CreateMemory(shaderc::Compiler);
+		shaderc::Compiler compiler;
 		shaderc::CompileOptions options;
 		options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
 		options.SetSourceLanguage(shaderc_source_language_glsl);
-		shaderc::SpvCompilationResult module = compiler->CompileGlslToSpv(source, shaderType, "shader", options);
+		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source, shaderType, "shader", options);
 		WLD_CORE_ASSERT(module.GetCompilationStatus() == shaderc_compilation_status_success, "Shader compilation failed: {0}", module.GetErrorMessage());
 		std::vector<uint32_t> vulkanSPIRV(module.cbegin(), module.cend());
 
-		FileStream::WriteFile(filePath + ".spv", vulkanSPIRV);
-		DestroyMemory(compiler);
+//		FileStream::WriteFile(filePath + ".spv", vulkanSPIRV);
+		auto path = "../bin/Shaders/" + filePath + ".spv";
+		if (!FileStream::WriteFile(path, vulkanSPIRV))
+			LOG_CORE_TRACE("Failed to open: {}", path);
 		return vulkanSPIRV;
 	}
 }

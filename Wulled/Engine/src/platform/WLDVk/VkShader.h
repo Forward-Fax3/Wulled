@@ -1,17 +1,14 @@
 #pragma once
-#include "Engine/src/Core/Graphics/Renderer/Shader.h"
+#include "Engine/src/core/graphics/Renderer/Shader.h"
 
 #include <shaderc/shaderc.hpp>
 
-#include <vulkan/vulkan.hpp>
+#include <vulkan/vulkan.h>
 #include "spirv_cross/spirv_glsl.hpp"
-
-#include "Engine/src/Platform/WLDVk/RenderPass.h"
 
 
 namespace WLD
 {
-
 	class VulkanShader : public Shader
 	{
 	public:
@@ -33,7 +30,7 @@ namespace WLD
 
 		virtual void SetPushConst(const std::string& UBName, const std::vector<PushConstOpaqueObj>& layout, const void* data) override;
 
-	private: // Helper Structs
+	private: // Helper Struts
 		struct VertexInputAttributeData
 		{
 			VkFormat format = VK_FORMAT_UNDEFINED;
@@ -50,7 +47,6 @@ namespace WLD
 	private: // Data
 		VkPipelineLayout m_PipelineLayout;
 		VkPipeline m_GraphicsPipeline;
-
-		RenderPass* m_RenderPass;
+		std::vector<VkDescriptorSetLayout> m_DescriptorSetLayouts;
 	};
 }

@@ -1,10 +1,11 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "Log.h"
 #include "EngineCore.h"
 
 #include "Renderer.h"
 #include "Buffer.h"
 #include "OpenGLBuffer.h"
+#include "VkBuffer.h"
 
 #include "WLDMem.h"
 
@@ -17,7 +18,7 @@ namespace WLD
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLVertexBuffer, vertices, size);
-//		case RendererAPI::API::Vulkan: return createMemory(VulkanVertexBuffer, vertices, size);
+		case RendererAPI::API::Vulkan: return CreateMemory(VulkanVertexBuffer, vertices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}
@@ -29,7 +30,7 @@ namespace WLD
 		{
 		case RendererAPI::API::None: WLD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL: return CreateMemory(OpenGLIndexBuffer, indices, size);
-//		case RendererAPI::API::Vulkan: return createMemory(VulkanIndexBuffer, indices, size);
+		case RendererAPI::API::Vulkan: return CreateMemory(VulkanIndexBuffer, indices, size);
 
 		default: WLD_CORE_ASSERT(false, "Unknown RendererAPI!"); return nullptr;
 		}
@@ -39,7 +40,7 @@ namespace WLD
 	{
 		switch (type)
 		{
-		case ShaderDataType::None:		LOG_CORE_WARNING("shader type is none my not work"); return 0;
+		case ShaderDataType::None:		LOG_CORE_WARNING("shader type is none may not work"); return 0;
 		case ShaderDataType::Bool:		return 1;
 		case ShaderDataType::Int:		return 4 * 1;
 		case ShaderDataType::Int2:		return 4 * 2;
@@ -67,7 +68,7 @@ namespace WLD
 	{
 		switch (Type)
 		{
-		case ShaderDataType::None:		LOG_CORE_WARNING("shader type is none my not work"); return 0;
+		case ShaderDataType::None:		LOG_CORE_WARNING("shader type is none may not work"); return 0;
 		case ShaderDataType::Bool:		return 1;
 		case ShaderDataType::Int:		return 1;
 		case ShaderDataType::Int2:		return 2;

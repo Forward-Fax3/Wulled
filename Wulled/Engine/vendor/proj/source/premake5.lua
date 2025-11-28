@@ -62,6 +62,7 @@ project "glew"
 	staticruntime "off"
     location "%{prj.name}"
 	toolset "clang"
+	linker "LLD"
     
     targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -88,27 +89,24 @@ project "glew"
 		"MultiProcessorCompile",
 	}
 
-    filter { filterCofigurations.Debug }
+    filter { "configurations:Debug" }
 		runtime "Debug"
 		symbols "on"
 
-    filter { filterCofigurations.Release }
+    filter { "configurations:Release" }
 		runtime "Release"
 		optimize "Speed"
 
-    filter { filterCofigurations.Dist }
+    filter { "configurations:Dist" }
 		runtime "Release"
 		optimize "Speed"
     	symbols "off"
-	    flags
-	    {
-	    	"LinkTimeOptimization",
-	    }
+		linktimeoptimization "on"
     
-	filter { filterCofigurations.AVX512 }
+	filter { "platforms:AVX512" }
 	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
 		buildoptions { "/arch:AVX512" }
-	filter { filterCofigurations.AVX2 }
+	filter { "platforms:AVX2" }
 		vectorextensions "AVX2"
-	filter { filterCofigurations.SSE2 }
+	filter { "platforms:SSE2" }
 		vectorextensions "SSE2"

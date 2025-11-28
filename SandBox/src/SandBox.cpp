@@ -1,13 +1,13 @@
 #define ENTRY_POINT
-#include "App.h"
+#include "app.h"
 #include "apiset.h"
-#include "Engine/src/Core/Log.h"
+#include "Engine/src/core/Log.h"
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
 #define toFloat(x) static_cast<float>(x)
 
-
+ 
 class catLayer : public WLD::Layer
 {
 	public:
@@ -19,10 +19,6 @@ class catLayer : public WLD::Layer
 //		m_TextureShader.reset(WLD::Shader::Create("assets/indevidualShaders/Texture.glsl"));
 //		m_TextureShader->Bind();
 //		((WLD::OpenGL::OpenGLShader*)m_TextureShader.get())->SetUniformInt("u_Texture", 0);
-	}
-
-	~catLayer()
-	{
 	}
 
 	void OnUpdate() override
@@ -116,7 +112,7 @@ public:
 
 		// camera creation
 		WLD::Window& window = WLD::Application::Get().GetWindow();
-		m_Camera.reset(CreateMemory(WLD::Camera::PerspectiveCamera, m_FOV, toFloat(window.GetHeight()), toFloat(window.GetWidth()), 0.3f, 1000.0f));
+		m_Camera.reset(CreateRef(WLD::Camera::PerspectiveCamera, m_FOV, toFloat(window.GetHeight()), toFloat(window.GetWidth()), 0.3f, 1000.0f));
 		m_Camera->SetUp({ 0.0f, 1.0f, 0.0f });
 
 		// background camera creation
@@ -124,14 +120,11 @@ public:
 //		m_BackgroundCamera->setUp({ 0.0f, 1.0f, 0.0f });
 	}
 
-	~ExampleLayer()
-	{
-	}
-
 	void OnUpdate() override
 	{
 		m_Camera->SetPos(getMovement(m_CamSpeed));
-		m_Camera->SetFront(getRotation() * 0.5f);
+		setRotation();
+		m_Camera->SetFront(m_TotalCamaraRotation * 0.5f);
 		WLD::Renderer::BeginScene(m_Camera);
 		WLD::Renderer::SetBackgroundColour(glm::vec4(m_SetColour, 1.0f));
 
@@ -152,19 +145,17 @@ public:
 
 	void OnImGuiDraw() override
 	{
-		static glm::vec3 pos(0.0f);
-		static glm::vec3 rot(0.0f);
 		bool activateCat = false;
 		bool backgroundEvent = true;
 		bool wireFrameEvent = false;
-		static uint8_t PreviousFOV = m_FOV;
+		uint8_t PreviousFOV = m_FOV;
 
 		ImGui::Begin("3D Object");
 		ImGui::Text("Rotation");
-		ImGui::SliderFloat3("x, y, z", glm::value_ptr(rot), -180.0f, 180.0f);
+		ImGui::SliderFloat3("x, y, z", glm::value_ptr(m_CubesRotation), -180.0f, 180.0f);
 		ImGui::Separator();
 		ImGui::Text("Position");
-		ImGui::SliderFloat3("x, y, z ", glm::value_ptr(pos), -10.0f, 10.0f); // added a space at the end of the string to give if a unique name/ID to prevent it from linking to the rotation slider
+		ImGui::SliderFloat3("x, y, z ", glm::value_ptr(m_CubesPosition), -10.0f, 10.0f); // added a space at the end of the string to give if a unique name/ID to prevent it from linking to the rotation slider
 		ImGui::End();
 
 		ImGui::Begin("Camera");
@@ -204,8 +195,8 @@ public:
 		if (wireFrameEvent)
 			WLD::RenderCommand::ToggleWireFrame();
 
-		m_Camera->SetPosition(pos);
-		m_Camera->SetRotation(rot);
+		m_Camera->SetPosition(m_CubesPosition);
+		m_Camera->SetRotation(m_CubesRotation);
 
 		if (activateCat)
 		{
@@ -268,23 +259,20 @@ private:
 		return { x, y, z };
 	}
 
-	glm::vec2 getRotation()
+	void setRotation()
 	{
-		static glm::vec2 lastPos = m_MousePos;
-		static glm::vec2 total = { 0.0f, 0.0f };
-		glm::vec2 delta = m_MousePos - lastPos;
+		glm::vec2 delta = m_MousePos - m_MouseLastPos;
 
 		if (std::find(m_MouseButtons.begin(), m_MouseButtons.end(), WLD_MOUSE_BUTTON_RIGHT) != m_MouseButtons.end() ||
 			std::find(m_Keys.begin(), m_Keys.end(), WLD_KEY_LEFT_CONTROL) != m_Keys.end())
-			total += glm::vec2(1.0f, -1.0f) * delta;
+			m_TotalCamaraRotation += glm::vec2(1.0f, -1.0f) * delta;
 
 //		     if (total.first  < -360)  total.first  += 720;
 //		else if (total.first  >  360)  total.first  -= 720;
 //		     if (total.second < -360)  total.second += 720;
 //		else if (total.second >  360)  total.second -= 720;
 
-		lastPos = m_MousePos;
-		return total;
+		m_MouseLastPos = m_MousePos;
 	}
 
 	bool OnWindowResize(WLD::WindowResizeEvent& e)
@@ -357,6 +345,11 @@ private:
 
 	std::vector<uint32_t> m_Keys, m_MouseButtons;
 	glm::vec2 m_MousePos = glm::vec2(0.0f);
+	glm::vec2 m_MouseLastPos = glm::vec2(0.0f);
+	glm::vec2 m_TotalCamaraRotation = glm::vec2(0.0f);
+
+	glm::vec3 m_CubesPosition = glm::vec3(0.0f);
+	glm::vec3 m_CubesRotation = glm::vec3(0.0f);
 };
 
 class BaseLayer : public WLD::Layer
@@ -376,10 +369,6 @@ public:
 			m_PrevLayer = Layers::example;
 		}
 		m_App.PushLayer(m_ActiveLayer);
-	}
-
-	~BaseLayer()
-	{
 	}
 
 	void OnUpdate() override

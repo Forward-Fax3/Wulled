@@ -1,7 +1,7 @@
 // TODO: Fix loads of stuff and add my own allocator and deallocator
 
 #pragma once
-#include "Engine/src/Core/EngineCore.h"
+#include "Engine/src/core/EngineCore.h"
 #include <memory>
 #include <unordered_map>
 #include <atomic>
@@ -31,9 +31,11 @@ namespace WLD
 
 	struct Memory
 	{
+		~Memory() = default;
+
 		inline static size_t Allocated = 0;
 		inline static size_t AllocatedSmart = 0;
-		inline static ::std::unordered_map<void*, MemoryData> Map = {};
+		inline static ::std::unordered_map<const void*, MemoryData> Map = {};
 	};
 
 	inline static size_t GetAllocatedMemory() { return Memory::Allocated; }
@@ -66,7 +68,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 #endif
 		return ptr;
 	}
@@ -94,7 +96,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 #endif
 		return ptr;
 	}
@@ -103,18 +105,19 @@ namespace WLD
 	static void _DestroyMemory(T*& ptr, bool FromRef = false)
 	{
 #if !defined _DIST
-		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
+		if (Memory::Map.find(reinterpret_cast<const void*>(ptr)) == Memory::Map.end())
 		{
-			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", reinterpret_cast<size_t>(ptr));
 			return;
 		}
 
-		MemoryData data = Memory::Map[(void*)ptr];
+		MemoryData data = Memory::Map[reinterpret_cast<const void*>(ptr)];
 		if (!FromRef)
 			Memory::Allocated -= data.Map * data.numberOfAllocations;
-		Memory::Map.erase((void*)ptr);
+		Memory::Map.erase(reinterpret_cast<const void*>(ptr));
 #endif
 		delete ptr;
+		ptr = nullptr;
 	}
 
 #if _DEBUG
@@ -130,7 +133,7 @@ namespace WLD
 		data.Map = sizeof(T);
 		data.numberOfAllocations = 1;
 		data.WasCreatedManually = true;
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 		return ptr;
 	}
 
@@ -146,7 +149,7 @@ namespace WLD
 		data.Map = sizeof(T);
 		data.numberOfAllocations = 1;
 		data.WasCreatedManually = true;
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 		return ptr;
 	}
 #endif
@@ -173,7 +176,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 #endif
 		return ptr;
 	}
@@ -200,7 +203,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr, data });
+		Memory::Map.insert({ reinterpret_cast<const void*>(ptr), data });
 #endif
 		return ptr;
 	}
@@ -209,18 +212,19 @@ namespace WLD
 	static void _DestroyArray(T*& ptr, bool FromRef = false)
 	{
 #if !defined _DIST
-		if (Memory::Map.find((void*)ptr) == Memory::Map.end())
+		if (Memory::Map.find(reinterpret_cast<const void*>(ptr)) == Memory::Map.end())
 		{
-			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)ptr);
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", reinterpret_cast<size_t>(ptr));
 			return;
 		}
 
-		MemoryData data = Memory::Map[(void*)ptr];
+		MemoryData data = Memory::Map[reinterpret_cast<const void*>(ptr)];
 		if (!FromRef)
 			Memory::Allocated -= data.Map * data.numberOfAllocations;
-		Memory::Map.erase((void*)ptr);
+		Memory::Map.erase(reinterpret_cast<const void*>(ptr));
 #endif
 		delete[] ptr;
+		ptr = nullptr;
 	}
 
 	template<typename T>
@@ -232,7 +236,7 @@ namespace WLD
 	{
 #ifdef _DEBUG
 		Ref<T> ptr(__CreateMemory<T>());
-		MemoryData& data = Memory::Map[(void*)ptr.get()];
+		MemoryData& data = Memory::Map[reinterpret_cast<const void*>(ptr.get())];
 		::std::stringstream ss;
 		ss << file << " " << line;
 		data.Location = ss.str();
@@ -251,7 +255,7 @@ namespace WLD
 	{
 #ifdef _DEBUG
 		Ref<T> ptr(__CreateMemory<T>(::std::forward<Args>(args)...));
-		MemoryData& data = Memory::Map[(void*)ptr.get()];
+		MemoryData& data = Memory::Map[reinterpret_cast<const void*>(ptr.get())];
 		::std::stringstream ss;
 		ss << file << " " << line;
 		data.Location = ss.str();
@@ -281,7 +285,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr.get(), data });
+		Memory::Map.insert({ static_cast<void*>(ptr.get()), data });
 #endif
 		return ptr;
 	}
@@ -305,7 +309,7 @@ namespace WLD
 		ss << file << " " << line;
 		data.Location = ss.str();
 #endif
-		Memory::Map.insert({ (void*)ptr.get(), data });
+		Memory::Map.insert({ static_cast<void*>(ptr.get()), data });
 #endif
 		return ptr;
 	}
@@ -313,11 +317,11 @@ namespace WLD
 #if !defined _DIST
 #define _DestroyScope(x)\
 	{\
-		if (::WLD::Memory::Map.find((void*)x.get()) == ::WLD::Memory::Map.end())\
-			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", (size_t)x.get());\
+		if (::WLD::Memory::Map.find(static_cast<void*>(x.get())) == ::WLD::Memory::Map.end())\
+			LOG_CORE_CRITICAL("Memory not found at {0}, No memory was deleted!", reinterpret_cast<size_t>(x.get()));\
 		else\
 		{\
-			::WLD::MemoryData data = ::WLD::Memory::Map[(void*)x.get()];\
+			::WLD::MemoryData data = ::WLD::Memory::Map[static_cast<void*>(x.get())];\
 			if (data.WasCreatedManually)\
 			{\
 				auto temp = x.get();\
@@ -327,7 +331,7 @@ namespace WLD
 			else\
 			{\
 				::WLD::Memory::AllocatedSmart -= data.Map;\
-				::WLD::Memory::Map.erase((void*)x.get());\
+				::WLD::Memory::Map.erase(static_cast<void*>(x.get()));\
 				x.reset();\
 			}\
 		}\
@@ -384,20 +388,20 @@ namespace WLD
 			*m_RefCount = 1;
 
 #if !defined _DIST
-			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
+			if (Memory::Map.find(static_cast<void*>(m_Ptr)) == Memory::Map.end())
 			{
 				MemoryData data;
 				data.Map = 0;
 				data.numberOfAllocations = 0;
 				data.WasCreatedManually = false;
 #ifdef _DEBUG
-				data.Location = "unkown creation location as data was created outside of Wuled memory functions!";
+				data.Location = "unkown creation location as data was created outside of Wulled memory functions!";
 #endif
-				Memory::Map.insert({ (void*)m_Ptr, data });
+				Memory::Map.insert({ static_cast<void*>(m_Ptr), data });
 			}
 			else
 			{
-				MemoryData& data = Memory::Map[(void*)m_Ptr];
+				MemoryData& data = Memory::Map[static_cast<void*>(m_Ptr)];
 				data.WasCreatedManually = false;
 				Memory::Allocated -= data.Map * data.numberOfAllocations;
 				Memory::AllocatedSmart += data.Map * data.numberOfAllocations;
@@ -415,20 +419,20 @@ namespace WLD
 			*m_RefCount = 1;
 
 #if !defined _DIST
-			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
+			if (Memory::Map.find(static_cast<void*>(m_Ptr)) == Memory::Map.end())
 			{
 				MemoryData data;
 				data.Map = 0;
 				data.numberOfAllocations = 0;
 				data.WasCreatedManually = false;
 #ifdef _DEBUG
-				data.Location = "unkown creation location as data was created outside of Wuled memory functions!";
+				data.Location = "unkown creation location as data was created outside of Wulled memory functions!";
 #endif
-				Memory::Map.insert({ (void*)m_Ptr, data });
+				Memory::Map.insert({ static_cast<void*>(m_Ptr), data });
 			}
 			else
 			{
-				MemoryData& data = Memory::Map[(void*)m_Ptr];
+				MemoryData& data = Memory::Map[static_cast<void*>(m_Ptr)];
 				data.WasCreatedManually = false;
 				Memory::Allocated -= data.Map * data.numberOfAllocations;
 				Memory::AllocatedSmart += data.Map * data.numberOfAllocations;
@@ -436,24 +440,24 @@ namespace WLD
 #endif
 		}
 
-		inline Ref(::std::shared_ptr<T> ptr)
-		{
-			m_Ptr = ptr.get();
-			m_RefCount = new(::std::nothrow) ::std::atomic<size_t>;
-			if (!m_RefCount)
-				WLD_CORE_ASSERT(false, "Failed to allocate memory!");
-			*m_RefCount = ptr.use_count();
-
-#if !defined _DIST
-			if (Memory::Map.find((void*)m_Ptr) == Memory::Map.end())
-			{
-				MemoryData data;
-				data.Map = 0;
-				data.numberOfAllocations = 0;
-				data.WasCreatedManually = false;
-			}
-#endif
-		}
+		inline Ref(::std::shared_ptr<T> ptr) = delete;
+//		{
+//			m_Ptr = ptr.get();
+//			m_RefCount = new(::std::nothrow) ::std::atomic<size_t>;
+//			if (!m_RefCount)
+//				WLD_CORE_ASSERT(false, "Failed to allocate memory!");
+//			*m_RefCount = ptr.use_count();
+//
+//#if !defined _DIST
+//			if (Memory::Map.find(static_cast<void*>(m_Ptr)) == Memory::Map.end())
+//			{
+//				MemoryData data;
+//				data.Map = 0;
+//				data.numberOfAllocations = 0;
+//				data.WasCreatedManually = false;
+//			}
+//#endif
+//		}
 
 		inline Ref(const Ref& oldRef)
 		{
@@ -513,9 +517,9 @@ namespace WLD
 			if (*m_RefCount == 0)
 			{
 #ifndef _DIST
-				if (Memory::Map.find((void*)m_Ptr) != Memory::Map.end())
+				if (Memory::Map.find(static_cast<void*>(m_Ptr)) != Memory::Map.end())
 				{
-					MemoryData& data = Memory::Map[(void*)m_Ptr];
+					MemoryData& data = Memory::Map[static_cast<void*>(m_Ptr)];
 					Memory::AllocatedSmart -= data.Map * data.numberOfAllocations;
 				}
 #endif
@@ -572,6 +576,7 @@ namespace WLD
 			m_RefCount = oldRef.m_RefCount;
 			oldRef.m_Ptr = nullptr;
 			oldRef.m_RefCount = nullptr;
+			swap(oldRef);
 			return *this;
 		}
 
@@ -645,7 +650,7 @@ namespace WLD
 		T* m_Ptr;
 		::std::atomic<size_t>* m_RefCount;
 
-		template<class child>
+		template<class Child>
 		friend class Ref;
 	};
 }

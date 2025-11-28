@@ -3,6 +3,9 @@ project "Wulled"
 	language "C++"
 	staticruntime "off"
 	toolset "clang"
+	linker "lld"
+--	warnings "Everything"
+	fatalwarnings "ALL"
 
 	targetdir ("%{wks.location}/bin/" .. output .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. output .. "/intermediate/%{prj.name}")
@@ -14,6 +17,8 @@ project "Wulled"
 
 		"../%{IncludeDir.glm}**.hpp",
 		"../%{IncludeDir.glm}**.inl",
+		
+		"%VULKAN_SDK%/Include",
 
 		"App.h"
 	}
@@ -64,6 +69,7 @@ project "Wulled"
 		"GLM_FORCE_SWIZZLE",
 		"GLM_ENABLE_EXPERIMENTAL",
 		"GLM_FORCE_DEFAULT_ALIGNED_GENTYPES",
+		"WLD_CORE",
 	}
 
 	flags
@@ -71,8 +77,15 @@ project "Wulled"
 		"MultiProcessorCompile",
 	}
 
+	buildoptions
+	{
+		"-Wno-c++98-compat",
+		"-Wno-c++98-compat-pedantic",
+		"-Wno-extra-semi-stmt"
+	}
+
 	filter "system:windows"
-		cppdialect "c++20"
+		cppdialect "c++17"
 		cdialect "c17"
 		systemversion "latest"
 
@@ -90,7 +103,7 @@ project "Wulled"
 --			("{copy} $(OutputPath)/Wulled.dll ../bin/" .. output .. "/sandbox")
 --		}
 	
-	filter { filterCofigurations.Debug }
+	filter { "configurations:Debug" }
 		runtime "Debug"
 		defines 
 		{
@@ -108,7 +121,7 @@ project "Wulled"
 		optimize "Off"
 		symbols "On"
 	
-	filter { filterCofigurations.Release }
+	filter { "configurations:Release" }
 		runtime "Release"
 		defines 
 		{
@@ -125,7 +138,7 @@ project "Wulled"
 		optimize "Speed"
 		symbols "On"
 
-	filter { filterCofigurations.Dist }
+	filter { "configurations:Dist" }
 		runtime "Release"
 		defines
 		{
@@ -138,21 +151,25 @@ project "Wulled"
 			"%VULKAN_SDK%/Lib/spirv-cross-glsl.lib",
 			"%VULKAN_SDK%/Lib/shaderc_combined.lib",
 		}
-
-		flags
-		{
-			"LinkTimeOptimization",
-		}
+		linktimeoptimization "on"
 		optimize "Speed"
 		symbols "Off"
 	
-	filter { filterCofigurations.AVX512 }
+	filter { "platforms:AVX512" }
 	--	vectorextensions "AVX512" currently not supported need to use buildoptions instead
 		buildoptions { "/arch:AVX512" }
-		defines { "GLM_FORCE_AVX2" } -- GLM doesnt seem to support AVX512 anymore so we use AVX2 instead though the compiler should still compile it with AVX512
-	filter { filterCofigurations.AVX2 }
+		defines
+		{
+			"GLM_FORCE_AVX2", -- GLM doesnt seem to support AVX512 anymore so we use AVX2 instead though the compiler should still compile it with AVX512
+			"GLM_FORCE_FMA"
+		} 
+	filter { "platforms:AVX2" }
 		vectorextensions "AVX2"
-		defines { "GLM_FORCE_AVX2" }
-	filter { filterCofigurations.SSE2 }
+		defines
+		{
+			"GLM_FORCE_AVX2",
+			"GLM_FORCE_FMA"
+		} 
+	filter { "platforms:SSE2" }
 		vectorextensions "SSE2"
 		defines { "GLM_FORCE_SSE2" }

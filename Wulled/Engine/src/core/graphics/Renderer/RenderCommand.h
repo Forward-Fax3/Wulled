@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/src/Core/WLDMem.h"
-#include "Engine/src/Core/EngineCore.h"
-#include "Engine/src/Core/Graphics/Renderer/RendererAPI.h"
+#include "Engine/src/core/WLDMem.h"
+#include "Engine/src/core/EngineCore.h"
+#include "Engine/src/core/graphics/Renderer/RendererAPI.h"
 
 
 namespace WLD
@@ -15,6 +15,9 @@ namespace WLD
 		inline static void Init() { s_RendererAPI->Init(); }
 
 		inline static void Clear() { s_RendererAPI->Clear(); }
+
+		inline static void BeginScene() { s_RendererAPI->BeginScene(); }
+		inline static void EndScene() { s_RendererAPI->EndScene(); }
 
 		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
 

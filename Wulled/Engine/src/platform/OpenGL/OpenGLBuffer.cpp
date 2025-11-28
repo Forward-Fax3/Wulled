@@ -1,4 +1,4 @@
-#include "WLDPCH.h"
+#include "wldpch.h"
 #include "OpenGLBuffer.h"
 
 #include "GL/glew.h"
